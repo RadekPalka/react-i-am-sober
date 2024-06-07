@@ -1,18 +1,23 @@
 import { useState } from 'react';
-import { Header } from './tsx/Header';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { MainPage } from './tsx/MainPage';
+
+import { Dashboard } from './tsx/Dashboard';
+import { Route, Routes} from 'react-router-dom'
+
 
 const App: React.FC = () => {
+	
+	
 	return (
 		<>
-			<Header />
-
-			<Router>
+						
 				<Routes>
-					<Route path='/' />
-					<Route path='/dashboard' />
+					<Route path='/'  element={<MainPage />}/>
+					<Route path='/dashboard' element={<Dashboard/>} />
 				</Routes>
-			</Router>
+			
+			
+			
 		</>
 	);
 };
