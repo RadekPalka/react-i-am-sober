@@ -4,7 +4,7 @@ export const DateInput: React.FC = () => {
 			<label htmlFor='addiction-free-date'>
 				Wybierz datę uwolnienia się od uzależnienia
 			</label>
-			<input type='date' id='addiction-free-date' />
+			<input type="datetime-local" id='addiction-free-date' required />
 		</div>
 	);
 };

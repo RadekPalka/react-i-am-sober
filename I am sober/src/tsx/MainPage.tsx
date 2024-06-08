@@ -1,8 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import { Header } from './Header';
 import { Form } from './Form';
-import { useNavigate } from 'react-router-dom';
+import { UserData } from '../ts/types';
 
-export const MainPage: React.FC = () => {
+interface MainPageProps {
+	userData: UserData;
+	setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+	
+}
+
+export const MainPage: React.FC<MainPageProps> = ({
+	userData,
+	setUserData,
+}) => {
 	const navigate = useNavigate();
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -12,7 +22,13 @@ export const MainPage: React.FC = () => {
 		<>
 			<Header />
 			<section>
-				<Form onSubmit={handleSubmit} />
+				<Form
+					onSubmit={handleSubmit}
+					addictionType={userData.addictionType}
+					addictionFreeDate={userData.addictionFreeDate}
+					addictionDailyCost={userData.addictionDailyCost}
+					setUserData={setUserData}
+				/>
 			</section>
 		</>
 	);
