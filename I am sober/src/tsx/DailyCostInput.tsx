@@ -4,7 +4,7 @@ export const DailyCostInput: React.FC = () => {
 			<label htmlFor='daily-cost'>
 				Ile pieniędzy dziennie traciłeś na uzależnienie?
 			</label>
-			<input type='number' id='daily-cost' />
+			<input type='number' id='daily-cost' required/>
 		</div>
 	);
 };
