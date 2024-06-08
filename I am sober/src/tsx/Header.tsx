@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 const StyledHeader = styled.header`
 	width: 50%;
-	margin: 100px auto 0 auto;
+	margin: 100px auto 20px auto;
 `;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
