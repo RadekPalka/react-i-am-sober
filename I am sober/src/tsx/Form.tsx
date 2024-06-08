@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
@@ -9,7 +10,6 @@ interface FormProps {
 	addictionFreeDate: string;
 	addictionDailyCost: number;
 	setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const StyledForm = styled.form`
@@ -22,10 +22,14 @@ export const Form: React.FC<FormProps> = ({
 	addictionFreeDate,
 	addictionDailyCost,
 	setUserData,
-	onSubmit,
 }) => {
+	const navigate = useNavigate();
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		navigate('/dashboard');
+	};
 	return (
-		<StyledForm onSubmit={onSubmit}>
+		<StyledForm onSubmit={handleSubmit}>
 			<AddictionInput value={addictionType} setUserData={setUserData} />
 			<DateInput value={addictionFreeDate} setUserData={setUserData} />
 			<DailyCostInput value={addictionDailyCost} setUserData={setUserData} />
