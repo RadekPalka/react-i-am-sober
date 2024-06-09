@@ -14,12 +14,12 @@ const App: React.FC = () => {
 		}).replaceAll(",",""),
 		addictionDailyCost : 0
 	})
-	console.log(userData.addictionFreeDate)
+	
 	return (
 		<>
 			<Routes>
 				<Route path='/' element={<MainPage userData={userData} setUserData={setUserData} />} />
-				<Route path='/dashboard' element={<Dashboard />} />
+				<Route path='/dashboard' element={<Dashboard userData={userData}/>} />
 			</Routes>
 		</>
 	);
