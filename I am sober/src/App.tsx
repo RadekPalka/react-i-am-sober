@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { MainPage } from './tsx/MainPage';
 import { Dashboard } from './tsx/Dashboard';
-import { UserProvider } from './UserContext'; // Importowanie UserProvider
+import { UserProvider } from './tsx/UserContext'; 
 import styled from 'styled-components';
 
 const AppWrapper = styled.div`

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { UserData } from './types/UserData';
-import { UserContextType } from './types/UserContextType';
+import { UserData } from '../types/UserData';
+import { UserContextType } from '../types/UserContextType';
 
 // Tworzenie kontekstu z domyślną wartością undefined
 const UserContext = createContext<UserContextType | undefined>(undefined);
