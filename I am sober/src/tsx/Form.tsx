@@ -3,14 +3,9 @@ import styled from 'styled-components';
 import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
 import { DailyCostInput } from './DailyCostInput';
-import { UserData } from '../ts/types';
 
-interface FormProps {
-	addictionType: string;
-	addictionFreeDate: string;
-	addictionDailyCost: number;
-	setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-}
+
+
 
 const StyledForm = styled.form`
 	display: flex;
@@ -21,7 +16,7 @@ const StyledForm = styled.form`
 	.input-container {
 		display: flex;
 		justify-content: space-between;
-		flex-wrap:wrap;
+		flex-wrap: wrap;
 		margin-bottom: 10px;
 		padding: 30px 0;
 	}
@@ -29,25 +24,20 @@ const StyledForm = styled.form`
 		display: block;
 		width: 100px;
 		height: 50px;
-		color: #FFF;
-		margin: 0 auto 0 auto;
+		color: #fff;
+		margin: 0 auto;
 		background-color: #693eb7;
 		text-align: center;
-		font-family: "LXGW WenKai TC", cursive;
-		transition: background-color .5s;
+		font-family: 'LXGW WenKai TC', cursive;
+		transition: background-color 0.5s;
 		cursor: pointer;
-		&:hover{
+		&:hover {
 			background-color: #8b60d9;
 		}
 	}
 `;
 
-export const Form: React.FC<FormProps> = ({
-	addictionType,
-	addictionFreeDate,
-	addictionDailyCost,
-	setUserData,
-}) => {
+export const Form: React.FC = () => {
 	const navigate = useNavigate();
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -56,13 +46,13 @@ export const Form: React.FC<FormProps> = ({
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<div className='input-container'>
-				<AddictionInput value={addictionType} setUserData={setUserData} />
+				<AddictionInput />
 			</div>
 			<div className='input-container'>
-				<DateInput value={addictionFreeDate} setUserData={setUserData} />
+				<DateInput />
 			</div>
 			<div className='input-container'>
-				<DailyCostInput value={addictionDailyCost} setUserData={setUserData} />
+				<DailyCostInput/>
 			</div>
 			<button type='submit'>Dalej</button>
 		</StyledForm>
