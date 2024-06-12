@@ -1,14 +1,16 @@
 import { ChangeEvent } from 'react';
 import { StyledInput } from '../styles/StyledInput';
+import { useUserContext } from './UserContext';
 
 
-export const DateInput: React.FC = ({ value, setUserData }) => {
-	// const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-	// 	setUserData((prevState) => ({
-	// 		...prevState,
-	// 		addictionFreeDate: e.target.value,
-	// 	}));
-	//};
+export const DateInput: React.FC = () => {
+	const { userData, setUserData } = useUserContext()
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setUserData((prevState) => ({
+			...prevState,
+			addictionFreeDate: e.target.value,
+		}));
+	};
 	return (
 		<>
 			<label htmlFor='addiction-free-date'>
@@ -17,9 +19,9 @@ export const DateInput: React.FC = ({ value, setUserData }) => {
 			<StyledInput
 				type='datetime-local'
 				id='addiction-free-date'
-				// value={value}
-				// max={value}
-				// onChange={handleChange}
+				value={userData.addictionFreeDate}
+				max={userData.addictionFreeDate}
+				onChange={handleChange}
 				required
 			/>
 		</>
