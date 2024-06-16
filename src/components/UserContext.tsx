@@ -30,6 +30,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 			})
 			.replaceAll(',', ''),
 		addictionDailyCost: 0,
+		login : "",
+		password: ""
 	});
 
 	return (
