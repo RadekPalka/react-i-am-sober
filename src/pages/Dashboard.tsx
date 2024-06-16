@@ -1,4 +1,4 @@
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "../components/UserContext";
 
 
 export const Dashboard: React.FC = () => {
