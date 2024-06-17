@@ -1,11 +1,9 @@
 import { ChangeEvent } from 'react';
-import { StyledInput } from '../styles/StyledInput';
+import { StyledInput } from './StyledInput';
 import { useUserContext } from './UserContext';
 
-
-
 export const AddictionInput: React.FC = () => {
-	const { userData, setUserData } = useUserContext()
+	const { userData, setUserData } = useUserContext();
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserData((prevState) => ({
 			...prevState,

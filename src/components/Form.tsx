@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
 import { DailyCostInput } from './DailyCostInput';
-import { StyledDiv } from '../styles/StyledDiv'
+import { StyledDiv } from './StyledDiv';
 const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
@@ -11,7 +11,6 @@ const StyledForm = styled.form`
 	width: 75%;
 	margin: 0 auto;
 `;
-
 
 const StyledButton = styled.button``;
 export const Form: React.FC = () => {
