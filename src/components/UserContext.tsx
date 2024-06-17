@@ -14,7 +14,7 @@ export const useUserContext = () => {
 
 type UserProviderProps = {
 	children: ReactNode;
-}
+};
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [userData, setUserData] = useState<UserData>({
@@ -30,8 +30,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 			})
 			.replaceAll(',', ''),
 		addictionDailyCost: 0,
-		login : "",
-		password: ""
+		login: '',
 	});
 
 	return (
