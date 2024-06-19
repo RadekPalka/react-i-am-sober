@@ -13,7 +13,7 @@ const StyledParagraph = styled.p`
 export const Header: React.FC = () => {
 	return (
 		<StyledHeader>
-			<h1>I am sober</h1>
+			<h1>I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.</h1>
 			<StyledCongratulationsParagraph>
 				Przede wszystkim gratulacje
 			</StyledCongratulationsParagraph>
