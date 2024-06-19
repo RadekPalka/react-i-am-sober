@@ -1,11 +1,12 @@
 import { ChangeEvent } from 'react';
 import { StyledInput } from './StyledInput';
 import { useUserContext } from './UserContext';
+import { UserData } from '../types/UserData';
 
 export const AddictionInput: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setUserData((prevState) => ({
+		setUserData((prevState: UserData) => ({
 			...prevState,
 			addictionType: e.target.value,
 		}));
