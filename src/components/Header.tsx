@@ -3,7 +3,9 @@ const StyledHeader = styled.header`
 	width: 50%;
 	margin: 0 auto;
 `;
-const StyledH1 = styled.h1``
+const StyledH1 = styled.h1`
+	text-align: center;
+`;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
 	font-weight: 600;
@@ -14,7 +16,10 @@ const StyledParagraph = styled.p`
 export const Header: React.FC = () => {
 	return (
 		<StyledHeader>
-			<StyledH1>I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.</StyledH1>
+			<StyledH1>
+				I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
+				swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.
+			</StyledH1>
 			<StyledCongratulationsParagraph>
 				Przede wszystkim gratulacje
 			</StyledCongratulationsParagraph>
