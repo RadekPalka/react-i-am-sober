@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 const StyledHeader = styled.header`
 	width: 50%;
-	margin: 0 auto ;
-	
+	margin: 0 auto;
 `;
 const StyledCongratulationsParagraph = styled.p`
-
 	text-align: center;
 	font-weight: 600;
 `;
@@ -15,6 +13,7 @@ const StyledParagraph = styled.p`
 export const Header: React.FC = () => {
 	return (
 		<StyledHeader>
+			<h1>I am sober</h1>
 			<StyledCongratulationsParagraph>
 				Przede wszystkim gratulacje
 			</StyledCongratulationsParagraph>
