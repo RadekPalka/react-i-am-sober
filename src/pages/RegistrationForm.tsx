@@ -16,8 +16,8 @@ export const RegistrationForm: React.FC = () => {
 		<>
 			<h1>Rejestracja</h1>
 			<form>
-				<AuthInput value={login} labelText={loginLabelText} onChange={handleLoginChange}/>
-				<AuthInput value={password} labelText={passwordLabelText} onChange={handlePasswordChange}/>
+				<AuthInput value={login} labelText={loginLabelText} onChange={handleLoginChange} type='text'/>
+				<AuthInput value={password} labelText={passwordLabelText} onChange={handlePasswordChange} type='password'/>
 			</form>
 		</>
 	);
