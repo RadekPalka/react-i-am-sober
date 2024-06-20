@@ -3,7 +3,7 @@ import { useUserContext } from './UserContext';
 import { StyledDiv } from './StyledDiv';
 import { StyledInput } from './StyledInput';
 import { UserData } from '../types/UserData';
-export const LoginInputRegistration: React.FC = () => {
+export const AuthInput: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserData((prevState: UserData) => ({
