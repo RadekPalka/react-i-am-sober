@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { AuthInput } from '../components';
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -9,13 +9,22 @@ export const RegistrationForm: React.FC = () => {
 		setLogin(value);
 	};
 
-	const handlePasswordChange = (value: string) => {		
+	const handlePasswordChange = (value: string) => {
 		setPassword(value);
+	};
+	const handleForm = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const passwordRegex =
+			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+		if (!passwordRegex.test(password)) {
+			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+		}
 	};
 	return (
 		<>
 			<h1>Rejestracja</h1>
-			<form>
+			<form onSubmit={handleForm}>
 				<AuthInput
 					value={login}
 					labelText={loginLabelText}
