@@ -4,16 +4,15 @@ import { useNavigate } from 'react-router-dom';
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('')
 	const navigate= useNavigate()
 	const loginLabelText = 'Podaj swój login';
 	const passwordLabelText = 'Podaj swoje hasło';
-	const handleLoginChange = (value: string) => {
-		setLogin(value);
-	};
-
-	const handlePasswordChange = (value: string) => {
-		setPassword(value);
-	};
+	const confirmPasswordLabelText = 'Potwierdź hasło'
+	
+	const handleChange = (callback :React.Dispatch<React.SetStateAction<string>>, value : string) =>{
+		callback(value)
+	}
 	const validatePassword = (): boolean => {
 		const passwordRegex =
 			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -40,13 +39,19 @@ export const RegistrationForm: React.FC = () => {
 				<AuthInput
 					value={login}
 					labelText={loginLabelText}
-					onChange={handleLoginChange}
+					onChange={(value) => handleChange(setLogin, value)}
 					type='text'
 				/>
 				<AuthInput
 					value={password}
 					labelText={passwordLabelText}
-					onChange={handlePasswordChange}
+					onChange={(value) => handleChange(setPassword, value)}
+					type='password'
+				/>
+				<AuthInput
+					value={confirmPassword}
+					labelText={confirmPassword}
+					onChange={(value) => handleChange(setConfirmPassword, value)}
 					type='password'
 				/>
 				<button type='submit'>Zarejestruj się</button>
