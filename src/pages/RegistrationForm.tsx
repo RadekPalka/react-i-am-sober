@@ -50,7 +50,7 @@ export const RegistrationForm: React.FC = () => {
 				/>
 				<AuthInput
 					value={confirmPassword}
-					labelText={confirmPassword}
+					labelText={confirmPasswordLabelText}
 					onChange={(value) => handleChange(setConfirmPassword, value)}
 					type='password'
 				/>
