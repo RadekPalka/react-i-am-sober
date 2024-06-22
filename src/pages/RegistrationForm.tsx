@@ -23,11 +23,11 @@ export const RegistrationForm: React.FC = () => {
 	}
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!validatePassword) {
-			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
-		}
 		if (!validateLogin){
 			return alert("Login musi mieć co najmniej 4 znaki")
+		}
+		else if (!validatePassword) {
+			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
 	};
 	return (
