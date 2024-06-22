@@ -22,6 +22,9 @@ export const RegistrationForm: React.FC = () => {
 		const minLoginLength = 3;
 		return login.length > minLoginLength;
 	}
+	const validateConfirmPassword = (password: string, confirmPassword: string) => {
+    return password === confirmPassword;
+  };
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!validateLogin){
@@ -29,6 +32,9 @@ export const RegistrationForm: React.FC = () => {
 		}
 		else if (!validatePassword) {
 			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+		}
+		else if (validateConfirmPassword(password, confirmPassword)){
+			return alert('Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.')
 		}
 		navigate('./login-page');
 	};
