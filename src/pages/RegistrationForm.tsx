@@ -1,8 +1,10 @@
 import { FormEvent, useState } from 'react';
 import { AuthInput } from '../components';
+import { useNavigate } from 'react-router-dom';
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate= useNavigate()
 	const loginLabelText = 'Podaj swój login';
 	const passwordLabelText = 'Podaj swoje hasło';
 	const handleLoginChange = (value: string) => {
@@ -29,6 +31,7 @@ export const RegistrationForm: React.FC = () => {
 		else if (!validatePassword) {
 			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
+		navigate('./login-page');
 	};
 	return (
 		<>
