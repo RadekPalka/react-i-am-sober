@@ -13,15 +13,15 @@ export const RegistrationForm: React.FC = () => {
 	const handleChange = (callback :React.Dispatch<React.SetStateAction<string>>, value : string) =>{
 		callback(value)
 	}
+	const validateLogin = () : boolean =>{
+		const minLoginLength = 3;
+		return login.length > minLoginLength;
+	}
 	const validatePassword = (): boolean => {
 		const passwordRegex =
 			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 		return passwordRegex.test(password);
 	};
-	const validateLogin = () : boolean =>{
-		const minLoginLength = 3;
-		return login.length > minLoginLength;
-	}
 	const validateConfirmPassword = (password: string, confirmPassword: string) => {
     return password === confirmPassword;
   };
