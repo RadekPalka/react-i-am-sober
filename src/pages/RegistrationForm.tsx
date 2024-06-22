@@ -12,12 +12,14 @@ export const RegistrationForm: React.FC = () => {
 	const handlePasswordChange = (value: string) => {
 		setPassword(value);
 	};
-	const handleForm = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const validatePassword = (): boolean => {
 		const passwordRegex =
 			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-		if (!passwordRegex.test(password)) {
+		return passwordRegex.test(password);
+	};
+	const handleForm = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (!validatePassword) {
 			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
 	};
