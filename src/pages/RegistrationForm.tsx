@@ -17,10 +17,17 @@ export const RegistrationForm: React.FC = () => {
 			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 		return passwordRegex.test(password);
 	};
+	const validateLogin = () : boolean =>{
+		const minLoginLength = 3;
+		return login.length > minLoginLength;
+	}
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!validatePassword) {
 			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+		}
+		if (!validateLogin){
+			return alert("Login musi mieć co najmniej 4 znaki")
 		}
 	};
 	return (
