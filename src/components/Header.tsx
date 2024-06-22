@@ -4,10 +4,13 @@ const StyledHeader = styled.header`
 	width: 50%;
 	margin: 0 auto;
 `;
-const StyledNav = styled.nav``;
+const StyledNav = styled.nav`
+	position: absolute;
+	right: 0;
+`;
 
 const StyledLink = styled(Link)`
-	position: absolute;
+	margin-right: 20px;
 `;
 const StyledH1 = styled.h1`
 	text-align: center;

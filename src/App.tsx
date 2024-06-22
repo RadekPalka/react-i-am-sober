@@ -7,8 +7,8 @@ import { Dashboard, MainPage, RegistrationForm, LoginForm } from './pages';
 
 const AppWrapper = styled.div`
 	display: flex;
-	max-width: 1200px;
 	height: 100vh;
+	width: 100vw;
 	justify-content: center;
 `;
 
