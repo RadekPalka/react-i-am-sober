@@ -9,7 +9,7 @@ export const RegistrationForm: React.FC = () => {
 		setLogin(value);
 	};
 
-	const handlePasswordChange = (value: string) => {
+	const handlePasswordChange = (value: string) => {		
 		setPassword(value);
 	};
 	return (
@@ -28,6 +28,7 @@ export const RegistrationForm: React.FC = () => {
 					onChange={handlePasswordChange}
 					type='password'
 				/>
+				<button type='submit'>Zarejestruj się</button>
 			</form>
 		</>
 	);
