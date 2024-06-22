@@ -1,13 +1,7 @@
 import { ChangeEvent } from 'react';
-
 import { StyledDiv } from './StyledDiv';
 import { StyledInput } from './StyledInput';
-type AuthInputProps = {
-	labelText: string;
-	value: string;
-	type: string;
-	onChange: (value: string) => void;
-};
+import { AuthInputProps } from '../types/AuthInputProps';
 export const AuthInput: React.FC<AuthInputProps> = ({
 	labelText,
 	value,
@@ -20,7 +14,7 @@ export const AuthInput: React.FC<AuthInputProps> = ({
 	return (
 		<StyledDiv>
 			<label htmlFor='login'>{labelText}</label>
-			<StyledInput value={value} onChange={handleChange} type={type}/>
+			<StyledInput value={value} onChange={handleChange} type={type} />
 		</StyledDiv>
 	);
 };
