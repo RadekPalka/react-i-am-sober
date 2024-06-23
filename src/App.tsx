@@ -13,7 +13,6 @@ const AppWrapper = styled.div`
 	font-family: 'LXGW WenKai TC', cursive;
 	font-weight: 300;
 	font-style: normal;
-	background-color: #cca8e9;
 `;
 
 const App: React.FC = () => {
