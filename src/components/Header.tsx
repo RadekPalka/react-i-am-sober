@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-const StyledHeader = styled.header``;
+const StyledHeader = styled.header`
+	background-color: #e7e2dc;
+`;
 const StyledNav = styled.nav`
 	background-color: #f5f1ef;
 	right: 0;
@@ -27,7 +29,10 @@ const StyledLi = styled.li`
 	display: inline-block;
 	line-height: 100px;
 `;
-const StyledHeaderContent = styled.div``;
+const StyledHeaderContent = styled.div`
+	margin: 0 auto;
+	width: 60%;
+`;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
 	font-weight: 600;
