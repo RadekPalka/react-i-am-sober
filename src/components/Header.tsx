@@ -20,9 +20,12 @@ const StyledH1 = styled.h1`
 `;
 const StyledUl = styled.ul`
 	list-style-type: none;
-	margin: 0;
+	margin: 0 auto;
+	width: 60%;
 `;
-const StyledLi = styled.li`Sty
+const StyledLi = styled.li`
+	display: inline-block;
+	line-height: 100px;
 `;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
