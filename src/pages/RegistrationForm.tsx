@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
-import { AuthInput } from '../components';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthInput } from '../components';
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
