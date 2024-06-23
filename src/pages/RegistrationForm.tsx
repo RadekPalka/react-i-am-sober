@@ -11,7 +11,10 @@ export const RegistrationForm: React.FC = () => {
 	const passwordLabelText = 'Podaj swoje hasło';
 	const confirmPasswordLabelText = 'Potwierdź hasło';
 
-	const StyledSection = styled.section``;
+	const StyledSection = styled.section`
+		background-color: #e7e2dc;
+		width: 100vw;
+	`;
 
 	const handleChange = (
 		callback: React.Dispatch<React.SetStateAction<string>>,
