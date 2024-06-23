@@ -27,6 +27,7 @@ const StyledLi = styled.li`
 	display: inline-block;
 	line-height: 100px;
 `;
+const StyledHeaderContent = styled.div``;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
 	font-weight: 600;
@@ -47,16 +48,18 @@ export const Header: React.FC = () => {
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
-			<StyledH1>
-				I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
-				swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.
-			</StyledH1>
-			<StyledCongratulationsParagraph>
-				Przede wszystkim gratulacje
-			</StyledCongratulationsParagraph>
-			<StyledParagraph>
-				Właśnie zrobiłeś duży krok ku trzeźwości
-			</StyledParagraph>
+			<StyledHeaderContent>
+				<StyledH1>
+					I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
+					swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.
+				</StyledH1>
+				<StyledCongratulationsParagraph>
+					Przede wszystkim gratulacje
+				</StyledCongratulationsParagraph>
+				<StyledParagraph>
+					Właśnie zrobiłeś duży krok ku trzeźwości
+				</StyledParagraph>
+			</StyledHeaderContent>
 		</StyledHeader>
 	);
 };
