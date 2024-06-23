@@ -20,6 +20,7 @@ const StyledH1 = styled.h1`
 `;
 const StyledUl = styled.ul`
 	list-style-type: none;
+	margin: 0;
 `;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
