@@ -37,10 +37,7 @@ export const RegistrationForm: React.FC = () => {
 			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 		return passwordRegex.test(password);
 	};
-	const validateConfirmPassword = (
-		password: string,
-		confirmPassword: string
-	): boolean => {
+	const validateConfirmPassword = (): boolean => {
 		return password === confirmPassword;
 	};
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
@@ -49,12 +46,12 @@ export const RegistrationForm: React.FC = () => {
 			return alert('Login musi mieć co najmniej 4 znaki');
 		} else if (!validatePassword()) {
 			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
-		} else if (validateConfirmPassword(password, confirmPassword)) {
+		} else if (!validateConfirmPassword()) {
 			return alert(
 				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
 			);
 		}
-		navigate('./login-page');
+		navigate('../login-page');
 	};
 	return (
 		<StyledSection>
