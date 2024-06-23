@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-
+import { StyledH1 } from './StyledH1';
 const StyledHeaderContent = styled.div`
 	margin: 0 auto;
 	width: 60%;
 `;
-const StyledH1 = styled.h1`
-	text-align: center;
-`;
+
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
 	font-weight: 600;
