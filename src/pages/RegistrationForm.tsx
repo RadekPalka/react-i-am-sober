@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthInput } from '../components';
+import { StyledH1 } from '../components/StyledH1';
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
@@ -52,7 +53,7 @@ export const RegistrationForm: React.FC = () => {
 	};
 	return (
 		<StyledSection>
-			<h1>Rejestracja</h1>
+			<StyledH1>Rejestracja</StyledH1>
 			<form onSubmit={handleForm}>
 				<AuthInput
 					value={login}
