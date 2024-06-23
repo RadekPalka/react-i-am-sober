@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthInput } from '../components';
 import { StyledH1 } from '../components/StyledH1';
+import { StyledForm } from '../components/StyledForm';
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
@@ -59,7 +60,7 @@ export const RegistrationForm: React.FC = () => {
 			<StyledDiv>
 				<StyledH1>Rejestracja</StyledH1>
 			</StyledDiv>
-			<form onSubmit={handleForm}>
+			<StyledForm onSubmit={handleForm}>
 				<AuthInput
 					value={login}
 					labelText={loginLabelText}
@@ -79,7 +80,7 @@ export const RegistrationForm: React.FC = () => {
 					type='password'
 				/>
 				<button type='submit'>Zarejestruj się</button>
-			</form>
+			</StyledForm>
 		</StyledSection>
 	);
 };
