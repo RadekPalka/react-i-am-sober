@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { HeaderContent } from './HeaderContent';
+
 const StyledHeader = styled.header`
 	background-color: #e7e2dc;
 `;
@@ -17,9 +19,7 @@ const StyledLink = styled(Link)`
 		color: black;
 	}
 `;
-const StyledH1 = styled.h1`
-	text-align: center;
-`;
+
 const StyledUl = styled.ul`
 	list-style-type: none;
 	margin: 0 auto;
@@ -29,17 +29,7 @@ const StyledLi = styled.li`
 	display: inline-block;
 	line-height: 100px;
 `;
-const StyledHeaderContent = styled.div`
-	margin: 0 auto;
-	width: 60%;
-`;
-const StyledCongratulationsParagraph = styled.p`
-	text-align: center;
-	font-weight: 600;
-`;
-const StyledParagraph = styled.p`
-	text-align: center;
-`;
+
 export const Header: React.FC = () => {
 	return (
 		<StyledHeader>
@@ -53,18 +43,7 @@ export const Header: React.FC = () => {
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
-			<StyledHeaderContent>
-				<StyledH1>
-					I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
-					swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.
-				</StyledH1>
-				<StyledCongratulationsParagraph>
-					Przede wszystkim gratulacje
-				</StyledCongratulationsParagraph>
-				<StyledParagraph>
-					Właśnie zrobiłeś duży krok ku trzeźwości
-				</StyledParagraph>
-			</StyledHeaderContent>
+			<HeaderContent />
 		</StyledHeader>
 	);
 };
