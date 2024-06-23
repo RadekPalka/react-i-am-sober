@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { AuthInput } from '../components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
@@ -9,6 +10,8 @@ export const RegistrationForm: React.FC = () => {
 	const loginLabelText = 'Podaj swój login';
 	const passwordLabelText = 'Podaj swoje hasło';
 	const confirmPasswordLabelText = 'Potwierdź hasło';
+
+	const StyledSection = styled.section``;
 
 	const handleChange = (
 		callback: React.Dispatch<React.SetStateAction<string>>,
@@ -45,7 +48,7 @@ export const RegistrationForm: React.FC = () => {
 		navigate('./login-page');
 	};
 	return (
-		<section>
+		<StyledSection>
 			<h1>Rejestracja</h1>
 			<form onSubmit={handleForm}>
 				<AuthInput
@@ -68,6 +71,6 @@ export const RegistrationForm: React.FC = () => {
 				/>
 				<button type='submit'>Zarejestruj się</button>
 			</form>
-		</section>
+		</StyledSection>
 	);
 };
