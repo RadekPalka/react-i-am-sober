@@ -45,7 +45,7 @@ export const RegistrationForm: React.FC = () => {
 		navigate('./login-page');
 	};
 	return (
-		<>
+		<section>
 			<h1>Rejestracja</h1>
 			<form onSubmit={handleForm}>
 				<AuthInput
@@ -68,6 +68,6 @@ export const RegistrationForm: React.FC = () => {
 				/>
 				<button type='submit'>Zarejestruj się</button>
 			</form>
-		</>
+		</section>
 	);
 };
