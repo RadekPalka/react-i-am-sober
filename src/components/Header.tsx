@@ -29,8 +29,14 @@ export const Header: React.FC = () => {
 	return (
 		<StyledHeader>
 			<StyledNav>
-				<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-				<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+				<ul>
+					<li>
+						<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+					</li>
+					<li>
+						<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+					</li>
+				</ul>
 			</StyledNav>
 			<StyledH1>
 				I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
