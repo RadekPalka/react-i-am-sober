@@ -16,7 +16,10 @@ export const RegistrationForm: React.FC = () => {
 		background-color: #e7e2dc;
 		width: 100vw;
 	`;
-
+	const StyledDiv = styled.div`
+		height: 100px;
+		background-color: #f5f1ef;
+	`;
 	const handleChange = (
 		callback: React.Dispatch<React.SetStateAction<string>>,
 		value: string
@@ -53,7 +56,9 @@ export const RegistrationForm: React.FC = () => {
 	};
 	return (
 		<StyledSection>
-			<StyledH1>Rejestracja</StyledH1>
+			<StyledDiv>
+				<StyledH1>Rejestracja</StyledH1>
+			</StyledDiv>
 			<form onSubmit={handleForm}>
 				<AuthInput
 					value={login}
