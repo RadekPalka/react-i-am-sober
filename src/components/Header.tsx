@@ -18,6 +18,9 @@ const StyledLink = styled(Link)`
 const StyledH1 = styled.h1`
 	text-align: center;
 `;
+const StyledUl = styled.ul`
+	list-style-type: none;
+`;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
 	font-weight: 600;
@@ -29,14 +32,14 @@ export const Header: React.FC = () => {
 	return (
 		<StyledHeader>
 			<StyledNav>
-				<ul>
+				<StyledUl>
 					<li>
 						<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
 					</li>
 					<li>
 						<StyledLink to='/login-page'>Zaloguj się</StyledLink>
 					</li>
-				</ul>
+				</StyledUl>
 			</StyledNav>
 			<StyledH1>
 				I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
