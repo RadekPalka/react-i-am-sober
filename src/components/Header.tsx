@@ -22,6 +22,8 @@ const StyledUl = styled.ul`
 	list-style-type: none;
 	margin: 0;
 `;
+const StyledLi = styled.li`Sty
+`;
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
 	font-weight: 600;
@@ -34,12 +36,12 @@ export const Header: React.FC = () => {
 		<StyledHeader>
 			<StyledNav>
 				<StyledUl>
-					<li>
+					<StyledLi>
 						<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-					</li>
-					<li>
+					</StyledLi>
+					<StyledLi>
 						<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-					</li>
+					</StyledLi>
 				</StyledUl>
 			</StyledNav>
 			<StyledH1>
