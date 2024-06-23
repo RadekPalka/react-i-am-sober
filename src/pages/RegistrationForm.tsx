@@ -4,11 +4,8 @@ import styled from 'styled-components';
 import { AuthInput } from '../components';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledForm } from '../components/StyledForm';
+import { StyledSection } from '../components/StyledSection';
 
-const StyledSection = styled.section`
-	background-color: #e7e2dc;
-	width: 100vw;
-`;
 const StyledDiv = styled.div`
 	height: 100px;
 	background-color: #f5f1ef;
