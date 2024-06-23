@@ -13,6 +13,17 @@ const StyledDiv = styled.div`
 	height: 100px;
 	background-color: #f5f1ef;
 `;
+const StyledButton = styled.button`
+	display: block;
+	margin: 10px auto;
+	background-color: #492618;
+	color: #fff;
+	padding: 10px 20px;
+	border-radius: 20px;
+	font-family: 'LXGW WenKai TC', cursive;
+	font-weight: 300;
+	font-style: normal;
+`;
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
@@ -77,7 +88,7 @@ export const RegistrationForm: React.FC = () => {
 					onChange={(value) => handleChange(setConfirmPassword, value)}
 					type='password'
 				/>
-				<button type='submit'>Zarejestruj się</button>
+				<StyledButton type='submit'>Zarejestruj się</StyledButton>
 			</StyledForm>
 		</StyledSection>
 	);
