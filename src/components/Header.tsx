@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-const StyledHeader = styled.header`
-	width: 50%;
-	margin: 0 auto;
-`;
+const StyledHeader = styled.header``;
 const StyledNav = styled.nav`
-	position: absolute;
+	background-color: #f5f1ef;
 	right: 0;
+	text-align: right;
+	height: 100px;
 `;
 
 const StyledLink = styled(Link)`
 	margin-right: 20px;
+
+	&:visited {
+		color: black;
+	}
 `;
 const StyledH1 = styled.h1`
 	text-align: center;
