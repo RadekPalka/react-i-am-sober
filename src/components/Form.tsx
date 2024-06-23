@@ -4,6 +4,7 @@ import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
 import { DailyCostInput } from './DailyCostInput';
 import { StyledDiv } from './StyledDiv';
+import { StyledForm } from './StyledForm';
 
 const StyledButton = styled.button``;
 export const Form: React.FC = () => {
