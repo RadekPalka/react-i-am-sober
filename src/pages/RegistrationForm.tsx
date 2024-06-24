@@ -37,8 +37,8 @@ export const RegistrationForm: React.FC = () => {
 		callback(value);
 	};
 	const validateLogin = (): boolean => {
-		const minLoginLength = 3;
-		return login.length > minLoginLength;
+		const minLoginLength = 4;
+		return login.length >= minLoginLength;
 	};
 	const validatePassword = (): boolean => {
 		const passwordRegex =
