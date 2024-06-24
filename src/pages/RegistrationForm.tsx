@@ -6,7 +6,7 @@ import { StyledH1 } from '../components/StyledH1';
 import { StyledForm } from '../components/StyledForm';
 import { StyledSection } from '../components/StyledSection';
 
-const StyledDiv = styled.div`
+const HeadingContainer = styled.div`
 	height: 100px;
 	background-color: #f5f1ef;
 `;
@@ -63,9 +63,9 @@ export const RegistrationForm: React.FC = () => {
 	};
 	return (
 		<StyledSection>
-			<StyledDiv>
+			<HeadingContainer>
 				<StyledH1>Rejestracja</StyledH1>
-			</StyledDiv>
+			</HeadingContainer>
 			<StyledForm onSubmit={handleForm}>
 				<AuthInput
 					value={login}
