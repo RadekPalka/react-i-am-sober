@@ -5,11 +5,8 @@ import { AuthInput } from '../components';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledForm } from '../components/StyledForm';
 import { StyledSection } from '../components/StyledSection';
+import { HeadingContainer } from '../components/HeadingContainer';
 
-const HeadingContainer = styled.div`
-	height: 100px;
-	background-color: #f5f1ef;
-`;
 const StyledButton = styled.button`
 	display: block;
 	margin: 10px auto;
