@@ -7,6 +7,7 @@ import { StyledForm } from '../components/StyledForm';
 import { StyledSection } from '../components/StyledSection';
 import { HeadingContainer } from '../components/HeadingContainer';
 import api from '../api/api';
+import axios from 'axios';
 
 const StyledButton = styled.button`
 	display: block;
@@ -48,27 +49,41 @@ export const RegistrationForm: React.FC = () => {
 	};
 	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!validateLogin()) {
-			return alert('Login musi mieć co najmniej 4 znaki');
-		} else if (!validatePassword()) {
-			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
-		} else if (!validateConfirmPassword()) {
-			return alert(
-				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
-			);
-		}
-		try {
-			const response = await api.post('/account', {
-				login,
-				password,
+		// if (!validateLogin()) {
+		// 	return alert('Login musi mieć co najmniej 4 znaki');
+		// } else if (!validatePassword()) {
+		// 	return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+		// } else if (!validateConfirmPassword()) {
+		// 	return alert(
+		// 		'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
+		// 	);
+		//}
+		axios
+			.post('https://mentoring-api.vercel.app/api/v1/account', {
+				username: 'halko',
+				password: 'password',
+			})
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
 			});
-			console.log('Rejestracja udana:', response.data);
-			alert(response.data);
-			navigate('/login-page');
-		} catch (error) {
-			console.error('Błąd podczas rejestracji:', error);
-			alert('Rejestracja nie powiodła się. Spróbuj ponownie.');
-		}
+		// try {
+		// 	const response = await axios.post(
+		// 		'https://mentoring-api.vercel.app/api/v1/account',
+		// 		{
+		// 			login,
+		// 			password,
+		// 		}
+		// 	);
+		// 	console.log('Rejestracja udana:', response.data);
+		// 	alert(response.data);
+		// 	navigate('/login-page');
+		// } catch (error) {
+		// 	console.error('Błąd podczas rejestracji:', error.message);
+		// 	alert('Rejestracja nie powiodła się. Spróbuj ponownie.');
+		// }
 	};
 	return (
 		<StyledSection>
