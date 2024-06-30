@@ -16,6 +16,7 @@ type UserProviderProps = {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [userData, setUserData] = useState<UserData>({
+		id: '',
 		addictionType: '',
 		addictionFreeDate: new Date()
 			.toLocaleDateString('en-CA', {
