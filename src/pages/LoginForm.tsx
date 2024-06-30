@@ -3,6 +3,8 @@ import { StyledInput } from '../components/StyledInput';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';
+import { handleChange } from '../utils/handleChange';
+
 import { useState } from 'react';
 
 export const LoginForm: React.FC = () => {
@@ -15,13 +17,13 @@ export const LoginForm: React.FC = () => {
 				<AuthInput
 					value={login}
 					labelText='Login'
-					onChange={() => {}}
+					onChange={(value) => handleChange(setLogin, value)}
 					type='text'
 				/>
 				<AuthInput
 					value={password}
 					labelText='Hasło'
-					onChange={() => {}}
+					onChange={(value) => handleChange(setPassword, value)}
 					type='password'
 				/>
 			</StyledForm>
