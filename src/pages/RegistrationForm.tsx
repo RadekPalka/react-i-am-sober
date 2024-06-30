@@ -6,6 +6,12 @@ import { StyledH1 } from '../components/StyledH1';
 import { StyledForm } from '../components/StyledForm';
 import { StyledSection } from '../components/StyledSection';
 import { HeadingContainer } from '../components/HeadingContainer';
+import {
+	validateInput,
+	compareStrings,
+	validateInputLength,
+} from '../utils/validation';
+
 import api from '../api/api';
 import axios from 'axios';
 
@@ -35,25 +41,16 @@ export const RegistrationForm: React.FC = () => {
 	) => {
 		callback(value);
 	};
-	const validateLogin = (): boolean => {
-		const minLoginLength = 4;
-		return login.length >= minLoginLength;
-	};
-	const validatePassword = (): boolean => {
-		const passwordRegex =
-			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-		return passwordRegex.test(password);
-	};
-	const validateConfirmPassword = (): boolean => {
-		return password === confirmPassword;
-	};
 	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!validateLogin()) {
+		const minLoginLength = 4;
+		const passwordRegex =
+			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+		if (!validateInputLength(login, minLoginLength)) {
 			return alert('Login musi mieć co najmniej 4 znaki');
-		} else if (!validatePassword()) {
+		} else if (!validateInput(password, passwordRegex)) {
 			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
-		} else if (!validateConfirmPassword()) {
+		} else if (!compareStrings(password, confirmPassword)) {
 			return alert(
 				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
 			);
