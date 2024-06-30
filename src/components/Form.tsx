@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+
 import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
 import { DailyCostInput } from './DailyCostInput';
 import { StyledDiv } from './StyledDiv';
 import { StyledForm } from './StyledForm';
+import { StyledButton } from './StyledButton';
 
-const StyledButton = styled.button``;
 export const Form: React.FC = () => {
 	const navigate = useNavigate();
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
