@@ -49,41 +49,34 @@ export const RegistrationForm: React.FC = () => {
 	};
 	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// if (!validateLogin()) {
-		// 	return alert('Login musi mieć co najmniej 4 znaki');
-		// } else if (!validatePassword()) {
-		// 	return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
-		// } else if (!validateConfirmPassword()) {
-		// 	return alert(
-		// 		'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
-		// 	);
-		//}
+		if (!validateLogin()) {
+			return alert('Login musi mieć co najmniej 4 znaki');
+		} else if (!validatePassword()) {
+			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+		} else if (!validateConfirmPassword()) {
+			return alert(
+				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
+			);
+		}
 		axios
-			.post('https://mentoring-api.vercel.app/api/v1/account', {
-				username: 'halko',
-				password: 'password',
-			})
+			.post(
+				'https://mentoring-api.vercel.app/api/v1/account',
+				{
+					username: login,
+					password: password,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			)
 			.then(function (response) {
 				console.log(response);
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
-		// try {
-		// 	const response = await axios.post(
-		// 		'https://mentoring-api.vercel.app/api/v1/account',
-		// 		{
-		// 			login,
-		// 			password,
-		// 		}
-		// 	);
-		// 	console.log('Rejestracja udana:', response.data);
-		// 	alert(response.data);
-		// 	navigate('/login-page');
-		// } catch (error) {
-		// 	console.error('Błąd podczas rejestracji:', error.message);
-		// 	alert('Rejestracja nie powiodła się. Spróbuj ponownie.');
-		// }
 	};
 	return (
 		<StyledSection>
