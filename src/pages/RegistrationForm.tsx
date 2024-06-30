@@ -11,6 +11,7 @@ import {
 	compareStrings,
 	validateInputLength,
 } from '../utils/validation';
+import { handleChange } from '../utils/handleChange';
 
 import api from '../api/api';
 import axios from 'axios';
@@ -35,12 +36,6 @@ export const RegistrationForm: React.FC = () => {
 	const passwordLabelText = 'Podaj swoje hasło';
 	const confirmPasswordLabelText = 'Potwierdź hasło';
 
-	const handleChange = (
-		callback: React.Dispatch<React.SetStateAction<string>>,
-		value: string
-	) => {
-		callback(value);
-	};
 	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const minLoginLength = 4;
