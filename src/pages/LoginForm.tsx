@@ -1,5 +1,5 @@
 import { StyledForm } from '../components/StyledForm';
-import { StyledInput } from '../components/StyledInput';
+
 import { StyledH1 } from '../components/StyledH1';
 import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';
@@ -8,10 +8,12 @@ import { StyledButton } from '../components/StyledButton';
 import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { validateInput, validateInputLength } from '../utils/validation';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate();
 	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const minLoginLength = 4;
@@ -39,6 +41,7 @@ export const LoginForm: React.FC = () => {
 			.then(function (response) {
 				console.log(response);
 				localStorage.setItem('sessionToken', response.data.sessionToken);
+				navigate('/dashboard');
 			})
 			.catch(function (error) {
 				console.log(error);
