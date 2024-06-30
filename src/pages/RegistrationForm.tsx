@@ -12,21 +12,10 @@ import {
 	validateInputLength,
 } from '../utils/validation';
 import { handleChange } from '../utils/handleChange';
-
+import { StyledButton } from '../components/StyledButton';
 import api from '../api/api';
 import axios from 'axios';
 
-const StyledButton = styled.button`
-	display: block;
-	margin: 10px auto;
-	background-color: #492618;
-	color: #fff;
-	padding: 10px 20px;
-	border-radius: 20px;
-	font-family: 'LXGW WenKai TC', cursive;
-	font-weight: 300;
-	font-style: normal;
-`;
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
