@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
-import { Form } from '../components/Form';
+
 import { useUserContext } from '../components/UserContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserData } from '../types/UserData';
+import { AddictionInfoForm } from './AddictionInfoForm';
+import { StyledSection } from '../components/StyledSection';
+import { StyledH1 } from '../components/StyledH1';
+import { HeadingContainer } from '../components/HeadingContainer';
 
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
@@ -34,10 +38,12 @@ export const Dashboard: React.FC = () => {
 	}, []);
 	console.log(userData);
 	return (
-		<div>
-			<h1>Dashboard</h1>
+		<StyledSection>
+			<HeadingContainer>
+				<StyledH1>Dashboard</StyledH1>
+			</HeadingContainer>
 			<p>Witaj {userData.login}</p>
-			<Form />
-		</div>
+			<AddictionInfoForm />
+		</StyledSection>
 	);
 };
