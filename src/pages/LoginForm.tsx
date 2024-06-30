@@ -4,7 +4,7 @@ import { StyledH1 } from '../components/StyledH1';
 import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';
 import { handleChange } from '../utils/handleChange';
-
+import { StyledButton } from '../components/StyledButton';
 import { useState } from 'react';
 
 export const LoginForm: React.FC = () => {
@@ -26,6 +26,7 @@ export const LoginForm: React.FC = () => {
 					onChange={(value) => handleChange(setPassword, value)}
 					type='password'
 				/>
+				<StyledButton type='submit'>Zaloguj się</StyledButton>
 			</StyledForm>
 		</StyledSection>
 	);
