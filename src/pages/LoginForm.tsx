@@ -41,7 +41,7 @@ export const LoginForm: React.FC = () => {
 			.then(function (response) {
 				console.log(response);
 				localStorage.setItem('sessionToken', response.data.sessionToken);
-				navigate('/dashboard');
+				navigate('/addiction-info');
 			})
 			.catch(function (error) {
 				console.log(error);
