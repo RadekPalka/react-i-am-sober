@@ -38,6 +38,7 @@ export const LoginForm: React.FC = () => {
 			)
 			.then(function (response) {
 				console.log(response);
+				localStorage.setItem('sessionToken', response.data.sessionToken);
 			})
 			.catch(function (error) {
 				console.log(error);
