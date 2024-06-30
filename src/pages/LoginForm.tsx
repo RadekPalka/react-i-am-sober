@@ -5,15 +5,48 @@ import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';
 import { handleChange } from '../utils/handleChange';
 import { StyledButton } from '../components/StyledButton';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+import axios from 'axios';
+import { validateInput, validateInputLength } from '../utils/validation';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const minLoginLength = 4;
+		const passwordRegex =
+			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+		if (!validateInputLength(login, minLoginLength)) {
+			return alert('Login musi mieć co najmniej 4 znaki');
+		} else if (!validateInput(password, passwordRegex)) {
+			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+		}
+
+		axios
+			.post(
+				'https://mentoring-api.vercel.app/api/v1/account/login',
+				{
+					username: login,
+					password: password,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			)
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	};
 	return (
 		<StyledSection>
 			<StyledH1>Strona logowania</StyledH1>
-			<StyledForm>
+			<StyledForm onSubmit={handleForm}>
 				<AuthInput
 					value={login}
 					labelText='Login'
