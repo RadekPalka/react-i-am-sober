@@ -55,7 +55,7 @@ export const RegistrationForm: React.FC = () => {
 			.then(function (response) {
 				console.log(response);
 				alert('Rejestracja zakończona sukcesem');
-				navigate('/login_page');
+				navigate('/login-page');
 			})
 			.catch(function (error) {
 				console.log(error);
