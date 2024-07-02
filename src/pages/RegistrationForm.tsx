@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { toast } from 'react-toastify';
 import { AuthInput } from '../components';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledForm } from '../components/StyledForm';
@@ -31,11 +31,11 @@ export const RegistrationForm: React.FC = () => {
 		const passwordRegex =
 			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 		if (!validateInputLength(login, minLoginLength)) {
-			return alert('Login musi mieć co najmniej 4 znaki');
+			return toast.error('Login musi mieć co najmniej 4 znaki');
 		} else if (!validateInput(password, passwordRegex)) {
-			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		} else if (!compareStrings(password, confirmPassword)) {
-			return alert(
+			return toast.error(
 				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
 			);
 		}
@@ -54,7 +54,7 @@ export const RegistrationForm: React.FC = () => {
 			)
 			.then(function (response) {
 				console.log(response);
-				alert('Rejestracja zakończona sukcesem');
+				toast.success('Rejestracja zakończona sukcesem');
 				navigate('/login-page');
 			})
 			.catch(function (error) {
