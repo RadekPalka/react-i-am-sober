@@ -15,6 +15,7 @@ import { handleChange } from '../utils/handleChange';
 import { StyledButton } from '../components/StyledButton';
 import api from '../api/api';
 import axios from 'axios';
+import { PASSWORD_REGEX } from '../utils/constans';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -28,11 +29,10 @@ export const RegistrationForm: React.FC = () => {
 	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const minLoginLength = 4;
-		const passwordRegex =
-			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 		if (!validateInputLength(login, minLoginLength)) {
 			return toast.error('Login musi mieć co najmniej 4 znaki');
-		} else if (!validateInput(password, passwordRegex)) {
+		} else if (!validateInput(password, PASSWORD_REGEX)) {
 			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		} else if (!compareStrings(password, confirmPassword)) {
 			return toast.error(
