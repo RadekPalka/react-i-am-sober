@@ -11,7 +11,7 @@ import {
 	compareStrings,
 	validateInputLength,
 } from '../utils/validation';
-import { handleChange } from '../utils/handleChange';
+
 import { StyledButton } from '../components/StyledButton';
 import api from '../api/api';
 import axios from 'axios';
@@ -70,19 +70,19 @@ export const RegistrationForm: React.FC = () => {
 				<AuthInput
 					value={login}
 					labelText={loginLabelText}
-					onChange={(value) => handleChange(setLogin, value)}
+					onChange={(value) => setLogin(value)}
 					type='text'
 				/>
 				<AuthInput
 					value={password}
 					labelText={passwordLabelText}
-					onChange={(value) => handleChange(setPassword, value)}
+					onChange={(value) => setPassword(value)}
 					type='password'
 				/>
 				<AuthInput
 					value={confirmPassword}
 					labelText={confirmPasswordLabelText}
-					onChange={(value) => handleChange(setConfirmPassword, value)}
+					onChange={(value) => setConfirmPassword(value)}
 					type='password'
 				/>
 				<StyledButton type='submit'>Zarejestruj się</StyledButton>
