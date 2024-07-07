@@ -14,7 +14,7 @@ import {
 
 import { StyledButton } from '../components/StyledButton';
 import api from '../api/api';
-import axios from 'axios';
+
 import { PASSWORD_REGEX } from '../utils/constans';
 
 export const RegistrationForm: React.FC = () => {
@@ -39,9 +39,9 @@ export const RegistrationForm: React.FC = () => {
 				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
 			);
 		}
-		axios
+		api
 			.post(
-				'https://mentoring-api.vercel.app/api/v1/account',
+				'/account',
 				{
 					username: login,
 					password: password,

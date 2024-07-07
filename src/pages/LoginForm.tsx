@@ -3,10 +3,11 @@ import { StyledForm } from '../components/StyledForm';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';
-import { handleChange } from '../utils/handleChange';
+
 import { StyledButton } from '../components/StyledButton';
 import { FormEvent, useState } from 'react';
-import axios from 'axios';
+
+import api from '../api/api';
 import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,9 +26,9 @@ export const LoginForm: React.FC = () => {
 			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
 
-		axios
+		api
 			.post(
-				'https://mentoring-api.vercel.app/api/v1/account/login',
+				'/account/login',
 				{
 					username: login,
 					password: password,
@@ -54,13 +55,13 @@ export const LoginForm: React.FC = () => {
 				<AuthInput
 					value={login}
 					labelText='Login'
-					onChange={(value) => handleChange(setLogin, value)}
+					onChange={(value) => setLogin(value)}
 					type='text'
 				/>
 				<AuthInput
 					value={password}
 					labelText='Hasło'
-					onChange={(value) => handleChange(setPassword, value)}
+					onChange={(value) => setPassword(value)}
 					type='password'
 				/>
 				<StyledButton type='submit'>Zaloguj się</StyledButton>
