@@ -1,10 +1,8 @@
 import { Form } from '../components';
 import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { UserData } from '../types/UserData';
 
 import { StyledSection } from '../components/StyledSection';
 import { StyledH1 } from '../components/StyledH1';
