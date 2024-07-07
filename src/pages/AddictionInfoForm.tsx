@@ -1,6 +1,6 @@
 import { Form } from '../components';
 import { useEffect } from 'react';
-
+import { toast } from 'react-toastify'
 import { useUserContext } from '../components/UserContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -31,8 +31,11 @@ export const AddictionInfoForm: React.FC = () => {
 				})
 				.catch((error) => {
 					console.error('Error fetching data:', error);
+					error.response.status === 401 ? toast.error("Błąd autoryzacji"):
+					toast.error("Błąd połączenia. Spróbuj ponownie później")
 				});
 		} else {
+			toast.error("Błąd autoryzacji")
 			navigate('/');
 		}
 	}, []);
