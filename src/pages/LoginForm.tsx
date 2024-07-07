@@ -8,10 +8,11 @@ import { StyledButton } from '../components/StyledButton';
 import { FormEvent, useState } from 'react';
 import { StyledAuthMessage } from '../components/StyledAuthMessage';
 import { StyledLink } from '../components/StyledLink';
-import api from '../api/api';
+
 import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
 import { HeadingContainer } from '../components/HeadingContainer';
+import { loginAction } from '../clients/AccountClients';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -27,34 +28,7 @@ export const LoginForm: React.FC = () => {
 		} else if (!validateInput(password, passwordRegex)) {
 			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
-
-		api
-			.post(
-				'/account/login',
-				{
-					username: login,
-					password: password,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			)
-			.then(function (response) {
-				console.log(response);
-				localStorage.setItem('sessionToken', response.data.sessionToken);
-				navigate('/addiction-info');
-			})
-			.catch(function (error) {
-				console.log(error);
-				console.log('Kod błędu: ' + error.response.status);
-				error.response.status === 401
-					? toast.error('Zły login lub hasło')
-					: toast.error(
-							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
-					  );
-			});
+		loginAction(login, password, navigate);
 	};
 	return (
 		<StyledSection>
