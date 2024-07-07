@@ -28,7 +28,7 @@ export const RegistrationForm: React.FC = () => {
 	const passwordLabelText = 'Podaj swoje hasło';
 	const confirmPasswordLabelText = 'Potwierdź hasło';
 
-	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
+	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const minLoginLength = 4;
 

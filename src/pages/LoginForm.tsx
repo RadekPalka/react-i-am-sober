@@ -17,7 +17,7 @@ export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
-	const handleForm = async (e: FormEvent<HTMLFormElement>) => {
+	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const minLoginLength = 4;
 		const passwordRegex =
