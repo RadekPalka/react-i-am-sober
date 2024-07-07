@@ -14,6 +14,8 @@ import {
 
 import { StyledButton } from '../components/StyledButton';
 import api from '../api/api';
+import { StyledLink } from '../components/StyledLink';
+import { StyledAuthMessage } from '../components/StyledAuthMessage';
 
 import { PASSWORD_REGEX } from '../utils/constans';
 
@@ -58,7 +60,6 @@ export const RegistrationForm: React.FC = () => {
 				navigate('/login-page');
 			})
 			.catch(function (error) {
-				
 				console.log(error);
 				console.log('Kod błędu: ' + error.response.status);
 				error.response.status === 400
@@ -94,6 +95,15 @@ export const RegistrationForm: React.FC = () => {
 				/>
 				<StyledButton type='submit'>Zarejestruj się</StyledButton>
 			</StyledForm>
+			<StyledAuthMessage>
+				<span>Masz już konto? </span>
+				<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+			</StyledAuthMessage>
+			<StyledAuthMessage>lub</StyledAuthMessage>
+			<StyledAuthMessage>
+				<span>Wróć do </span>
+				<StyledLink to='/'>strony głównej</StyledLink>
+			</StyledAuthMessage>
 		</StyledSection>
 	);
 };

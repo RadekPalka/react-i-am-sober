@@ -6,7 +6,8 @@ import { AuthInput } from '../components';
 import { toast } from 'react-toastify';
 import { StyledButton } from '../components/StyledButton';
 import { FormEvent, useState } from 'react';
-
+import { StyledAuthMessage } from '../components/StyledAuthMessage';
+import { StyledLink } from '../components/StyledLink';
 import api from '../api/api';
 import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
@@ -72,6 +73,15 @@ export const LoginForm: React.FC = () => {
 				/>
 				<StyledButton type='submit'>Zaloguj się</StyledButton>
 			</StyledForm>
+			<StyledAuthMessage>
+				<span>Nie masz konta? </span>
+				<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+			</StyledAuthMessage>
+			<StyledAuthMessage>lub</StyledAuthMessage>
+			<StyledAuthMessage>
+				<span>Wróć do </span>
+				<StyledLink to='/'>strony głównej</StyledLink>
+			</StyledAuthMessage>
 		</StyledSection>
 	);
 };
