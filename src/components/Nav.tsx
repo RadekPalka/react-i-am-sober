@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { StyledUl } from './StyledUl';
+import { StyledLi } from './StyledLi';
+
 const StyledNav = styled.nav`
 	background-color: #f5f1ef;
 	right: 0;
@@ -17,10 +19,6 @@ const StyledLink = styled(Link)`
 `;
 
 
-const StyledLi = styled.li`
-	display: inline-block;
-	line-height: 100px;
-`;
 export const Nav: React.FC = () => {
 	return (
 		<StyledNav>
