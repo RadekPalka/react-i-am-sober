@@ -46,6 +46,12 @@ export const LoginForm: React.FC = () => {
 			})
 			.catch(function (error) {
 				console.log(error);
+				console.log('Kod błędu: ' + error.response.status);
+				error.response.status === 401
+					? toast.error('Zły login lub hasło')
+					: toast.error(
+							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
+					  );
 			});
 	};
 	return (
