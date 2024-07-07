@@ -58,7 +58,14 @@ export const RegistrationForm: React.FC = () => {
 				navigate('/login-page');
 			})
 			.catch(function (error) {
-				toast.error('Coś poszło nie tak');
+				
+				console.log(error);
+				console.log('Kod błędu: ' + error.response.status);
+				error.response.status === 400
+					? toast.error('Podany login jest już zajęty')
+					: toast.error(
+							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
+					  );
 			});
 	};
 	return (
