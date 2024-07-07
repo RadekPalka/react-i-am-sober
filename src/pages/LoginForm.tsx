@@ -11,6 +11,7 @@ import { StyledLink } from '../components/StyledLink';
 import api from '../api/api';
 import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
+import { HeadingContainer } from '../components/HeadingContainer';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -57,7 +58,9 @@ export const LoginForm: React.FC = () => {
 	};
 	return (
 		<StyledSection>
-			<StyledH1>Strona logowania</StyledH1>
+			<HeadingContainer>
+				<StyledH1>Strona logowania</StyledH1>
+			</HeadingContainer>
 			<StyledForm onSubmit={handleForm}>
 				<AuthInput
 					value={login}
