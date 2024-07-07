@@ -80,18 +80,21 @@ export const RegistrationForm: React.FC = () => {
 					labelText={loginLabelText}
 					onChange={(value) => setLogin(value)}
 					type='text'
+					id='login'
 				/>
 				<AuthInput
 					value={password}
 					labelText={passwordLabelText}
 					onChange={(value) => setPassword(value)}
 					type='password'
+					id='password'
 				/>
 				<AuthInput
 					value={confirmPassword}
 					labelText={confirmPasswordLabelText}
 					onChange={(value) => setConfirmPassword(value)}
 					type='password'
+					id='confirm-password'
 				/>
 				<StyledButton type='submit'>Zarejestruj się</StyledButton>
 			</StyledForm>

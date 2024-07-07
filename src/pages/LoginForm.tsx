@@ -67,12 +67,14 @@ export const LoginForm: React.FC = () => {
 					labelText='Login'
 					onChange={(value) => setLogin(value)}
 					type='text'
+					id='login'
 				/>
 				<AuthInput
 					value={password}
 					labelText='Hasło'
 					onChange={(value) => setPassword(value)}
 					type='password'
+					id='password'
 				/>
 				<StyledButton type='submit'>Zaloguj się</StyledButton>
 			</StyledForm>
