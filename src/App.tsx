@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 import { AddictionInfoForm } from './pages/AddictionInfoForm';
-import { UserProvider } from './components/UserContext';
+import { UserProvider } from './context/UserContext';
 import { Dashboard, MainPage, RegistrationForm, LoginForm } from './pages';
 
 const AppWrapper = styled.div`
