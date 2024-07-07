@@ -58,7 +58,7 @@ export const RegistrationForm: React.FC = () => {
 				navigate('/login-page');
 			})
 			.catch(function (error) {
-				console.log(error);
+				toast.error('Coś poszło nie tak');
 			});
 	};
 	return (

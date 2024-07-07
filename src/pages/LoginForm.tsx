@@ -3,7 +3,7 @@ import { StyledForm } from '../components/StyledForm';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';
-
+import { toast } from 'react-toastify';
 import { StyledButton } from '../components/StyledButton';
 import { FormEvent, useState } from 'react';
 
@@ -21,9 +21,9 @@ export const LoginForm: React.FC = () => {
 		const passwordRegex =
 			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 		if (!validateInputLength(login, minLoginLength)) {
-			return alert('Login musi mieć co najmniej 4 znaki');
+			return toast.error('Login musi mieć co najmniej 4 znaki');
 		} else if (!validateInput(password, passwordRegex)) {
-			return alert('Hasło musi zawierać znak specjalny, literą i cyfrę');
+			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
 
 		api
