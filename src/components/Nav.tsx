@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { StyledLink } from './StyledLink';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
 
