@@ -7,19 +7,25 @@ const StyledHeaderContent = styled.div`
 
 const StyledCongratulationsParagraph = styled.p`
 	text-align: center;
+	margin: 30px;
 	font-weight: 600;
 `;
 const StyledParagraph = styled.p`
 	text-align: center;
 `;
 
+const LocaleStyledH1 = styled.h1`
+	line-height: 50px;
+	text-align: center;
+`;
+
 export const HeaderContent: React.FC = () => {
 	return (
 		<StyledHeaderContent>
-			<StyledH1>
+			<LocaleStyledH1>
 				I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
 				swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.
-			</StyledH1>
+			</LocaleStyledH1>
 			<StyledCongratulationsParagraph>
 				Przede wszystkim gratulacje
 			</StyledCongratulationsParagraph>
