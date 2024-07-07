@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import { StyledUl } from './StyledUl';
 const StyledNav = styled.nav`
 	background-color: #f5f1ef;
 	right: 0;
@@ -16,11 +16,7 @@ const StyledLink = styled(Link)`
 	}
 `;
 
-const StyledUl = styled.ul`
-	list-style-type: none;
-	margin: 0 auto;
-	width: 60%;
-`;
+
 const StyledLi = styled.li`
 	display: inline-block;
 	line-height: 100px;
