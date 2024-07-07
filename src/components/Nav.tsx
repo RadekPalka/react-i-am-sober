@@ -1,15 +1,7 @@
-import styled from 'styled-components';
+import { StyledNav } from './StyledNav';
 import { StyledLink } from './StyledLink';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
-
-const StyledNav = styled.nav`
-	background-color: #f5f1ef;
-	right: 0;
-	text-align: right;
-	height: 100px;
-`;
-
 
 
 
