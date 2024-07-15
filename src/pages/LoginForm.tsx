@@ -1,5 +1,5 @@
 import { StyledForm } from '../components/StyledForm';
-
+import React from 'react';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';

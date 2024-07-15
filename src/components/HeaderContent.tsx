@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledH1 } from './StyledH1';
+import React from 'react';
 const StyledHeaderContent = styled.div`
 	margin: 0 auto;
 	width: 60%;

@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import { StyledInput } from './StyledInput';
 import { useUserContext } from '../context/UserContext';
 import { UserData } from '../types/UserData';
-
+import React from 'react';
 export const DailyCostInput: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

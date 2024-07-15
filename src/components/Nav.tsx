@@ -2,8 +2,7 @@ import { StyledNav } from './StyledNav';
 import { StyledLink } from './StyledLink';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
-
-
+import React from 'react';
 
 export const Nav: React.FC = () => {
 	return (

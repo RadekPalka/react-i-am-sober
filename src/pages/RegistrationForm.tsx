@@ -13,7 +13,7 @@ import {
 } from '../utils/validation';
 
 import { StyledButton } from '../components/StyledButton';
-import api from '../api/api';
+import React from 'react';
 import { StyledLink } from '../components/StyledLink';
 import { StyledAuthMessage } from '../components/StyledAuthMessage';
 

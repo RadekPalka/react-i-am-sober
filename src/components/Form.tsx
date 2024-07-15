@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-
+import React from 'react';
 import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
 import { DailyCostInput } from './DailyCostInput';
