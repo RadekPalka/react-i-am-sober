@@ -10,4 +10,8 @@ export const StyledButton = styled.button`
 	font-family: 'LXGW WenKai TC', cursive;
 	font-weight: 300;
 	font-style: normal;
+	cursor: pointer;
+	&:hover {
+		background-color: #51281a;
+	}
 `;
