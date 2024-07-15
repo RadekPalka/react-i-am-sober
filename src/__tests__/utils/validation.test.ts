@@ -1,5 +1,5 @@
-import { validateInput } from '../utils/validation';
-import { PASSWORD_REGEX } from '../utils/constans';
+import { validateInput } from '../../utils/validation';
+import { PASSWORD_REGEX } from '../../utils/constans';
 
 describe('Validation functions', () => {
 	it('should return true for valid input', () => {
