@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import user, { userEvent } from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import { RegistrationForm } from '../../pages';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
