@@ -4,8 +4,19 @@ import { RegistrationForm } from '../../pages';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import React from 'react';
+import { toast } from 'react-toastify';
+
+jest.mock('react-toastify', () => ({
+	toast: {
+		error: jest.fn(),
+		success: jest.fn(),
+	},
+}));
 
 describe('RegistrationForm Component', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
 	it('should render the login input with correct label', async () => {
 		render(
 			<BrowserRouter>
@@ -42,7 +53,7 @@ describe('RegistrationForm Component', () => {
 		);
 		expect(confirmPasswordInputElement).toBeInTheDocument();
 	});
-	it('should update login, password and confirm password states on input change', async () => {
+	it('should show error message if login is too short', async () => {
 		render(
 			<BrowserRouter>
 				<RegistrationForm />
@@ -50,16 +61,13 @@ describe('RegistrationForm Component', () => {
 		);
 
 		const loginInput = screen.getByLabelText('Podaj swój login');
-		const passwordInput = screen.getByLabelText('Podaj swoje hasło');
-		const confirmPasswordInput = screen.getByLabelText('Potwierdź hasło');
+		const submitButton = screen.getByRole('button');
 
-		await userEvent.type(loginInput, 'testuser');
-		await userEvent.type(passwordInput, 'Test@1234');
-		await userEvent.type(confirmPasswordInput, 'Test@1234');
-		console.log(loginInput);
+		await userEvent.type(loginInput, 'abc');
+		await userEvent.click(submitButton);
 
-		expect(loginInput).toHaveValue('testuser');
-		expect(passwordInput).toHaveValue('Test@1234');
-		expect(confirmPasswordInput).toHaveValue('Test@1234');
+		expect(toast.error).toHaveBeenCalledWith(
+			'Login musi mieć co najmniej 4 znaki'
+		);
 	});
 });
