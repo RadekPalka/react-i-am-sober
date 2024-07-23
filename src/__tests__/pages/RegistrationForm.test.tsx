@@ -5,7 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import React from 'react';
 import { toast } from 'react-toastify';
+import { createAccount } from '../../clients/AccountClients';
 
+jest.mock('../../clients/AccountClients', () => ({
+	createAccount: jest.fn(),
+}));
 jest.mock('react-toastify', () => ({
 	toast: {
 		error: jest.fn(),
@@ -59,6 +63,18 @@ describe('RegistrationForm Component', () => {
 
 		expect(toast.error).toHaveBeenCalledWith(
 			'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
+		);
+	});
+	it('should call createAccount with correct arguments when form is submitted with valid data', async () => {
+		await userEvent.type(loginInput, 'validLogin');
+		await userEvent.type(passwordInput, 'półciężarówka@1');
+		await userEvent.type(confirmPasswordInput, 'półciężarówka@1');
+		await userEvent.click(submitButton);
+
+		expect(createAccount).toHaveBeenCalledWith(
+			'validLogin',
+			'półciężarówka@1',
+			expect.any(Function)
 		);
 	});
 });
