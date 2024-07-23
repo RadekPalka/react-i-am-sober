@@ -70,4 +70,24 @@ describe('RegistrationForm Component', () => {
 			'Login musi mieć co najmniej 4 znaki'
 		);
 	});
+
+	it('should show error message if login is incorrect', async () => {
+		render(
+			<BrowserRouter>
+				<RegistrationForm />
+			</BrowserRouter>
+		);
+
+		const loginInput = screen.getByLabelText('Podaj swój login');
+		const passwordInput = screen.getByLabelText('Podaj swoje hasło');
+		const submitButton = screen.getByRole('button');
+
+		await userEvent.type(loginInput, 'login');
+		await userEvent.type(passwordInput, '!secretpassword');
+		await userEvent.click(submitButton);
+
+		expect(toast.error).toHaveBeenCalledWith(
+			'Hasło musi zawierać znak specjalny, literą i cyfrę'
+		);
+	});
 });
