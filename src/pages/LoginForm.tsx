@@ -8,7 +8,7 @@ import { StyledButton } from '../components/StyledButton';
 import { FormEvent, useState } from 'react';
 import { StyledAuthMessage } from '../components/StyledAuthMessage';
 import { StyledLink } from '../components/StyledLink';
-
+import { PASSWORD_REGEX } from '../utils/constans';
 import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
 import { HeadingContainer } from '../components/HeadingContainer';
@@ -21,11 +21,10 @@ export const LoginForm: React.FC = () => {
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const minLoginLength = 4;
-		const passwordRegex =
-			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 		if (!validateInputLength(login, minLoginLength)) {
 			return toast.error('Login musi mieć co najmniej 4 znaki');
-		} else if (!validateInput(password, passwordRegex)) {
+		} else if (!validateInput(password, PASSWORD_REGEX)) {
 			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
 		loginAction(login, password, navigate);

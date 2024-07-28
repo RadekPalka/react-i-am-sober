@@ -54,14 +54,14 @@ describe('LoginForm component', () => {
 		);
 	});
 	it('should call loginAction with correct arguments when form is submitted with valid data', async () => {
-		await userEvent.type(loginInput, 'radekp');
-		await userEvent.type(passwordInput, '!1superhaslo');
+		await userEvent.type(loginInput, 'validLogin');
+		await userEvent.type(passwordInput, 'półciężarówka@1');
 
 		await userEvent.click(submitButton);
 
 		expect(loginAction).toHaveBeenCalledWith(
-			'radekp',
-			'!1superhaslo',
+			'validLogin',
+			'półciężarówka@1',
 			expect.any(Function)
 		);
 	});
