@@ -25,13 +25,14 @@ export const createAccount = (
 			toast.success('Rejestracja zakończona sukcesem');
 			navigate('/login-page');
 		})
-		.catch(function (response) {
+		.catch(function (error) {
+			toast.error('Podany login jest już zajęty');
 			console.log('Error');
-			// console.log(error);
-			// console.log('Kod błędu: ' + error.response.status);
-			// error.response.status === 400
-			// 	? toast.error('Podany login jest już zajęty')
-			// 	: toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+			console.log(error);
+			console.log('Kod błędu: ' + error.response.status);
+			error.response.status === 400
+				? toast.error('Podany login jest już zajęty')
+				: toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 		});
 };
 

@@ -31,10 +31,12 @@ describe('api tests', () => {
 		expect(mockNavigate).toHaveBeenCalledWith('/login-page');
 	});
 	it('should show error when username is already taken', async () => {
-		mockedApi.post.mockRejectedValueOnce({ data: {} });
+		mockedApi.post.mockRejectedValueOnce({
+			response: { status: 400 },
+		});
 
 		await createAccount('login', 'password', mockNavigate);
-		expect(console.log).toHaveBeenCalledWith('Error');
-		//expect(toast.error).toHaveBeenCalledWith('Podany login jest już zajęty');
+
+		expect(toast.error).toHaveBeenCalledWith('Podany login jest już zajęty');
 	});
 });
