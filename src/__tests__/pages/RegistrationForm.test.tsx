@@ -27,9 +27,6 @@ jest.mock('../../utils/validation', () => ({
 }));
 
 describe('RegistrationForm Component', () => {
-	let loginInput: HTMLElement;
-	let passwordInput: HTMLElement;
-	let confirmPasswordInput: HTMLElement;
 	let submitButton: HTMLElement;
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -39,9 +36,6 @@ describe('RegistrationForm Component', () => {
 			</BrowserRouter>
 		);
 
-		loginInput = screen.getByLabelText('Podaj swój login');
-		passwordInput = screen.getByLabelText('Podaj swoje hasło');
-		confirmPasswordInput = screen.getByLabelText('Potwierdź hasło');
 		submitButton = screen.getByRole('button', { name: /zarejestruj się/i });
 	});
 
@@ -60,7 +54,7 @@ describe('RegistrationForm Component', () => {
 		(validateInputLength as jest.Mock).mockReturnValue(true);
 		(validateInput as jest.Mock).mockReturnValue(false);
 		(compareStrings as jest.Mock).mockReturnValue(true);
-		await userEvent.type(loginInput, 'validLogin');
+
 		await userEvent.click(submitButton);
 
 		expect(toast.error).toHaveBeenCalledWith(
