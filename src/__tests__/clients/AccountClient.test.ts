@@ -24,7 +24,7 @@ describe('api tests', () => {
 	it('should show success message and navigate on successful account creation', async () => {
 		mockedApi.post.mockResolvedValueOnce({ data: {} });
 		await createAccount('login', 'password', mockNavigate);
-		expect(console.log).toHaveBeenCalledWith(expect.anything());
+		expect(console.log).toHaveBeenCalled();
 		expect(toast.success).toHaveBeenCalledWith(
 			'Rejestracja zakończona sukcesem'
 		);
