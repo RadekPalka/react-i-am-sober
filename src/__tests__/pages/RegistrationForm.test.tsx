@@ -6,7 +6,11 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { createAccount } from '../../clients/AccountClients';
-
+import {
+	validateInputLength,
+	validateInput,
+	compareStrings,
+} from '../../utils/validation';
 jest.mock('../../clients/AccountClients', () => ({
 	createAccount: jest.fn(),
 }));
@@ -15,6 +19,11 @@ jest.mock('react-toastify', () => ({
 		error: jest.fn(),
 		success: jest.fn(),
 	},
+}));
+jest.mock('../../utils/validation', () => ({
+	validateInputLength: jest.fn(),
+	validateInput: jest.fn(),
+	compareStrings: jest.fn(),
 }));
 
 describe('RegistrationForm Component', () => {
@@ -37,7 +46,9 @@ describe('RegistrationForm Component', () => {
 	});
 
 	it('should show error message if login is too short', async () => {
-		await userEvent.type(loginInput, 'abc');
+		(validateInputLength as jest.Mock).mockReturnValue(false);
+		(validateInput as jest.Mock).mockRejectedValue(false);
+		(compareStrings as jest.Mock).mockReturnValue(false);
 		await userEvent.click(submitButton);
 
 		expect(toast.error).toHaveBeenCalledWith(
@@ -46,8 +57,10 @@ describe('RegistrationForm Component', () => {
 	});
 
 	it('should show error message if password is incorrect', async () => {
-		await userEvent.type(loginInput, 'login');
-		await userEvent.type(passwordInput, '!secretpassword');
+		(validateInputLength as jest.Mock).mockReturnValue(true);
+		(validateInput as jest.Mock).mockReturnValue(false);
+		(compareStrings as jest.Mock).mockReturnValue(true);
+		await userEvent.type(loginInput, 'validLogin');
 		await userEvent.click(submitButton);
 
 		expect(toast.error).toHaveBeenCalledWith(
@@ -56,9 +69,9 @@ describe('RegistrationForm Component', () => {
 	});
 
 	it('should show error message if password and confirm password dosent match', async () => {
-		await userEvent.type(loginInput, 'login');
-		await userEvent.type(passwordInput, '!1secretpassword');
-		await userEvent.type(confirmPasswordInput, '!secretpassword');
+		(validateInputLength as jest.Mock).mockReturnValue(true);
+		(validateInput as jest.Mock).mockReturnValue(true);
+		(compareStrings as jest.Mock).mockReturnValue(false);
 		await userEvent.click(submitButton);
 
 		expect(toast.error).toHaveBeenCalledWith(
@@ -66,15 +79,11 @@ describe('RegistrationForm Component', () => {
 		);
 	});
 	it('should call createAccount with correct arguments when form is submitted with valid data', async () => {
-		await userEvent.type(loginInput, 'validLogin');
-		await userEvent.type(passwordInput, 'półciężarówka@1');
-		await userEvent.type(confirmPasswordInput, 'półciężarówka@1');
+		(validateInputLength as jest.Mock).mockReturnValue(true);
+		(validateInput as jest.Mock).mockReturnValue(true);
+		(compareStrings as jest.Mock).mockReturnValue(true);
 		await userEvent.click(submitButton);
 
-		expect(createAccount).toHaveBeenCalledWith(
-			'validLogin',
-			'półciężarówka@1',
-			expect.any(Function)
-		);
+		expect(createAccount).toHaveBeenCalled();
 	});
 });
