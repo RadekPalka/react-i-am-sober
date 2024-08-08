@@ -13,10 +13,10 @@ export const Nav: React.FC = () => {
 	return (
 		<StyledNav>
 			<StyledUl>
-				<StyledLi>
+				<StyledLi color='black' $background='#d3d3d3'>
 					<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
 				</StyledLi>
-				<StyledLi>
+				<StyledLi color='white' $background='black'>
 					<StyledLink to='/login-page'>Zaloguj się</StyledLink>
 				</StyledLi>
 			</StyledUl>
