@@ -6,7 +6,7 @@ import { UserProvider } from './context/UserContext';
 import { Dashboard, MainPage, RegistrationForm, LoginForm } from './pages';
 
 const AppWrapper = styled.div`
-	display: flex;
+	
 	height: 100vh;
 	width: 100vw;
 	justify-content: center;

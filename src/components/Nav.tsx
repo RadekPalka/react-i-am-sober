@@ -3,6 +3,11 @@ import { StyledLink } from './StyledLink';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
 import React from 'react';
+import styled from 'styled-components';
+
+const RegisterLinkContainer = styled.div`
+	
+`
 
 export const Nav: React.FC = () => {
 	return (
