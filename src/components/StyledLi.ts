@@ -1,10 +1,11 @@
 import styled from "styled-components";
 type StyledLiProps ={
-	$background : string
+	$background : string,
+	$padding: string
 }
 export const StyledLi = styled.li<StyledLiProps>`
 	display: inline-block;
-	line-height: 100px;
+	padding: ${(props) => props.$padding};
 	
 	background: ${(props) => props.$background};
 	

@@ -10,7 +10,7 @@ const StyledMain = styled.main`
 export const Header: React.FC = () => {
 	return (
 		<StyledMain>
-			<Nav />
+			<Nav padding='3px 6px'/>
 			<HeaderContent />
 		</StyledMain>
 	);

@@ -5,7 +5,7 @@ export const MainPage: React.FC = () => {
 	return (
 		<>
 			<header>
-				<Nav />
+				<Nav padding='2px 4px'/>
 			</header>
 			<Header />
 		</>
