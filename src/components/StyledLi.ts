@@ -1,14 +1,17 @@
 import styled from "styled-components";
 type StyledLiProps ={
 	$background : string,
-	$padding: string
+	
+	$color: string
 }
 export const StyledLi = styled.li<StyledLiProps>`
-	display: inline-block;
-	padding: ${(props) => props.$padding};
-	
+	display: block;
+	padding: 8px;
+	color: ${(props)=> props.$color};
+	font-size: 12px;
 	background: ${(props) => props.$background};
-	
+	border: 1px solid #999;
+	border-radius: 10px;
 	
 	
 `;
