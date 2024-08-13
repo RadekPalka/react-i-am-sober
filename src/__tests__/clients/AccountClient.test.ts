@@ -28,7 +28,7 @@ describe('api tests', () => {
 		expect(toast.success).toHaveBeenCalledWith(
 			'Rejestracja zakończona sukcesem'
 		);
-		expect(mockNavigate).toHaveBeenCalledWith('/login-page');                      	xa
+		expect(mockNavigate).toHaveBeenCalledWith('/login-page');
 	});
 	it('should show error when username is already taken', async () => {
 		mockedApi.post.mockRejectedValueOnce({
