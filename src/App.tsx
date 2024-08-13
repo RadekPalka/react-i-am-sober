@@ -6,7 +6,6 @@ import { UserProvider } from './context/UserContext';
 import { Dashboard, MainPage, RegistrationForm, LoginForm } from './pages';
 
 const AppWrapper = styled.div`
-	
 	height: 100vh;
 	width: 100vw;
 	justify-content: center;
@@ -14,13 +13,7 @@ const AppWrapper = styled.div`
 	font-family: 'LXGW WenKai TC', cursive;
 	font-weight: 300;
 	font-style: normal;
-	background: rgb(114, 158, 229);
-	background: linear-gradient(
-		90deg,
-		rgba(114, 158, 229, 1) 0%,
-		rgba(114, 158, 229, 1) 35%,
-		rgba(204, 50, 222, 1) 100%
-	);
+	background-color: #f5f5f5;
 `;
 
 const App: React.FC = () => {

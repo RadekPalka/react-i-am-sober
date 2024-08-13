@@ -9,14 +9,14 @@ export const MainPage: React.FC = () => {
 		<>
 			<header>
 				<Nav>
-				<StyledUl >
-				<StyledLi $color='black' $background='#d3d3d3' >
-					<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-				</StyledLi>
-				<StyledLi $color='white' $background='black' >
-					<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-				</StyledLi>
-			</StyledUl>
+					<StyledUl>
+						<StyledLi $color='#2c2c2c' $background='#e3e3e3`'>
+							<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+						</StyledLi>
+						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
+							<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+						</StyledLi>
+					</StyledUl>
 				</Nav>
 			</header>
 			<Header />
