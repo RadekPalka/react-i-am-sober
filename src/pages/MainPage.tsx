@@ -1,4 +1,4 @@
-import { Header } from '../components/';
+import { Main } from '../components/';
 import React from 'react';
 
 import { StyledUl } from '../components/StyledUl';
@@ -20,7 +20,7 @@ export const MainPage: React.FC = () => {
 					</StyledUl>
 				</StyledNav>
 			</header>
-			<Header />
+			<Main />
 		</>
 	);
 };

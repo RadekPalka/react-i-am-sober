@@ -9,7 +9,7 @@ const StyledMain = styled.main`
 	background-color: #e7e2dc;
 `;
 
-export const Header: React.FC = () => {
+export const Main: React.FC = () => {
 	return (
 		<StyledMain>
 			<StyledNav>
