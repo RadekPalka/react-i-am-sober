@@ -13,7 +13,7 @@ export const Main: React.FC = () => {
 	return (
 		<StyledMain>
 			<HeaderContent />
-			<StyledNav>
+			<StyledNav $justifyContent='center'>
 				<StyledUl>
 					<StyledLi $color='black' $background='#d3d3d3'>
 						<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>

@@ -9,7 +9,7 @@ export const MainPage: React.FC = () => {
 	return (
 		<>
 			<header>
-				<StyledNav>
+				<StyledNav $justifyContent='end'>
 					<StyledUl>
 						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
 							<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
