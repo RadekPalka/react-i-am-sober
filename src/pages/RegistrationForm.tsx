@@ -19,6 +19,9 @@ import { StyledAuthMessage } from '../components/StyledAuthMessage';
 
 import { PASSWORD_REGEX } from '../utils/constans';
 import { createAccount } from '../clients/AccountClients';
+import { StyledNav } from '../components/StyledNav';
+import { StyledUl } from '../components/StyledUl';
+import { StyledLi } from '../components/StyledLi';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -46,43 +49,57 @@ export const RegistrationForm: React.FC = () => {
 		createAccount(login, password, navigate);
 	};
 	return (
-		<StyledSection>
-			<HeadingContainer>
-				<StyledH1>Rejestracja</StyledH1>
-			</HeadingContainer>
-			<StyledForm onSubmit={handleForm}>
-				<AuthInput
-					value={login}
-					labelText={loginLabelText}
-					onChange={(value) => setLogin(value)}
-					type='text'
-					id='login'
-				/>
-				<AuthInput
-					value={password}
-					labelText={passwordLabelText}
-					onChange={(value) => setPassword(value)}
-					type='password'
-					id='password'
-				/>
-				<AuthInput
-					value={confirmPassword}
-					labelText={confirmPasswordLabelText}
-					onChange={(value) => setConfirmPassword(value)}
-					type='password'
-					id='confirm-password'
-				/>
-				<StyledButton type='submit'>Zarejestruj się</StyledButton>
-			</StyledForm>
-			<StyledAuthMessage>
-				<span>Masz już konto? </span>
-				<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-			</StyledAuthMessage>
-			<StyledAuthMessage>lub</StyledAuthMessage>
-			<StyledAuthMessage>
-				<span>Wróć do </span>
-				<StyledLink to='/'>strony głównej</StyledLink>
-			</StyledAuthMessage>
-		</StyledSection>
+		<>
+			<header>
+				<StyledNav $justifyContent='end'>
+					<StyledUl>
+						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+							<StyledLink to='/'>Strona główna</StyledLink>
+						</StyledLi>
+						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
+							<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+						</StyledLi>
+					</StyledUl>
+				</StyledNav>
+			</header>
+			<StyledSection>
+				<HeadingContainer>
+					<StyledH1>Rejestracja</StyledH1>
+				</HeadingContainer>
+				<StyledForm onSubmit={handleForm}>
+					<AuthInput
+						value={login}
+						labelText={loginLabelText}
+						onChange={(value) => setLogin(value)}
+						type='text'
+						id='login'
+					/>
+					<AuthInput
+						value={password}
+						labelText={passwordLabelText}
+						onChange={(value) => setPassword(value)}
+						type='password'
+						id='password'
+					/>
+					<AuthInput
+						value={confirmPassword}
+						labelText={confirmPasswordLabelText}
+						onChange={(value) => setConfirmPassword(value)}
+						type='password'
+						id='confirm-password'
+					/>
+					<StyledButton type='submit'>Zarejestruj się</StyledButton>
+				</StyledForm>
+				<StyledAuthMessage>
+					<span>Masz już konto? </span>
+					<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+				</StyledAuthMessage>
+				<StyledAuthMessage>lub</StyledAuthMessage>
+				<StyledAuthMessage>
+					<span>Wróć do </span>
+					<StyledLink to='/'>strony głównej</StyledLink>
+				</StyledAuthMessage>
+			</StyledSection>
+		</>
 	);
 };
