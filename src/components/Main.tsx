@@ -12,6 +12,7 @@ const StyledMain = styled.main`
 export const Main: React.FC = () => {
 	return (
 		<StyledMain>
+			<HeaderContent />
 			<StyledNav>
 				<StyledUl>
 					<StyledLi $color='black' $background='#d3d3d3'>
@@ -22,7 +23,6 @@ export const Main: React.FC = () => {
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
-			<HeaderContent />
 		</StyledMain>
 	);
 };
