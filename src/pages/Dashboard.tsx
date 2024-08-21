@@ -5,7 +5,11 @@ export const Dashboard: React.FC = () => {
 	return (
 		<>
 			<HeadingContainer>
-				<StyledH1>Dashboard</StyledH1>
+				<StyledH1>
+					Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do
+					monitorowania. Aby rozpocząć, kliknij poniższy link i wypełnij krótki
+					formularz, który pomoże Ci śledzić swoje postępy.
+				</StyledH1>
 			</HeadingContainer>
 		</>
 	);
