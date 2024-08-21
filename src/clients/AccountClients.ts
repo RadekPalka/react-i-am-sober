@@ -57,7 +57,7 @@ export const loginAction = (
 		.then(function (response) {
 			console.log(response);
 			localStorage.setItem('sessionToken', response.data.sessionToken);
-			navigate('/addiction-info');
+			navigate('/dashboard');
 		})
 		.catch(function (error) {
 			console.log(error);
