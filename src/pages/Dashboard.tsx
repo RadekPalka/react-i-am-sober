@@ -1,11 +1,19 @@
 import { HeadingContainer } from '../components/HeadingContainer';
 import { StyledH1 } from '../components/StyledH1';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
+import { useUserContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import { getUserData } from '../clients/AccountClients';
 export const Dashboard: React.FC = () => {
+	const { userData, setUserData } = useUserContext();
+	const navigate = useNavigate();
+	useEffect(() => {
+		getUserData(navigate, setUserData);
+	}, [navigate, setUserData]);
 	return (
 		<>
 			<HeadingContainer>
