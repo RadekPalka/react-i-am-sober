@@ -17,6 +17,7 @@ export const Dashboard: React.FC = () => {
 	return (
 		<>
 			<HeadingContainer>
+				{userData.login && <StyledH1>Witaj {userData.login}</StyledH1>}
 				<StyledH1>
 					Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do
 					monitorowania. Aby rozpocząć, kliknij poniższy link i wypełnij krótki
