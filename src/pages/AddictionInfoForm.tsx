@@ -14,7 +14,9 @@ export const AddictionInfoForm: React.FC = () => {
 	useEffect(() => {
 		getUserData(navigate, setUserData);
 	}, [navigate, setUserData]);
-
+	if (!userData.id) {
+		return <h1>Loading</h1>;
+	}
 	return (
 		<>
 			<StyledSection>
