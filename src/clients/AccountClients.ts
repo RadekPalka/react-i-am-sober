@@ -93,6 +93,7 @@ export const getUserData = (
 				error.response.status === 401
 					? toast.error('Błąd autoryzacji')
 					: toast.error('Błąd połączenia. Spróbuj ponownie później');
+				navigate('/');
 			});
 	} else {
 		toast.error('Błąd autoryzacji');
