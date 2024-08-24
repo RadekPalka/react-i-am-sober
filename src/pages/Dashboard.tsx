@@ -11,9 +11,10 @@ import { getUserData } from '../clients/AccountClients';
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
+
 	useEffect(() => {
-		getUserData(navigate, setUserData);
-	}, [navigate, setUserData]);
+		!userData.id && getUserData(navigate, setUserData);
+	}, [navigate, setUserData, userData.id]);
 	if (!userData.id) {
 		return <h1>Loading</h1>;
 	}
