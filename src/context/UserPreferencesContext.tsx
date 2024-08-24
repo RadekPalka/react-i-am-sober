@@ -31,16 +31,16 @@ export const UserPreferencesProvider: React.FC<
 	const [isRemembered, setIsRemembered] = useState<boolean>(false);
 
 	useEffect(() => {
-		const handleUnload = () => {
+		const handleBeforeUnload = () => {
 			if (!isRemembered) {
 				localStorage.removeItem('sessionToken');
 			}
 		};
 
-		window.addEventListener('unload', handleUnload);
+		window.addEventListener('beforeunload', handleBeforeUnload);
 
 		return () => {
-			window.removeEventListener('unload', handleUnload);
+			window.removeEventListener('beforeunload', handleBeforeUnload);
 		};
 	}, [isRemembered]);
 
