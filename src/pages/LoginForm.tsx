@@ -18,6 +18,7 @@ import { useUserPreferencesContext } from '../context/UserPreferencesContext';
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+	const [rememberMe, setRememberMe] = useState(false);
 	const { setIsRemembered } = useUserPreferencesContext();
 	const navigate = useNavigate();
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
@@ -29,6 +30,7 @@ export const LoginForm: React.FC = () => {
 		} else if (!validateInput(password, PASSWORD_REGEX)) {
 			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
+		setIsRemembered(rememberMe);
 		loginAction(login, password, navigate);
 	};
 	return (
@@ -55,7 +57,7 @@ export const LoginForm: React.FC = () => {
 				<input
 					type='checkbox'
 					id='remember-me'
-					onChange={(e) => setIsRemembered(e.target.checked)}
+					onChange={(e) => setRememberMe(e.target.checked)}
 				/>
 				<StyledButton type='submit'>Zaloguj się</StyledButton>
 			</StyledForm>
