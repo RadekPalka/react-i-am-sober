@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import {
+	createContext,
+	useContext,
+	useState,
+	ReactNode,
+	useEffect,
+} from 'react';
 import { UserPreferencesContextType } from '../types/UserPreferencesContextType';
 
 const UserPreferencesContext = createContext<
@@ -23,6 +29,20 @@ export const UserPreferencesProvider: React.FC<
 	UserPreferencesProviderProps
 > = ({ children }) => {
 	const [isRemembered, setIsRemembered] = useState<boolean>(false);
+
+	useEffect(() => {
+		const handleUnload = () => {
+			if (!isRemembered) {
+				localStorage.removeItem('sessionToken');
+			}
+		};
+
+		window.addEventListener('unload', handleUnload);
+
+		return () => {
+			window.removeEventListener('unload', handleUnload);
+		};
+	}, [isRemembered]);
 
 	return (
 		<UserPreferencesContext.Provider value={{ isRemembered, setIsRemembered }}>
