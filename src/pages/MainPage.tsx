@@ -1,11 +1,21 @@
 import { Main } from '../components/';
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { useUserContext } from '../context/UserContext';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { StyledNav } from '../components/StyledNav';
+import { useNavigate } from 'react-router-dom';
+import { verifyToken } from '../clients/AccountClients';
 export const MainPage: React.FC = () => {
+	const navigate = useNavigate();
+	const token = localStorage.getItem('sessionToken');
+	const { setUserData } = useUserContext();
+	useEffect(() => {
+		token && verifyToken(navigate, setUserData, token);
+		navigate('/dashboard');
+	}, [navigate, token, setUserData]);
+
 	return (
 		<>
 			<header>
