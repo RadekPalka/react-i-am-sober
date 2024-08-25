@@ -126,3 +126,45 @@ export const verifyToken = (
 			toast.error('Błąd autoryzacji');
 		});
 };
+
+export const createAddiction = (
+	token: string | null,
+	{ addictionType, addictionDailyCost, addictionFreeDate }: UserData,
+	navigate: NavigateFunction
+) => {
+	api
+		.post(
+			'/addiction',
+			{
+				name: addictionType,
+				costPerDay: addictionDailyCost,
+				deadline: addictionFreeDate,
+			},
+			{
+				headers: {
+					Authorization: token,
+					'Content-Type': 'application/json',
+				},
+			}
+		)
+		.then((res) => {
+			console.log(res);
+			toast.success('Uzależnienie dodano pomyślnie');
+			navigate('/dashboard');
+		})
+		.catch((error) => {
+			console.log(error);
+			if (error.response.status === 400) {
+				toast.error(
+					'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
+				);
+			} else if (error.response.status === 401) {
+				toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
+				navigate('/login-page');
+			} else {
+				toast.error(
+					'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
+				);
+			}
+		});
+};
