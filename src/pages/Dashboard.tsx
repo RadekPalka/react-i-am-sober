@@ -11,7 +11,7 @@ import { getUserData } from '../clients/AccountClients';
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
-
+	console.log(userData);
 	useEffect(() => {
 		!userData.id && getUserData(navigate, setUserData);
 	}, [navigate, setUserData, userData.id]);
@@ -22,11 +22,19 @@ export const Dashboard: React.FC = () => {
 		<>
 			<HeadingContainer>
 				{userData.login && <StyledH1>Witaj {userData.login}</StyledH1>}
-				<StyledH1>
-					Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do
-					monitorowania. Aby rozpocząć, kliknij poniższy link i wypełnij krótki
-					formularz, który pomoże Ci śledzić swoje postępy.
-				</StyledH1>
+				{userData.addictionType ? (
+					<div>
+						<h2>{userData.addictionType}</h2>
+						<p>{userData.addictionDailyCost}</p>
+						<p>{userData.addictionFreeDate}</p>
+					</div>
+				) : (
+					<StyledH1>
+						Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do
+						monitorowania. Aby rozpocząć, kliknij poniższy link i wypełnij
+						krótki formularz, który pomoże Ci śledzić swoje postępy.
+					</StyledH1>
+				)}
 				<StyledNav $justifyContent='center'>
 					<StyledUl>
 						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
