@@ -13,13 +13,11 @@ import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { loginAction } from '../clients/AccountClients';
-import { useUserPreferencesContext } from '../context/UserPreferencesContext';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
-	const [rememberMe, setRememberMe] = useState(false);
-	const { setIsRemembered } = useUserPreferencesContext();
+
 	const navigate = useNavigate();
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -30,7 +28,7 @@ export const LoginForm: React.FC = () => {
 		} else if (!validateInput(password, PASSWORD_REGEX)) {
 			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
-		setIsRemembered(rememberMe);
+
 		loginAction(login, password, navigate);
 	};
 	return (
@@ -52,12 +50,6 @@ export const LoginForm: React.FC = () => {
 					onChange={(value) => setPassword(value)}
 					type='password'
 					id='password'
-				/>
-				<label htmlFor='remember-me'>Zapamiętaj mnie</label>
-				<input
-					type='checkbox'
-					id='remember-me'
-					onChange={(e) => setRememberMe(e.target.checked)}
 				/>
 				<StyledButton type='submit'>Zaloguj się</StyledButton>
 			</StyledForm>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 import { AddictionInfoForm } from './pages/AddictionInfoForm';
@@ -18,6 +18,17 @@ const AppWrapper = styled.div`
 `;
 
 const App: React.FC = () => {
+	useEffect(() => {
+		const handleBeforeUnload = () => {
+			localStorage.removeItem('sessionToken');
+		};
+
+		window.addEventListener('beforeunload', handleBeforeUnload);
+
+		return () => {
+			window.removeEventListener('beforeunload', handleBeforeUnload);
+		};
+	}, []);
 	return (
 		<AppWrapper>
 			<UserProvider>

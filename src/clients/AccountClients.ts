@@ -101,32 +101,6 @@ export const getUserData = (
 	}
 };
 
-export const verifyToken = (
-	navigate: NavigateFunction,
-	setUserData: React.Dispatch<React.SetStateAction<UserData>>,
-	token: string
-) => {
-	api
-		.get('/account/me', {
-			headers: {
-				Authorization: token,
-			},
-		})
-		.then((response) => {
-			console.log(response.data);
-			setUserData((prevState: UserData) => ({
-				...prevState,
-				id: response.data.id,
-				login: response.data.username,
-			}));
-			navigate('/dashboard');
-		})
-		.catch((error) => {
-			console.log(error);
-			toast.error('Błąd autoryzacji');
-		});
-};
-
 export const createAddiction = (
 	token: string | null,
 	{ addictionType, addictionDailyCost, addictionFreeDate }: UserData,
