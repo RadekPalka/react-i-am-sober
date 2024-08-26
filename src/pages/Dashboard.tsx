@@ -15,7 +15,7 @@ export const Dashboard: React.FC = () => {
 	console.log(userData);
 	useEffect(() => {
 		!userData.id && getUserData(navigate, setUserData);
-	}, [navigate, setUserData, userData.id]);
+	}, []);
 	if (!userData.id) {
 		return <h1>Loading</h1>;
 	}
