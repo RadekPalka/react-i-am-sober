@@ -32,15 +32,13 @@ const App: React.FC = () => {
 	return (
 		<AppWrapper>
 			<UserProvider>
-				<UserPreferencesProvider>
-					<Routes>
-						<Route path='/' element={<MainPage />} />
-						<Route path='/addiction-info' element={<AddictionInfoForm />} />
-						<Route path='/dashboard' element={<Dashboard />} />
-						<Route path='/registration-page' element={<RegistrationForm />} />
-						<Route path='/login-page' element={<LoginForm />} />
-					</Routes>
-				</UserPreferencesProvider>
+				<Routes>
+					<Route path='/' element={<MainPage />} />
+					<Route path='/addiction-info' element={<AddictionInfoForm />} />
+					<Route path='/dashboard' element={<Dashboard />} />
+					<Route path='/registration-page' element={<RegistrationForm />} />
+					<Route path='/login-page' element={<LoginForm />} />
+				</Routes>
 			</UserProvider>
 		</AppWrapper>
 	);
