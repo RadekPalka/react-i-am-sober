@@ -8,6 +8,7 @@ import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { getUserData } from '../clients/AccountClients';
+import { AddictionCard } from '../components/AddictionCard';
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
@@ -23,11 +24,7 @@ export const Dashboard: React.FC = () => {
 			<HeadingContainer>
 				{userData.login && <StyledH1>Witaj {userData.login}</StyledH1>}
 				{userData.addictionType ? (
-					<div>
-						<h2>{userData.addictionType}</h2>
-						<p>{userData.addictionDailyCost}</p>
-						<p>{userData.addictionFreeDate}</p>
-					</div>
+					<AddictionCard />
 				) : (
 					<StyledH1>
 						Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do
