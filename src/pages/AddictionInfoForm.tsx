@@ -13,7 +13,7 @@ export const AddictionInfoForm: React.FC = () => {
 	const navigate = useNavigate();
 	useEffect(() => {
 		!userData.id && updateUserData(navigate, setUserData);
-	}, [navigate, setUserData, userData.id]);
+	}, []);
 	if (!userData.id) {
 		return <h1>Loading</h1>;
 	}
