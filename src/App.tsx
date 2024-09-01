@@ -18,17 +18,6 @@ const AppWrapper = styled.div`
 `;
 
 const App: React.FC = () => {
-	useEffect(() => {
-		const handleBeforeUnload = () => {
-			localStorage.removeItem('sessionToken');
-		};
-
-		window.addEventListener('beforeunload', handleBeforeUnload);
-
-		return () => {
-			window.removeEventListener('beforeunload', handleBeforeUnload);
-		};
-	}, []);
 	return (
 		<AppWrapper>
 			<UserProvider>
