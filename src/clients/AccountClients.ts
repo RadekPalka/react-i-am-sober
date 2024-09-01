@@ -142,3 +142,24 @@ export const createAddiction = (
 			}
 		});
 };
+
+export const logout = (navigate: NavigateFunction) => {
+	const token = localStorage.getItem('sessionToken');
+	api
+		.post('/account/logout', {
+			headers: {
+				Authorization: token,
+				'Content-Type': 'application/json',
+			},
+		})
+		.then((res) => {
+			localStorage.removeItem('sessionToken');
+			console.log(res);
+			toast.success('Zostałeś wylogowany(a) pomyślnie');
+			navigate('/login-page');
+		})
+		.catch((error) => {
+			console.log(error);
+			toast.error('Błąd połączenia. Spróbuj ponownie później');
+		});
+};

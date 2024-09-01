@@ -9,10 +9,14 @@ import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { getUserData } from '../clients/AccountClients';
 import { AddictionCard } from '../components/AddictionCard';
+import { logout } from '../clients/AccountClients';
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	console.log(userData);
+	const handleLogout = () => {
+		logout(navigate);
+	};
 	useEffect(() => {
 		!userData.id && getUserData(navigate, setUserData);
 	}, []);
@@ -21,6 +25,13 @@ export const Dashboard: React.FC = () => {
 	}
 	return (
 		<>
+			<StyledNav $justifyContent='end'>
+				<StyledUl>
+					<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+						<button onClick={handleLogout}>Wyloguj się</button>
+					</StyledLi>
+				</StyledUl>
+			</StyledNav>
 			<HeadingContainer>
 				{userData.login && <StyledH1>Witaj {userData.login}</StyledH1>}
 				{userData.addictionType ? (
