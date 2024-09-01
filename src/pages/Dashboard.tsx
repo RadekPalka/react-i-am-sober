@@ -7,7 +7,7 @@ import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { getUserData } from '../clients/AccountClients';
+import { updateUserData } from '../clients/AccountClients';
 import { AddictionCard } from '../components/AddictionCard';
 import { logout } from '../clients/AccountClients';
 export const Dashboard: React.FC = () => {
@@ -18,7 +18,7 @@ export const Dashboard: React.FC = () => {
 		logout(navigate);
 	};
 	useEffect(() => {
-		!userData.id && getUserData(navigate, setUserData);
+		!userData.id && updateUserData(navigate, setUserData);
 	}, []);
 	if (!userData.id) {
 		return <h1>Loading</h1>;

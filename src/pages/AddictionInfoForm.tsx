@@ -7,12 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { StyledSection } from '../components/StyledSection';
 import { StyledH1 } from '../components/StyledH1';
 import { HeadingContainer } from '../components/HeadingContainer';
-import { getUserData } from '../clients/AccountClients';
+import { updateUserData } from '../clients/AccountClients';
 export const AddictionInfoForm: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	useEffect(() => {
-		!userData.id && getUserData(navigate, setUserData);
+		!userData.id && updateUserData(navigate, setUserData);
 	}, [navigate, setUserData, userData.id]);
 	if (!userData.id) {
 		return <h1>Loading</h1>;

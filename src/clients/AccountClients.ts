@@ -68,7 +68,7 @@ export const loginAction = (
 		});
 };
 
-export const getUserData = (
+export const updateUserData = (
 	navigate: NavigateFunction,
 	setUserData: React.Dispatch<React.SetStateAction<UserData>>
 ) => {
