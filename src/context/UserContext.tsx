@@ -20,18 +20,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [userData, setUserData] = useState<UserData>({
 		id: '',
 		login: '',
-		addictionType: '',
-		addictionFreeDate: new Date()
-			.toLocaleDateString('en-CA', {
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit',
-				hour12: false,
-			})
-			.replaceAll(',', ''),
-		addictionDailyCost: 0,
 	});
 
 	return (
