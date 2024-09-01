@@ -12,11 +12,11 @@ import { useUserContext } from '../context/UserContext';
 export const Form: React.FC = () => {
 	const navigate = useNavigate();
 	const { userData } = useUserContext();
-	const token = localStorage.getItem('sessionToken');
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log(userData);
-		createAddiction(token, userData, navigate);
+		createAddiction(userData, navigate);
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>

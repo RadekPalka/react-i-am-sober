@@ -102,10 +102,10 @@ export const updateUserData = (
 };
 
 export const createAddiction = (
-	token: string | null,
 	{ addictionType, addictionDailyCost, addictionFreeDate }: UserData,
 	navigate: NavigateFunction
 ) => {
+	const token = localStorage.getItem('sessionToken');
 	api
 		.post(
 			'/addiction',
