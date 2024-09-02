@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { StyledH1 } from '../components/StyledH1';
 import React, { useEffect } from 'react';
@@ -14,6 +15,10 @@ export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	console.log(userData);
+	const StyledButton = styled.button`
+		border: none;
+		background-color: transparent;
+	`;
 	const handleLogout = () => {
 		logout(navigate);
 	};
@@ -28,7 +33,7 @@ export const Dashboard: React.FC = () => {
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-						<button onClick={handleLogout}>Wyloguj się</button>
+						<StyledButton onClick={handleLogout}>Wyloguj się</StyledButton>
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
