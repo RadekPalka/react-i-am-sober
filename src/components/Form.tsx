@@ -8,12 +8,16 @@ import { StyledForm } from './StyledForm';
 import { StyledButton } from './StyledButton';
 import { createAddiction } from '../clients/AccountClients';
 import { useUserContext } from '../context/UserContext';
-import { addictionType } from '../types/addictionTypy';
+import { addictionType } from '../types/addictionType';
 
 export const Form: React.FC = () => {
 	const navigate = useNavigate();
 	const { userData } = useUserContext();
-	const [userAddictions, setUserAddictions] = useState<addictionType[]>([]);
+	const [userAddiction, setUserAddiction] = useState<addictionType>({
+		addictionType: '',
+		addictionDailyCost: 0,
+		detoxStartDate: '',
+	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
