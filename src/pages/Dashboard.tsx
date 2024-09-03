@@ -11,14 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import { updateUserData } from '../clients/AccountClients';
 import { AddictionCard } from '../components/AddictionCard';
 import { logout } from '../clients/AccountClients';
+import { StyledButton } from '../components/StyledButton';
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	console.log(userData);
-	const StyledButton = styled.button`
-		border: none;
-		background-color: transparent;
-	`;
+
 	const handleLogout = () => {
 		logout(navigate);
 	};
@@ -32,7 +30,7 @@ export const Dashboard: React.FC = () => {
 		<>
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
-					<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
 						<StyledButton onClick={handleLogout}>Wyloguj się</StyledButton>
 					</StyledLi>
 				</StyledUl>
