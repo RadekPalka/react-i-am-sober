@@ -17,6 +17,7 @@ import { loginAction } from '../clients/AccountClients';
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+	const [isRemembered, setIsRemembered] = useState(false);
 
 	const navigate = useNavigate();
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
@@ -50,6 +51,13 @@ export const LoginForm: React.FC = () => {
 					onChange={(value) => setPassword(value)}
 					type='password'
 					id='password'
+				/>
+				<label htmlFor='is-remembered'>Zapamiętaj mnie</label>
+				<input
+					type='checkbox'
+					id='is-remembered'
+					checked={isRemembered}
+					onChange={() => setIsRemembered((value) => !value)}
 				/>
 				<StyledButton type='submit'>Zaloguj się</StyledButton>
 			</StyledForm>
