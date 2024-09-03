@@ -39,8 +39,10 @@ export const createAccount = (
 export const loginAction = (
 	username: string,
 	password: string,
-	navigate: NavigateFunction
+	navigate: NavigateFunction,
+	isRemembered: boolean
 ) => {
+	console.log(isRemembered);
 	api
 		.post(
 			'/account/login',
@@ -56,7 +58,8 @@ export const loginAction = (
 		)
 		.then(function (response) {
 			console.log(response);
-			localStorage.setItem('sessionToken', response.data.sessionToken);
+			const storage = isRemembered ? localStorage : sessionStorage;
+			storage.setItem('sessionToken', response.data.sessionToken);
 			navigate('/dashboard');
 		})
 		.catch(function (error) {

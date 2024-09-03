@@ -30,7 +30,7 @@ export const LoginForm: React.FC = () => {
 			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
 
-		loginAction(login, password, navigate);
+		loginAction(login, password, navigate, isRemembered);
 	};
 	return (
 		<StyledSection>
