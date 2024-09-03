@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { StyledH1 } from '../components/StyledH1';
 import React, { useEffect } from 'react';
