@@ -1,5 +1,5 @@
 import { StyledForm } from '../components/StyledForm';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyledH1 } from '../components/StyledH1';
 import { StyledSection } from '../components/StyledSection';
 import { AuthInput } from '../components';
@@ -13,6 +13,7 @@ import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { loginAction } from '../clients/AccountClients';
+import { getToken } from '../clients/SessionTokenService';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -20,6 +21,10 @@ export const LoginForm: React.FC = () => {
 	const [isRemembered, setIsRemembered] = useState(false);
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		getToken() && navigate('/dashboard');
+	}, []);
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const minLoginLength = 4;
