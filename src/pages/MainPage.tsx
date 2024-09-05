@@ -1,12 +1,20 @@
 import { Main } from '../components/';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { StyledNav } from '../components/StyledNav';
+import { getToken } from '../clients/SessionTokenService';
+import { useNavigate } from 'react-router-dom';
 
 export const MainPage: React.FC = () => {
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		getToken() && navigate('/dashboard');
+	}, []);
+
 	return (
 		<>
 			<header>

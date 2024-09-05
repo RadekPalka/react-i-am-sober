@@ -2,7 +2,7 @@ import api from '../api/api';
 import { toast } from 'react-toastify';
 import { NavigateFunction } from 'react-router-dom';
 import { UserData } from '../types/UserData';
-import { removeToken } from './SessionTokenService';
+import { removeToken, saveToken } from './SessionTokenService';
 export const createAccount = (
 	username: string,
 	password: string,
@@ -59,8 +59,8 @@ export const loginAction = (
 		)
 		.then(function (response) {
 			console.log(response);
-			const storage = isRemembered ? localStorage : sessionStorage;
-			storage.setItem('sessionToken', response.data.sessionToken);
+			saveToken(isRemembered, response.data.sessionToken);
+
 			navigate('/dashboard');
 		})
 		.catch(function (error) {
