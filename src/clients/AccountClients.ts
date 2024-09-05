@@ -2,7 +2,7 @@ import api from '../api/api';
 import { toast } from 'react-toastify';
 import { NavigateFunction } from 'react-router-dom';
 import { UserData } from '../types/UserData';
-import { removeToken, saveToken } from './SessionTokenService';
+import { getToken, removeToken, saveToken } from './SessionTokenService';
 export const createAccount = (
 	username: string,
 	password: string,
@@ -76,7 +76,7 @@ export const updateUserData = (
 	navigate: NavigateFunction,
 	setUserData: React.Dispatch<React.SetStateAction<UserData>>
 ) => {
-	const token = localStorage.getItem('sessionToken');
+	const token = getToken();
 	if (token) {
 		api
 			.get('/account/me', {
@@ -94,13 +94,18 @@ export const updateUserData = (
 			})
 			.catch((error) => {
 				console.error('Error fetching data:', error);
-				error.response.status === 401
-					? toast.error('Błąd autoryzacji')
-					: toast.error('Błąd połączenia. Spróbuj ponownie później');
+				if (error.response.status === 401) {
+					toast.error('Błąd autoryzacji');
+					removeToken();
+				} else {
+					toast.error('Błąd połączenia. Spróbuj ponownie później');
+				}
+
 				navigate('/');
 			});
 	} else {
 		toast.error('Błąd autoryzacji');
+		removeToken();
 		navigate('/');
 	}
 };
