@@ -16,9 +16,6 @@ export const Dashboard: React.FC = () => {
 	const navigate = useNavigate();
 	console.log(userData);
 
-	const handleLogout = () => {
-		logout(navigate);
-	};
 	useEffect(() => {
 		!userData.id && updateUserData(navigate, setUserData);
 	}, []);
@@ -30,7 +27,9 @@ export const Dashboard: React.FC = () => {
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-						<StyledButton onClick={handleLogout}>Wyloguj się</StyledButton>
+						<StyledButton onClick={() => logout(navigate)}>
+							Wyloguj się
+						</StyledButton>
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
