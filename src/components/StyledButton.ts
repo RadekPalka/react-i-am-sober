@@ -14,4 +14,8 @@ export const StyledButton = styled.button`
 	&:hover {
 		background-color: #51281a;
 	}
+	&:disabled {
+		cursor: progress;
+		background-color: #000;
+	}
 `;

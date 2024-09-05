@@ -27,6 +27,7 @@ export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const navigate = useNavigate();
 	const loginLabelText = 'Podaj swój login';
 	const passwordLabelText = 'Podaj swoje hasło';
@@ -45,7 +46,7 @@ export const RegistrationForm: React.FC = () => {
 				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
 			);
 		}
-
+		setIsSubmitting((prevState) => !prevState);
 		createAccount(login, password, navigate);
 	};
 	return (
@@ -68,6 +69,7 @@ export const RegistrationForm: React.FC = () => {
 				</HeadingContainer>
 				<StyledForm onSubmit={handleForm}>
 					<AuthInput
+						disabled={isSubmitting}
 						value={login}
 						labelText={loginLabelText}
 						onChange={(value) => setLogin(value)}
@@ -75,6 +77,7 @@ export const RegistrationForm: React.FC = () => {
 						id='login'
 					/>
 					<AuthInput
+						disabled={isSubmitting}
 						value={password}
 						labelText={passwordLabelText}
 						onChange={(value) => setPassword(value)}
@@ -82,13 +85,16 @@ export const RegistrationForm: React.FC = () => {
 						id='password'
 					/>
 					<AuthInput
+						disabled={isSubmitting}
 						value={confirmPassword}
 						labelText={confirmPasswordLabelText}
 						onChange={(value) => setConfirmPassword(value)}
 						type='password'
 						id='confirm-password'
 					/>
-					<StyledButton type='submit'>Zarejestruj się</StyledButton>
+					<StyledButton type='submit' disabled={isSubmitting}>
+						Zarejestruj się
+					</StyledButton>
 				</StyledForm>
 				<StyledAuthMessage>
 					<span>Masz już konto? </span>
