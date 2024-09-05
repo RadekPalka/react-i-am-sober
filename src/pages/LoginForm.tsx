@@ -19,13 +19,14 @@ export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [isRemembered, setIsRemembered] = useState(false);
-
+	const [isLoggingIn, setIsLoggingIn] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		getToken() && navigate('/dashboard');
 	}, []);
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
+		console.log('Logowanie');
 		e.preventDefault();
 		const minLoginLength = 4;
 
@@ -34,7 +35,7 @@ export const LoginForm: React.FC = () => {
 		} else if (!validateInput(password, PASSWORD_REGEX)) {
 			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
 		}
-
+		setIsLoggingIn((prevState) => !prevState);
 		loginAction(login, password, navigate, isRemembered);
 	};
 	return (
@@ -44,6 +45,7 @@ export const LoginForm: React.FC = () => {
 			</HeadingContainer>
 			<StyledForm onSubmit={handleForm}>
 				<AuthInput
+					disabled={isLoggingIn}
 					value={login}
 					labelText='Login'
 					onChange={(value) => setLogin(value)}
@@ -51,6 +53,7 @@ export const LoginForm: React.FC = () => {
 					id='login'
 				/>
 				<AuthInput
+					disabled={isLoggingIn}
 					value={password}
 					labelText='Hasło'
 					onChange={(value) => setPassword(value)}
@@ -59,12 +62,15 @@ export const LoginForm: React.FC = () => {
 				/>
 				<label htmlFor='is-remembered'>Zapamiętaj mnie</label>
 				<input
+					disabled={isLoggingIn}
 					type='checkbox'
 					id='is-remembered'
 					checked={isRemembered}
 					onChange={() => setIsRemembered((value) => !value)}
 				/>
-				<StyledButton type='submit'>Zaloguj się</StyledButton>
+				<StyledButton type='submit' disabled={isLoggingIn}>
+					Zaloguj się
+				</StyledButton>
 			</StyledForm>
 			<StyledAuthMessage>
 				<span>Nie masz konta? </span>

@@ -8,6 +8,7 @@ export const AuthInput: React.FC<AuthInputProps> = ({
 	value,
 	type,
 	id,
+	disabled,
 	onChange,
 }) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +18,13 @@ export const AuthInput: React.FC<AuthInputProps> = ({
 	return (
 		<StyledDiv>
 			<label htmlFor={id}>{labelText}</label>
-			<StyledInput value={value} onChange={handleChange} type={type} id={id} />
+			<StyledInput
+				value={value}
+				onChange={handleChange}
+				type={type}
+				id={id}
+				disabled={disabled}
+			/>
 		</StyledDiv>
 	);
 };

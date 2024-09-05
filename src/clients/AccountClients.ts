@@ -65,10 +65,15 @@ export const loginAction = (
 		})
 		.catch(function (error) {
 			console.log(error);
-			console.log('Kod błędu: ' + error.response.status);
-			error.response.status === 401
-				? toast.error('Zły login lub hasło')
-				: toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+			if (error.response) {
+				error.response.status === 401
+					? toast.error('Zły login lub hasło')
+					: toast.error(
+							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
+					  );
+			} else {
+				toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+			}
 		});
 };
 

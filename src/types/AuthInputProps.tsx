@@ -3,5 +3,6 @@ export type AuthInputProps = {
 	value: string;
 	type: string;
 	id: string;
+	disabled: boolean;
 	onChange: (value: string) => void;
 };
