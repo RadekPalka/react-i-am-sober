@@ -2,6 +2,7 @@ import api from '../api/api';
 import { toast } from 'react-toastify';
 import { NavigateFunction } from 'react-router-dom';
 import { UserData } from '../types/UserData';
+import { removeToken } from './SessionTokenService';
 export const createAccount = (
 	username: string,
 	password: string,
@@ -156,7 +157,7 @@ export const logout = (navigate: NavigateFunction) => {
 			},
 		})
 		.then((res) => {
-			localStorage.removeItem('sessionToken');
+			removeToken();
 			console.log(res);
 			toast.success('Zostałeś wylogowany(a) pomyślnie');
 			navigate('/login-page');
