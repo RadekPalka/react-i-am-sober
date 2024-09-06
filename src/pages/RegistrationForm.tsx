@@ -49,7 +49,7 @@ export const RegistrationForm: React.FC = () => {
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		setIsSubmitting((prevState) => !prevState);
+		setIsSubmitting((prevState) => (prevState = true));
 		createAccount(login, password)
 			.then(function (response) {
 				console.log(response);
@@ -64,8 +64,10 @@ export const RegistrationForm: React.FC = () => {
 						: toast.error(
 								'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
 						  );
+					setIsSubmitting((prevState) => (prevState = false));
 				} else {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+					setIsSubmitting((prevState) => (prevState = false));
 				}
 			});
 	};
