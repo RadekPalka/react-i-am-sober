@@ -33,8 +33,7 @@ export const RegistrationForm: React.FC = () => {
 	const passwordLabelText = 'Podaj swoje hasło';
 	const confirmPasswordLabelText = 'Potwierdź hasło';
 
-	const handleForm = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const validateInputs = () => {
 		const minLoginLength = 4;
 
 		if (!validateInputLength(login, minLoginLength)) {
@@ -46,8 +45,29 @@ export const RegistrationForm: React.FC = () => {
 				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
 			);
 		}
+	};
+	const handleForm = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
 		setIsSubmitting((prevState) => !prevState);
-		createAccount(login, password, navigate);
+		createAccount(login, password)
+			.then(function (response) {
+				console.log(response);
+				toast.success('Rejestracja zakończona sukcesem');
+				navigate('/login-page');
+			})
+			.catch(function (error) {
+				console.log(error);
+				if (error.response) {
+					error.response.status === 400
+						? toast.error('Podany login jest już zajęty')
+						: toast.error(
+								'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
+						  );
+				} else {
+					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+				}
+			});
 	};
 	return (
 		<>

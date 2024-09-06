@@ -3,41 +3,23 @@ import { toast } from 'react-toastify';
 import { NavigateFunction } from 'react-router-dom';
 import { UserData } from '../types/UserData';
 import { getToken, removeToken, saveToken } from './SessionTokenService';
+
 export const createAccount = (
 	username: string,
-	password: string,
-	navigate: NavigateFunction
-) => {
-	api
-		.post(
-			'/account',
-			{
-				username,
-				password,
+	password: string
+): Promise<string> => {
+	return api.post(
+		'/account',
+		{
+			username,
+			password,
+		},
+		{
+			headers: {
+				'Content-Type': 'application/json',
 			},
-			{
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			}
-		)
-		.then(function (response) {
-			console.log(response);
-			toast.success('Rejestracja zakończona sukcesem');
-			navigate('/login-page');
-		})
-		.catch(function (error) {
-			console.log(error);
-			if (error.response) {
-				error.response.status === 400
-					? toast.error('Podany login jest już zajęty')
-					: toast.error(
-							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
-					  );
-			} else {
-				toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
-			}
-		});
+		}
+	);
 };
 
 export const loginAction = (
