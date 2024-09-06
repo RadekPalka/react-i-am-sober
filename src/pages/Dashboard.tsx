@@ -7,10 +7,11 @@ import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { updateUserData } from '../clients/AccountClients';
+import { logout, updateUserData } from '../clients/AccountClients';
 import { AddictionCard } from '../components/AddictionCard';
-import { logout } from '../clients/AccountClients';
 import { StyledButton } from '../components/StyledButton';
+import { getToken, removeToken } from '../clients/SessionTokenService';
+import { toast } from 'react-toastify';
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
@@ -19,6 +20,20 @@ export const Dashboard: React.FC = () => {
 	useEffect(() => {
 		!userData.id && updateUserData(navigate, setUserData);
 	}, []);
+
+	const handleLogoutButton = () => {
+		logout(getToken())
+			.then((res) => {
+				removeToken();
+				console.log(res);
+				toast.success('Zostałeś wylogowany(a) pomyślnie');
+				navigate('/login-page');
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error('Błąd połączenia. Spróbuj ponownie później');
+			});
+	};
 	if (!userData.id) {
 		return <h1>Loading</h1>;
 	}
@@ -27,7 +42,7 @@ export const Dashboard: React.FC = () => {
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-						<StyledButton onClick={() => logout(navigate)}>
+						<StyledButton onClick={handleLogoutButton}>
 							Wyloguj się
 						</StyledButton>
 					</StyledLi>
