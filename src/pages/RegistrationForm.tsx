@@ -52,7 +52,7 @@ export const RegistrationForm: React.FC = () => {
 	};
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!validateInputs) return;
+		if (!validateInputs()) return;
 		setIsSubmitting((prevState) => (prevState = true));
 		createAccount(login, password)
 			.then(function (response) {

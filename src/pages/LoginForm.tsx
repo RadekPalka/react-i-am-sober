@@ -42,7 +42,7 @@ export const LoginForm: React.FC = () => {
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		console.log('Logowanie');
 		e.preventDefault();
-		if (!validateInputs) return;
+		if (!validateInputs()) return;
 		setIsLoggingIn((prevState) => !prevState);
 		loginAction(login, password)
 			.then(function (response) {
