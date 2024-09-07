@@ -7,7 +7,7 @@ import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { logout, updateUserData } from '../clients/AccountClients';
+import { fetchUserData, logout } from '../clients/AccountClients';
 import { AddictionCard } from '../components/AddictionCard';
 import { StyledButton } from '../components/StyledButton';
 import { getToken, removeToken } from '../clients/SessionTokenService';
@@ -17,8 +17,21 @@ export const Dashboard: React.FC = () => {
 	const navigate = useNavigate();
 	console.log(userData);
 
+	const updateUserData = () => {
+		const token = getToken();
+		fetchUserData(token)
+			.then((response) => {
+				setUserData(response.data);
+				navigate('/dashboard');
+			})
+			.catch((error) => {
+				console.error('Error fetching data:', error);
+				toast.error('Błąd autoryzacji');
+			});
+	};
+
 	useEffect(() => {
-		!userData.id && updateUserData(navigate, setUserData);
+		!userData.id && updateUserData();
 	}, []);
 
 	const handleLogoutButton = () => {
