@@ -39,7 +39,10 @@ export const Form: React.FC = () => {
 				/>
 			</StyledDiv>
 			<StyledDiv>
-				<DailyCostInput />
+				<DailyCostInput
+					setUserAddiction={setUserAddiction}
+					userAddiction={userAddiction}
+				/>
 			</StyledDiv>
 			<StyledButton type='submit'>Dalej</StyledButton>
 		</StyledForm>

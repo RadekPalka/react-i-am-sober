@@ -1,12 +1,14 @@
 import { ChangeEvent } from 'react';
 import { StyledInput } from './StyledInput';
-import { useUserContext } from '../context/UserContext';
-import { UserData } from '../types/UserData';
 import React from 'react';
-export const DailyCostInput: React.FC = () => {
-	const { userData, setUserData } = useUserContext();
+import { AddictionInputsProps } from '../types/AddictionInputsProps';
+import { AddictionData } from '../types/AddictionData';
+export const DailyCostInput: React.FC<AddictionInputsProps> = ({
+	setUserAddiction,
+	userAddiction,
+}) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setUserData((prevState: UserData) => ({
+		setUserAddiction((prevState: AddictionData) => ({
 			...prevState,
 			addictionDailyCost: Number(e.target.value),
 		}));
@@ -20,7 +22,7 @@ export const DailyCostInput: React.FC = () => {
 				type='number'
 				id='daily-cost'
 				min='0'
-				value={userData.addictionDailyCost || ''}
+				value={userAddiction.addictionDailyCost || ''}
 				onChange={handleChange}
 				required
 			/>
