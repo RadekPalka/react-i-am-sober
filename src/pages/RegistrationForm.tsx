@@ -37,18 +37,22 @@ export const RegistrationForm: React.FC = () => {
 		const minLoginLength = 4;
 
 		if (!validateInputLength(login, minLoginLength)) {
-			return toast.error('Login musi mieć co najmniej 4 znaki');
+			toast.error('Login musi mieć co najmniej 4 znaki');
+			return false;
 		} else if (!validateInput(password, PASSWORD_REGEX)) {
-			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
+			toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
+			return false;
 		} else if (!compareStrings(password, confirmPassword)) {
-			return toast.error(
+			toast.error(
 				'Hasła nie są zgodne. Proszę upewnić się, że oba hasła są identyczne.'
 			);
+			return false;
 		}
+		return true;
 	};
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
+		if (!validateInputs) return;
 		setIsSubmitting((prevState) => (prevState = true));
 		createAccount(login, password)
 			.then(function (response) {
