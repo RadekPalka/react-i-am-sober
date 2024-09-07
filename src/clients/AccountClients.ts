@@ -22,44 +22,19 @@ export const createAccount = (
 	);
 };
 
-export const loginAction = (
-	username: string,
-	password: string,
-	navigate: NavigateFunction,
-	isRemembered: boolean
-) => {
-	console.log(isRemembered);
-	api
-		.post(
-			'/account/login',
-			{
-				username,
-				password,
+export const loginAction = (username: string, password: string) => {
+	return api.post(
+		'/account/login',
+		{
+			username,
+			password,
+		},
+		{
+			headers: {
+				'Content-Type': 'application/json',
 			},
-			{
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			}
-		)
-		.then(function (response) {
-			console.log(response);
-			saveToken(isRemembered, response.data.sessionToken);
-
-			navigate('/dashboard');
-		})
-		.catch(function (error) {
-			console.log(error);
-			if (error.response) {
-				error.response.status === 401
-					? toast.error('Zły login lub hasło')
-					: toast.error(
-							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
-					  );
-			} else {
-				toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
-			}
-		});
+		}
+	);
 };
 
 export const updateUserData = (

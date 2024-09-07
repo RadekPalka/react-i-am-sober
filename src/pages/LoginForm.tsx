@@ -13,7 +13,7 @@ import { validateInput, validateInputLength } from '../utils/validation';
 import { useNavigate } from 'react-router-dom';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { loginAction } from '../clients/AccountClients';
-import { getToken } from '../clients/SessionTokenService';
+import { getToken, saveToken } from '../clients/SessionTokenService';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -44,7 +44,25 @@ export const LoginForm: React.FC = () => {
 		e.preventDefault();
 		if (!validateInputs) return;
 		setIsLoggingIn((prevState) => !prevState);
-		loginAction(login, password, navigate, isRemembered);
+		loginAction(login, password)
+			.then(function (response) {
+				console.log(response);
+				saveToken(isRemembered, response.data.sessionToken);
+
+				navigate('/dashboard');
+			})
+			.catch(function (error) {
+				console.log(error);
+				if (error.response) {
+					error.response.status === 401
+						? toast.error('Zły login lub hasło')
+						: toast.error(
+								'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
+						  );
+				} else {
+					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+				}
+			});
 	};
 	return (
 		<StyledSection>
