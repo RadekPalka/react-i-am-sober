@@ -25,16 +25,24 @@ export const LoginForm: React.FC = () => {
 	useEffect(() => {
 		getToken() && navigate('/dashboard');
 	}, []);
-	const handleForm = (e: FormEvent<HTMLFormElement>) => {
-		console.log('Logowanie');
-		e.preventDefault();
+
+	const validateInputs = () => {
 		const minLoginLength = 4;
 
 		if (!validateInputLength(login, minLoginLength)) {
-			return toast.error('Login musi mieć co najmniej 4 znaki');
+			toast.error('Login musi mieć co najmniej 4 znaki');
+			return false;
 		} else if (!validateInput(password, PASSWORD_REGEX)) {
-			return toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
+			toast.error('Hasło musi zawierać znak specjalny, literą i cyfrę');
+			return false;
 		}
+		return true;
+	};
+
+	const handleForm = (e: FormEvent<HTMLFormElement>) => {
+		console.log('Logowanie');
+		e.preventDefault();
+		if (!validateInputs) return;
 		setIsLoggingIn((prevState) => !prevState);
 		loginAction(login, password, navigate, isRemembered);
 	};
