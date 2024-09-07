@@ -6,6 +6,7 @@ import { AddictionInputsProps } from '../types/AddictionInputsProps';
 
 export const AddictionInput: React.FC<AddictionInputsProps> = ({
 	setUserAddiction,
+	userAddiction,
 }) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserAddiction((prevState) => ({
@@ -19,7 +20,7 @@ export const AddictionInput: React.FC<AddictionInputsProps> = ({
 			<StyledInput
 				id='addiction-choice'
 				list='Addiction-type'
-				value={userData.addictionType}
+				value={userAddiction.addictionType}
 				onChange={handleChange}
 				required
 			/>

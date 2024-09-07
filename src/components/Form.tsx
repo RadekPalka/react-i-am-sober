@@ -27,7 +27,10 @@ export const Form: React.FC = () => {
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<StyledDiv>
-				<AddictionInput setUserAddiction={setUserAddiction} />
+				<AddictionInput
+					setUserAddiction={setUserAddiction}
+					userAddiction={userAddiction}
+				/>
 			</StyledDiv>
 			<StyledDiv>
 				<DateInput />
