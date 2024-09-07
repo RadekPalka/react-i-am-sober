@@ -1,12 +1,14 @@
 import { ChangeEvent } from 'react';
 import { StyledInput } from './StyledInput';
-import { useUserContext } from '../context/UserContext';
-import { UserData } from '../types/UserData';
+
 import React from 'react';
-export const AddictionInput: React.FC = () => {
-	const { userData, setUserData } = useUserContext();
+import { AddictionInputsProps } from '../types/AddictionInputsProps';
+
+export const AddictionInput: React.FC<AddictionInputsProps> = ({
+	setUserAddiction,
+}) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setUserData((prevState: UserData) => ({
+		setUserAddiction((prevState) => ({
 			...prevState,
 			addictionType: e.target.value,
 		}));
