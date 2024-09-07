@@ -1,14 +1,17 @@
 import { ChangeEvent } from 'react';
 import { StyledInput } from './StyledInput';
-import { useUserContext } from '../context/UserContext';
-import { UserData } from '../types/UserData';
+
 import React from 'react';
-export const DateInput: React.FC = () => {
-	const { userData, setUserData } = useUserContext();
+import { AddictionInputsProps } from '../types/AddictionInputsProps';
+import { AddictionData } from '../types/AddictionData';
+export const DateInput: React.FC<AddictionInputsProps> = ({
+	setUserAddiction,
+	userAddiction,
+}) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setUserData((prevState: UserData) => ({
+		setUserAddiction((prevState: AddictionData) => ({
 			...prevState,
-			addictionFreeDate: e.target.value,
+			detoxStartDate: e.target.value,
 		}));
 	};
 	return (
@@ -19,8 +22,8 @@ export const DateInput: React.FC = () => {
 			<StyledInput
 				type='datetime-local'
 				id='addiction-free-date'
-				value={userData.addictionFreeDate}
-				max={userData.addictionFreeDate}
+				value={userAddiction.detoxStartDate}
+				max={userAddiction.detoxStartDate}
 				onChange={handleChange}
 				required
 			/>
