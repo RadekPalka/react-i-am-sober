@@ -7,19 +7,33 @@ import { useNavigate } from 'react-router-dom';
 import { StyledSection } from '../components/StyledSection';
 import { StyledH1 } from '../components/StyledH1';
 import { HeadingContainer } from '../components/HeadingContainer';
-import { logout, updateUserData } from '../clients/AccountClients';
+import { fetchUserData, logout } from '../clients/AccountClients';
 import { StyledNav } from '../components/StyledNav';
 import { StyledLi } from '../components/StyledLi';
 import { StyledButton } from '../components/StyledButton';
 import { StyledUl } from '../components/StyledUl';
+import { getToken } from '../clients/SessionTokenService';
+import { toast } from 'react-toastify';
 export const AddictionInfoForm: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
+	const updateUserData = () => {
+		const token = getToken();
+		fetchUserData(token)
+			.then((response) => {
+				setUserData(response.data);
+				navigate('/dashboard');
+			})
+			.catch((error) => {
+				console.error('Error fetching data:', error);
+				toast.error('Błąd autoryzacji');
+			});
+	};
 	const handleLogout = () => {
-		logout(navigate);
+		logout(getToken());
 	};
 	useEffect(() => {
-		!userData.id && updateUserData(navigate, setUserData);
+		!userData.id && updateUserData();
 	}, []);
 	if (!userData.id) {
 		return <h1>Loading</h1>;
