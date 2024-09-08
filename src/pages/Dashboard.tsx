@@ -17,8 +17,13 @@ import { StyledButton } from '../components/StyledButton';
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { UserAddictions } from '../types/UserAddictions';
+type UserData = {
+	id: number;
+	username: string;
+};
 export const Dashboard: React.FC = () => {
-	const { userData, setUserData } = useUserContext();
+	//const { userData, setUserData } = useUserContext();
+	const [userData, setUserData] = useState<UserData>({ id: 0, username: '' });
 	const navigate = useNavigate();
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	console.log(userData);
@@ -39,6 +44,7 @@ export const Dashboard: React.FC = () => {
 			getPaginatedAddictions(token)
 				.then((response) => {
 					setUserAddictions(response.data);
+					console.log(response.data);
 				})
 				.catch((error) => {
 					console.log(error);
@@ -46,7 +52,7 @@ export const Dashboard: React.FC = () => {
 	};
 
 	useEffect(() => {
-		!userData.id && updateUserData();
+		updateUserData();
 	}, []);
 
 	const handleLogoutButton = () => {
@@ -79,19 +85,22 @@ export const Dashboard: React.FC = () => {
 				</StyledUl>
 			</StyledNav>
 			<HeadingContainer>
-				{userData.login && <StyledH1>Witaj {userData.login}</StyledH1>}
+				{userData.id && <StyledH1>Witaj {userData.username}</StyledH1>}
 				{userAddictions.length ? (
-					<ul>
-						{userAddictions.map((addiction) => (
-							<li key={addiction.id}>
-								<AddictionCard
-									name={addiction.name}
-									costPerDay={addiction.costPerDay}
-									deadline={addiction.deadline}
-								/>
-							</li>
-						))}
-					</ul>
+					<div>
+						<ul>
+							{userAddictions.map((addiction) => (
+								<li key={addiction.id}>
+									<AddictionCard
+										name={addiction.name}
+										costPerDay={addiction.costPerDay}
+										deadline={addiction.deadline}
+									/>
+								</li>
+							))}
+						</ul>
+						<StyledButton>Wczytaj kolejne</StyledButton>
+					</div>
 				) : (
 					<StyledH1>
 						Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do
