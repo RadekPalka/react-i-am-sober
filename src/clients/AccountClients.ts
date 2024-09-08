@@ -1,7 +1,5 @@
 import api from '../api/api';
-import { toast } from 'react-toastify';
-import { NavigateFunction } from 'react-router-dom';
-import { UserData } from '../types/UserData';
+import { AddictionData } from '../types/AddictionData';
 
 export const createAccount = (
 	username: string,
@@ -45,45 +43,22 @@ export const fetchUserData = (token: string | null) => {
 };
 
 export const createAddiction = (
-	{ addictionType, addictionDailyCost, addictionFreeDate }: UserData,
-	navigate: NavigateFunction
+	{ addictionType, addictionDailyCost }: AddictionData,
+	token: string | null
 ) => {
-	const token = localStorage.getItem('sessionToken');
-	api
-		.post(
-			'/addiction',
-			{
-				name: addictionType,
-				costPerDay: addictionDailyCost,
-				deadline: addictionFreeDate,
+	return api.post(
+		'/addiction',
+		{
+			name: addictionType,
+			costPerDay: addictionDailyCost,
+		},
+		{
+			headers: {
+				Authorization: token,
+				'Content-Type': 'application/json',
 			},
-			{
-				headers: {
-					Authorization: token,
-					'Content-Type': 'application/json',
-				},
-			}
-		)
-		.then((res) => {
-			console.log(res);
-			toast.success('Uzależnienie dodano pomyślnie');
-			navigate('/dashboard');
-		})
-		.catch((error) => {
-			console.log(error);
-			if (error.response.status === 400) {
-				toast.error(
-					'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
-				);
-			} else if (error.response.status === 401) {
-				toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
-				navigate('/login-page');
-			} else {
-				toast.error(
-					'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
-				);
-			}
-		});
+		}
+	);
 };
 
 export const logout = (token: string | null): Promise<string> => {

@@ -7,12 +7,13 @@ import { StyledDiv } from './StyledDiv';
 import { StyledForm } from './StyledForm';
 import { StyledButton } from './StyledButton';
 import { createAddiction } from '../clients/AccountClients';
-import { useUserContext } from '../context/UserContext';
+import { getToken } from '../clients/SessionTokenService';
 import { AddictionData } from '../types/AddictionData';
+import { toast } from 'react-toastify';
 
 export const Form: React.FC = () => {
 	const navigate = useNavigate();
-	const { userData } = useUserContext();
+
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: '',
 		addictionDailyCost: 0,
@@ -30,8 +31,28 @@ export const Form: React.FC = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(userData);
-		createAddiction(userData, navigate);
+		const token = getToken();
+		createAddiction(userAddiction, token)
+			.then((res) => {
+				console.log(res);
+				toast.success('Uzależnienie dodano pomyślnie');
+				navigate('/dashboard');
+			})
+			.catch((error) => {
+				console.log(error);
+				if (error.response.status === 400) {
+					toast.error(
+						'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
+					);
+				} else if (error.response.status === 401) {
+					toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
+					navigate('/login-page');
+				} else {
+					toast.error(
+						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
+					);
+				}
+			});
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>
