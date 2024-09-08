@@ -30,6 +30,8 @@ export const Dashboard: React.FC = () => {
 	const [pageNumber, setPageNumber] = useState(0);
 	const [token, setToken] = useState<string | null>('');
 	const [isDataLoaded, setIsDataLoaded] = useState(false);
+	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
+		useState(true);
 	console.log(userData);
 	const pageSize = 10;
 	const updateUserAddictions = () => {
@@ -37,7 +39,10 @@ export const Dashboard: React.FC = () => {
 			getPaginatedAddictions(token, pageNumber)
 				.then((response) => {
 					setUserAddictions([...userAddictions, ...response.data]);
-
+					console.log(response.data.length);
+					if (response.data.length < pageSize || !response.data.length) {
+						setIsPaginationButtonEnabled((prevState) => (prevState = false));
+					}
 					console.log(userAddictions);
 				})
 				.catch((error) => {
@@ -48,6 +53,7 @@ export const Dashboard: React.FC = () => {
 		token &&
 			fetchUserData(token)
 				.then((response) => {
+					setPageNumber((prevState) => prevState + 1);
 					setUserData({
 						id: response.data.id,
 						username: response.data.username,
@@ -65,7 +71,7 @@ export const Dashboard: React.FC = () => {
 	useEffect(() => {
 		setToken(getToken());
 		updateUserData();
-	}, [token, isDataLoaded]);
+	}, [token]);
 
 	const handleLogoutButton = () => {
 		const token = getToken();
@@ -111,15 +117,16 @@ export const Dashboard: React.FC = () => {
 								</li>
 							))}
 						</ul>
-						<StyledButton
-							onClick={() => {
-								setPageNumber((prevState) => prevState + 1);
-								console.log(pageNumber);
-								updateUserAddictions();
-							}}
-						>
-							Wczytaj kolejne
-						</StyledButton>
+						{isPaginationButtonEnabled && (
+							<StyledButton
+								onClick={() => {
+									console.log(pageNumber);
+									updateUserAddictions();
+								}}
+							>
+								Wczytaj kolejne
+							</StyledButton>
+						)}
 					</div>
 				) : (
 					<StyledH1>
