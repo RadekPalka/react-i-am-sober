@@ -70,11 +70,14 @@ export const logout = (token: string): Promise<string> => {
 	});
 };
 
-export const getPaginatedAddictions = (token: string) => {
+export const getPaginatedAddictions = (token: string, pageNumber: number) => {
 	return api.get('/addiction', {
 		headers: {
 			Authorization: token,
 			'Content-Type': 'application/json',
+		},
+		params: {
+			page: pageNumber,
 		},
 	});
 };

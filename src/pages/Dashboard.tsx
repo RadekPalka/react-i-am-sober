@@ -26,34 +26,43 @@ export const Dashboard: React.FC = () => {
 	const [userData, setUserData] = useState<UserData>({ id: 0, username: '' });
 	const navigate = useNavigate();
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
+	const [pageNumber, setPageNumber] = useState(0);
+	const [token, setToken] = useState<string | null>('');
 	console.log(userData);
+	const pageSize = 10;
+	const updateUserAddictions = () => {
+		token &&
+			getPaginatedAddictions(token, pageNumber)
+				.then((response) => {
+					setUserAddictions([...userAddictions, ...response.data]);
 
+					console.log(userAddictions);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+	};
 	const updateUserData = () => {
-		const token = getToken();
 		token &&
 			fetchUserData(token)
 				.then((response) => {
-					setUserData(response.data);
+					setUserData({
+						id: `${pageNumber}${response.data.id}`,
+						username: response.data.username,
+					});
 					console.log(response.data);
 				})
 				.catch((error) => {
 					console.error('Error fetching data:', error);
 					toast.error('Błąd autoryzacji');
 				});
-		token &&
-			getPaginatedAddictions(token)
-				.then((response) => {
-					setUserAddictions(response.data);
-					console.log(response.data);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+		token && updateUserAddictions();
 	};
 
 	useEffect(() => {
+		setToken(getToken());
 		updateUserData();
-	}, []);
+	}, [token]);
 
 	const handleLogoutButton = () => {
 		const token = getToken();
@@ -85,21 +94,32 @@ export const Dashboard: React.FC = () => {
 				</StyledUl>
 			</StyledNav>
 			<HeadingContainer>
-				{userData.id && <StyledH1>Witaj {userData.username}</StyledH1>}
+				{userData.id ?? <StyledH1>Witaj {userData.username}</StyledH1>}
 				{userAddictions.length ? (
 					<div>
 						<ul>
 							{userAddictions.map((addiction) => (
-								<li key={addiction.id}>
+								<li
+									key={`${addiction.id}${addiction.name}${addiction.costPerDay}`}
+								>
 									<AddictionCard
 										name={addiction.name}
 										costPerDay={addiction.costPerDay}
 										deadline={addiction.deadline}
 									/>
+									<p>{`${pageNumber} ${addiction.id}`}</p>
 								</li>
 							))}
 						</ul>
-						<StyledButton>Wczytaj kolejne</StyledButton>
+						<StyledButton
+							onClick={() => {
+								setPageNumber((prevState) => prevState + 1);
+								console.log(pageNumber);
+								updateUserAddictions();
+							}}
+						>
+							Wczytaj kolejne
+						</StyledButton>
 					</div>
 				) : (
 					<StyledH1>
