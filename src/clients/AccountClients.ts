@@ -69,3 +69,12 @@ export const logout = (token: string | null): Promise<string> => {
 		},
 	});
 };
+
+export const getPaginatedAddictions = (token: string | null) => {
+	return api.get('/addiction', {
+		headers: {
+			Authorization: token,
+			'Content-Type': 'application/json',
+		},
+	});
+};

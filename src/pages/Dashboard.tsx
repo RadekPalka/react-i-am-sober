@@ -7,7 +7,11 @@ import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { fetchUserData, logout } from '../clients/AccountClients';
+import {
+	fetchUserData,
+	getPaginatedAddictions,
+	logout,
+} from '../clients/AccountClients';
 import { AddictionCard } from '../components/AddictionCard';
 import { StyledButton } from '../components/StyledButton';
 import { getToken, removeToken } from '../clients/SessionTokenService';
@@ -22,11 +26,18 @@ export const Dashboard: React.FC = () => {
 		fetchUserData(token)
 			.then((response) => {
 				setUserData(response.data);
-				navigate('/dashboard');
+				console.log(response.data);
 			})
 			.catch((error) => {
 				console.error('Error fetching data:', error);
 				toast.error('Błąd autoryzacji');
+			});
+		getPaginatedAddictions(token)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
 			});
 	};
 
