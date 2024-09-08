@@ -34,7 +34,7 @@ export const loginAction = (username: string, password: string) => {
 	);
 };
 
-export const fetchUserData = (token: string | null) => {
+export const fetchUserData = (token: string) => {
 	return api.get('/account/me', {
 		headers: {
 			Authorization: token,
@@ -44,7 +44,7 @@ export const fetchUserData = (token: string | null) => {
 
 export const createAddiction = (
 	{ addictionType, addictionDailyCost }: AddictionData,
-	token: string | null
+	token: string
 ) => {
 	return api.post(
 		'/addiction',
@@ -61,7 +61,7 @@ export const createAddiction = (
 	);
 };
 
-export const logout = (token: string | null): Promise<string> => {
+export const logout = (token: string): Promise<string> => {
 	return api.post('/account/logout', {
 		headers: {
 			Authorization: token,
@@ -70,7 +70,7 @@ export const logout = (token: string | null): Promise<string> => {
 	});
 };
 
-export const getPaginatedAddictions = (token: string | null) => {
+export const getPaginatedAddictions = (token: string) => {
 	return api.get('/addiction', {
 		headers: {
 			Authorization: token,

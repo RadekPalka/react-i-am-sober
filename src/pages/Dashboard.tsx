@@ -23,22 +23,24 @@ export const Dashboard: React.FC = () => {
 
 	const updateUserData = () => {
 		const token = getToken();
-		fetchUserData(token)
-			.then((response) => {
-				setUserData(response.data);
-				console.log(response.data);
-			})
-			.catch((error) => {
-				console.error('Error fetching data:', error);
-				toast.error('Błąd autoryzacji');
-			});
-		getPaginatedAddictions(token)
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		token &&
+			fetchUserData(token)
+				.then((response) => {
+					setUserData(response.data);
+					console.log(response.data);
+				})
+				.catch((error) => {
+					console.error('Error fetching data:', error);
+					toast.error('Błąd autoryzacji');
+				});
+		token &&
+			getPaginatedAddictions(token)
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 	};
 
 	useEffect(() => {
@@ -46,17 +48,19 @@ export const Dashboard: React.FC = () => {
 	}, []);
 
 	const handleLogoutButton = () => {
-		logout(getToken())
-			.then((res) => {
-				removeToken();
-				console.log(res);
-				toast.success('Zostałeś wylogowany(a) pomyślnie');
-				navigate('/login-page');
-			})
-			.catch((error) => {
-				console.log(error);
-				toast.error('Błąd połączenia. Spróbuj ponownie później');
-			});
+		const token = getToken();
+		token &&
+			logout(token)
+				.then((res) => {
+					removeToken();
+					console.log(res);
+					toast.success('Zostałeś wylogowany(a) pomyślnie');
+					navigate('/login-page');
+				})
+				.catch((error) => {
+					console.log(error);
+					toast.error('Błąd połączenia. Spróbuj ponownie później');
+				});
 	};
 	if (!userData.id) {
 		return <h1>Loading</h1>;

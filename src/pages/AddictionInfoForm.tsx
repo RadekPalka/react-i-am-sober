@@ -19,18 +19,20 @@ export const AddictionInfoForm: React.FC = () => {
 	const navigate = useNavigate();
 	const updateUserData = () => {
 		const token = getToken();
-		fetchUserData(token)
-			.then((response) => {
-				setUserData(response.data);
-				navigate('/dashboard');
-			})
-			.catch((error) => {
-				console.error('Error fetching data:', error);
-				toast.error('Błąd autoryzacji');
-			});
+		token &&
+			fetchUserData(token)
+				.then((response) => {
+					setUserData(response.data);
+					navigate('/dashboard');
+				})
+				.catch((error) => {
+					console.error('Error fetching data:', error);
+					toast.error('Błąd autoryzacji');
+				});
 	};
 	const handleLogout = () => {
-		logout(getToken());
+		const token = getToken();
+		token && logout(token);
 	};
 	useEffect(() => {
 		!userData.id && updateUserData();
