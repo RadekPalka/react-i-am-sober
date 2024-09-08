@@ -1,6 +1,6 @@
 import { HeadingContainer } from '../components/HeadingContainer';
 import { StyledH1 } from '../components/StyledH1';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
@@ -16,9 +16,11 @@ import { AddictionCard } from '../components/AddictionCard';
 import { StyledButton } from '../components/StyledButton';
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
+import { UserAddictions } from '../types/UserAddictions';
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
+	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	console.log(userData);
 
 	const updateUserData = () => {
@@ -36,7 +38,7 @@ export const Dashboard: React.FC = () => {
 		token &&
 			getPaginatedAddictions(token)
 				.then((response) => {
-					console.log(response);
+					setUserAddictions(response.data);
 				})
 				.catch((error) => {
 					console.log(error);
@@ -78,8 +80,18 @@ export const Dashboard: React.FC = () => {
 			</StyledNav>
 			<HeadingContainer>
 				{userData.login && <StyledH1>Witaj {userData.login}</StyledH1>}
-				{userData.addictionType ? (
-					<AddictionCard />
+				{userAddictions.length ? (
+					<ul>
+						{userAddictions.map((addiction) => (
+							<li key={addiction.id}>
+								<AddictionCard
+									name={addiction.name}
+									costPerDay={addiction.costPerDay}
+									deadline={addiction.deadline}
+								/>
+							</li>
+						))}
+					</ul>
 				) : (
 					<StyledH1>
 						Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do

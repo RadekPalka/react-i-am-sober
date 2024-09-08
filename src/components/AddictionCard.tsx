@@ -1,13 +1,16 @@
 import React from 'react';
-import { useUserContext } from '../context/UserContext';
+import { AddictionCardProps } from '../types/AddictionCardProps';
 
-export const AddictionCard: React.FC = () => {
-	const { userData } = useUserContext();
+export const AddictionCard: React.FC<AddictionCardProps> = ({
+	name,
+	costPerDay,
+	deadline,
+}) => {
 	return (
 		<div>
-			<h2>{userData.addictionType}</h2>
-			<p>{userData.addictionDailyCost}</p>
-			<p>{userData.addictionFreeDate}</p>
+			<h2>{name}</h2>
+			<p>{costPerDay} PLN</p>
+			{deadline && <p>{deadline}</p>}
 		</div>
 	);
 };
