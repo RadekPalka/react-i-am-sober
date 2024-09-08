@@ -29,6 +29,7 @@ export const Dashboard: React.FC = () => {
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
 	const [token, setToken] = useState<string | null>('');
+	const [isDataLoaded, setIsDataLoaded] = useState(false);
 	console.log(userData);
 	const pageSize = 10;
 	const updateUserAddictions = () => {
@@ -48,9 +49,10 @@ export const Dashboard: React.FC = () => {
 			fetchUserData(token)
 				.then((response) => {
 					setUserData({
-						id: `${pageNumber}${response.data.id}`,
+						id: response.data.id,
 						username: response.data.username,
 					});
+					setIsDataLoaded(true);
 					console.log(response.data);
 				})
 				.catch((error) => {
@@ -63,7 +65,7 @@ export const Dashboard: React.FC = () => {
 	useEffect(() => {
 		setToken(getToken());
 		updateUserData();
-	}, [token]);
+	}, [token, isDataLoaded]);
 
 	const handleLogoutButton = () => {
 		const token = getToken();
@@ -80,7 +82,7 @@ export const Dashboard: React.FC = () => {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
 				});
 	};
-	if (!userData.id) {
+	if (!isDataLoaded) {
 		return <h1>Loading</h1>;
 	}
 	return (
@@ -95,7 +97,7 @@ export const Dashboard: React.FC = () => {
 				</StyledUl>
 			</StyledNav>
 			<HeadingContainer>
-				{userData.id ?? <StyledH1>Witaj {userData.username}</StyledH1>}
+				<StyledH1>Witaj {userData.username}</StyledH1>
 				{userAddictions.length ? (
 					<div>
 						<ul>
@@ -106,7 +108,6 @@ export const Dashboard: React.FC = () => {
 										costPerDay={addiction.costPerDay}
 										deadline={addiction.deadline}
 									/>
-									<p>{`${pageNumber} ${addiction.id}`}</p>
 								</li>
 							))}
 						</ul>
