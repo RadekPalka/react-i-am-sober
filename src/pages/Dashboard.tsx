@@ -40,7 +40,7 @@ export const Dashboard: React.FC = () => {
 				.then((response) => {
 					setUserAddictions([...userAddictions, ...response.data]);
 					console.log(response.data.length);
-					if (response.data.length < pageSize || !response.data.length) {
+					if (response.data.length < pageSize) {
 						setIsPaginationButtonEnabled((prevState) => (prevState = false));
 					}
 					console.log(userAddictions);
