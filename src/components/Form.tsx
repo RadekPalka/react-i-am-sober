@@ -31,29 +31,27 @@ export const Form: React.FC = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const token = getToken();
-		token &&
-			createAddiction(userAddiction, token)
-				.then((res) => {
-					console.log(res);
-					toast.success('Uzależnienie dodano pomyślnie');
-					navigate('/dashboard');
-				})
-				.catch((error) => {
-					console.log(error);
-					if (error.response.status === 400) {
-						toast.error(
-							'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
-						);
-					} else if (error.response.status === 401) {
-						toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
-						navigate('/login-page');
-					} else {
-						toast.error(
-							'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
-						);
-					}
-				});
+		createAddiction(userAddiction)
+			.then((res) => {
+				console.log(res);
+				toast.success('Uzależnienie dodano pomyślnie');
+				navigate('/dashboard');
+			})
+			.catch((error) => {
+				console.log(error);
+				if (error.response.status === 400) {
+					toast.error(
+						'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
+					);
+				} else if (error.response.status === 401) {
+					toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
+					navigate('/login-page');
+				} else {
+					toast.error(
+						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
+					);
+				}
+			});
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>

@@ -44,10 +44,11 @@ export const fetchUserData = () => {
 	});
 };
 
-export const createAddiction = (
-	{ addictionType, addictionDailyCost }: AddictionData,
-	token: string
-) => {
+export const createAddiction = ({
+	addictionType,
+	addictionDailyCost,
+}: AddictionData) => {
+	const token = getToken();
 	return api.post(
 		'/addiction',
 		{
