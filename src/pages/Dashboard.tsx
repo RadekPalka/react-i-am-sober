@@ -36,7 +36,7 @@ export const Dashboard: React.FC = () => {
 	const pageSize = 10;
 	const updateUserAddictions = () => {
 		token &&
-			getPaginatedAddictions(token, pageNumber)
+			getPaginatedAddictions(pageNumber)
 				.then((response) => {
 					setUserAddictions([...userAddictions, ...response.data]);
 					console.log(response.data.length);
@@ -51,7 +51,7 @@ export const Dashboard: React.FC = () => {
 	};
 	const updateUserData = () => {
 		token &&
-			fetchUserData(token)
+			fetchUserData()
 				.then((response) => {
 					setPageNumber((prevState) => prevState + 1);
 					setUserData({
@@ -76,7 +76,7 @@ export const Dashboard: React.FC = () => {
 	const handleLogoutButton = () => {
 		const token = getToken();
 		token &&
-			logout(token)
+			logout()
 				.then((res) => {
 					removeToken();
 					console.log(res);

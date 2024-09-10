@@ -1,5 +1,6 @@
 import api from '../api/api';
 import { AddictionData } from '../types/AddictionData';
+import { getToken } from './SessionTokenService';
 
 export const createAccount = (
 	username: string,
@@ -34,7 +35,8 @@ export const loginAction = (username: string, password: string) => {
 	);
 };
 
-export const fetchUserData = (token: string) => {
+export const fetchUserData = () => {
+	const token = getToken();
 	return api.get('/account/me', {
 		headers: {
 			Authorization: token,
@@ -61,7 +63,8 @@ export const createAddiction = (
 	);
 };
 
-export const logout = (token: string): Promise<string> => {
+export const logout = (): Promise<string> => {
+	const token = getToken();
 	return api.post('/account/logout', {
 		headers: {
 			Authorization: token,
@@ -70,7 +73,8 @@ export const logout = (token: string): Promise<string> => {
 	});
 };
 
-export const getPaginatedAddictions = (token: string, pageNumber: number) => {
+export const getPaginatedAddictions = (pageNumber: number) => {
+	const token = getToken();
 	return api.get('/addiction', {
 		headers: {
 			Authorization: token,
