@@ -60,17 +60,22 @@ export const Dashboard: React.FC = () => {
 					});
 					setIsDataLoaded(true);
 					console.log(response.data);
+					updateUserAddictions();
 				})
 				.catch((error) => {
 					console.error('Error fetching data:', error);
 					toast.error('Błąd autoryzacji');
 				});
-		token && updateUserAddictions();
 	};
 
 	useEffect(() => {
 		setToken(getToken());
-		updateUserData();
+		if (token) {
+			updateUserData();
+		} else {
+			toast.error('Autoryzacja się nie udała. Proszę się zalogować');
+			navigate('/login-page');
+		}
 	}, [token]);
 
 	const handleLogoutButton = () => {
