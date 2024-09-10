@@ -35,20 +35,19 @@ export const Dashboard: React.FC = () => {
 	console.log(userData);
 	const pageSize = 10;
 	const updateUserAddictions = () => {
-		token &&
-			getPaginatedAddictions(pageNumber)
-				.then((response) => {
-					setUserAddictions([...userAddictions, ...response.data]);
-					setIsDataLoaded(true);
-					console.log(response.data.length);
-					if (response.data.length < pageSize) {
-						setIsPaginationButtonEnabled((prevState) => (prevState = false));
-					}
-					console.log(userAddictions);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+		getPaginatedAddictions(pageNumber)
+			.then((response) => {
+				setUserAddictions([...userAddictions, ...response.data]);
+				setIsDataLoaded(true);
+				console.log(response.data.length);
+				if (response.data.length < pageSize) {
+					setIsPaginationButtonEnabled((prevState) => (prevState = false));
+				}
+				console.log(userAddictions);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 	const updateUserData = () => {
 		fetchUserData()
