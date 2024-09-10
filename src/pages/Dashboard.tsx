@@ -31,6 +31,7 @@ export const Dashboard: React.FC = () => {
 	const [isDataLoaded, setIsDataLoaded] = useState(false);
 	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
 		useState(true);
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	console.log(userData);
 	const pageSize = 10;
 	const updateUserAddictions = () => {
@@ -43,9 +44,11 @@ export const Dashboard: React.FC = () => {
 					setIsPaginationButtonEnabled((prevState) => (prevState = false));
 				}
 				console.log(userAddictions);
+				setIsButtonDisabled((prevState) => (prevState = false));
 			})
 			.catch((error) => {
 				console.log(error);
+				setIsButtonDisabled((prevState) => (prevState = false));
 			});
 	};
 	const updateUserData = () => {
@@ -121,8 +124,11 @@ export const Dashboard: React.FC = () => {
 						</ul>
 						{isPaginationButtonEnabled && (
 							<StyledButton
-								onClick={() => {
+								disabled={isButtonDisabled}
+								onClick={async () => {
+									setIsButtonDisabled(true);
 									console.log(pageNumber);
+									console.log(isButtonDisabled);
 									updateUserAddictions();
 								}}
 							>
