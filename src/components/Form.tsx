@@ -73,7 +73,7 @@ export const Form: React.FC = () => {
 					userAddiction={userAddiction}
 				/>
 			</StyledDiv>
-			<StyledButton type='submit'>Dalej</StyledButton>
+			<StyledButton type='submit'>Dodaj</StyledButton>
 			<StyledButton type='button' onClick={() => navigate('/dashboard')}>
 				Anuluj
 			</StyledButton>
