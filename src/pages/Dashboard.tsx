@@ -39,6 +39,7 @@ export const Dashboard: React.FC = () => {
 			getPaginatedAddictions(pageNumber)
 				.then((response) => {
 					setUserAddictions([...userAddictions, ...response.data]);
+					setIsDataLoaded(true);
 					console.log(response.data.length);
 					if (response.data.length < pageSize) {
 						setIsPaginationButtonEnabled((prevState) => (prevState = false));
@@ -57,7 +58,7 @@ export const Dashboard: React.FC = () => {
 					id: response.data.id,
 					username: response.data.username,
 				});
-				setIsDataLoaded(true);
+
 				console.log(response.data);
 				updateUserAddictions();
 			})
