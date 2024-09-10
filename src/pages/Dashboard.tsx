@@ -50,21 +50,22 @@ export const Dashboard: React.FC = () => {
 			});
 	};
 	const updateUserData = () => {
-		fetchUserData()
-			.then((response) => {
-				setPageNumber((prevState) => prevState + 1);
-				setUserData({
-					id: response.data.id,
-					username: response.data.username,
-				});
+		token &&
+			fetchUserData()
+				.then((response) => {
+					setPageNumber((prevState) => prevState + 1);
+					setUserData({
+						id: response.data.id,
+						username: response.data.username,
+					});
 
-				console.log(response.data);
-				updateUserAddictions();
-			})
-			.catch((error) => {
-				console.error('Error fetching data:', error);
-				toast.error('Błąd autoryzacji');
-			});
+					console.log(response.data);
+					updateUserAddictions();
+				})
+				.catch((error) => {
+					console.error('Error fetching data:', error);
+					toast.error('Błąd autoryzacji');
+				});
 	};
 
 	useEffect(() => {
@@ -110,7 +111,7 @@ export const Dashboard: React.FC = () => {
 					<div>
 						<ul>
 							{userAddictions.map((addiction) => (
-								<li key={uuidv4()}>
+								<li key={addiction.id}>
 									<AddictionCard
 										name={addiction.name}
 										costPerDay={addiction.costPerDay}
