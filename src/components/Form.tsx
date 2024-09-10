@@ -74,6 +74,9 @@ export const Form: React.FC = () => {
 				/>
 			</StyledDiv>
 			<StyledButton type='submit'>Dalej</StyledButton>
+			<StyledButton type='button' onClick={() => navigate('/dashboard')}>
+				Anuluj
+			</StyledButton>
 		</StyledForm>
 	);
 };
