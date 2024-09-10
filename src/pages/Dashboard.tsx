@@ -50,27 +50,26 @@ export const Dashboard: React.FC = () => {
 				});
 	};
 	const updateUserData = () => {
-		token &&
-			fetchUserData()
-				.then((response) => {
-					setPageNumber((prevState) => prevState + 1);
-					setUserData({
-						id: response.data.id,
-						username: response.data.username,
-					});
-					setIsDataLoaded(true);
-					console.log(response.data);
-					updateUserAddictions();
-				})
-				.catch((error) => {
-					console.error('Error fetching data:', error);
-					toast.error('Błąd autoryzacji');
+		fetchUserData()
+			.then((response) => {
+				setPageNumber((prevState) => prevState + 1);
+				setUserData({
+					id: response.data.id,
+					username: response.data.username,
 				});
+				setIsDataLoaded(true);
+				console.log(response.data);
+				updateUserAddictions();
+			})
+			.catch((error) => {
+				console.error('Error fetching data:', error);
+				toast.error('Błąd autoryzacji');
+			});
 	};
 
 	useEffect(() => {
-		setToken(getToken());
-		if (token) {
+		setToken((prevState) => (prevState = getToken()));
+		if (getToken()) {
 			updateUserData();
 		} else {
 			toast.error('Autoryzacja się nie udała. Proszę się zalogować');
