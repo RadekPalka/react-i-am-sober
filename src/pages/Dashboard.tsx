@@ -79,19 +79,17 @@ export const Dashboard: React.FC = () => {
 	}, [token]);
 
 	const handleLogoutButton = () => {
-		const token = getToken();
-		token &&
-			logout()
-				.then((res) => {
-					removeToken();
-					console.log(res);
-					toast.success('Zostałeś wylogowany(a) pomyślnie');
-					navigate('/login-page');
-				})
-				.catch((error) => {
-					console.log(error);
-					toast.error('Błąd połączenia. Spróbuj ponownie później');
-				});
+		logout()
+			.then((res) => {
+				removeToken();
+				console.log(res);
+				toast.success('Zostałeś wylogowany(a) pomyślnie');
+				navigate('/login-page');
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error('Błąd połączenia. Spróbuj ponownie później');
+			});
 	};
 	if (!isDataLoaded) {
 		return <h1>Loading</h1>;
