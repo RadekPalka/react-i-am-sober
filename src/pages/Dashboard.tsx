@@ -17,10 +17,7 @@ import { StyledButton } from '../components/StyledButton';
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { UserAddictions } from '../types/UserAddictions';
-type UserData = {
-	id: number;
-	username: string;
-};
+
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 
