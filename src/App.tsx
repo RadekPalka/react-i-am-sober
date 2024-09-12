@@ -5,6 +5,7 @@ import { AddictionInfoForm } from './pages/AddictionInfoForm';
 import { UserProvider } from './context/UserContext';
 
 import { Dashboard, MainPage, RegistrationForm, LoginForm } from './pages';
+import { AddictionDetails } from './pages/AddictionDetails';
 
 const AppWrapper = styled.div`
 	height: 100vh;
@@ -27,6 +28,10 @@ const App: React.FC = () => {
 					<Route path='/dashboard' element={<Dashboard />} />
 					<Route path='/registration-page' element={<RegistrationForm />} />
 					<Route path='/login-page' element={<LoginForm />} />
+					<Route
+						path='/addiction/:addictionId'
+						element={<AddictionDetails />}
+					/>
 				</Routes>
 			</UserProvider>
 		</AppWrapper>
