@@ -34,6 +34,7 @@ export const Dashboard: React.FC = () => {
 	const updateUserAddictions = () => {
 		getPaginatedAddictions(pageNumber)
 			.then((response) => {
+				console.log(response.data);
 				setUserAddictions([...userAddictions, ...response.data]);
 				setIsDataLoaded(true);
 				console.log(response.data.length);

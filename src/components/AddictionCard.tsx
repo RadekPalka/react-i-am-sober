@@ -11,6 +11,8 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<h2>{name}</h2>
 			<p>{costPerDay} PLN</p>
 			{deadline && <p>{deadline}</p>}
+			<button>Pokaż szczegóły</button>
+			<button>Usuń</button>
 		</div>
 	);
 };
