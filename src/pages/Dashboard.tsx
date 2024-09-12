@@ -22,8 +22,8 @@ type UserData = {
 	username: string;
 };
 export const Dashboard: React.FC = () => {
-	//const { userData, setUserData } = useUserContext();
-	const [userData, setUserData] = useState<UserData>({ id: 0, username: '' });
+	const { userData, setUserData } = useUserContext();
+
 	const navigate = useNavigate();
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
