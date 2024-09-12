@@ -116,6 +116,7 @@ export const Dashboard: React.FC = () => {
 										name={addiction.name}
 										costPerDay={addiction.costPerDay}
 										deadline={addiction.deadline}
+										id={addiction.id}
 									/>
 								</li>
 							))}

@@ -88,3 +88,13 @@ export const getPaginatedAddictions = (pageNumber: number) => {
 		},
 	});
 };
+
+export const getAddictionDetails = (id: number) => {
+	const token = getToken();
+	return api.get(`/addiction/${id}`, {
+		headers: {
+			Authorization: token,
+			'Content-Type': 'application/json',
+		},
+	});
+};

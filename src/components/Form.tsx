@@ -35,6 +35,7 @@ export const Form: React.FC = () => {
 			.then((res) => {
 				console.log(res);
 				toast.success('Uzależnienie dodano pomyślnie');
+				console.log(userAddiction);
 				navigate('/dashboard');
 			})
 			.catch((error) => {
