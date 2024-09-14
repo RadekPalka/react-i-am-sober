@@ -40,17 +40,17 @@ export const Form: React.FC = () => {
 			})
 			.catch((error) => {
 				console.log(error);
-				if (error.response.status === 400) {
+				if (!error.response || error.response.status === 500) {
+					toast.error(
+						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
+					);
+				} else if (error.response.status === 400) {
 					toast.error(
 						'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
 					);
 				} else if (error.response.status === 401) {
 					toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
 					navigate('/login-page');
-				} else {
-					toast.error(
-						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
-					);
 				}
 			});
 	};
