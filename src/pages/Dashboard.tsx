@@ -46,6 +46,7 @@ export const Dashboard: React.FC = () => {
 			})
 			.catch((error) => {
 				console.log(error);
+				toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				setIsButtonDisabled((prevState) => (prevState = false));
 			});
 	};
