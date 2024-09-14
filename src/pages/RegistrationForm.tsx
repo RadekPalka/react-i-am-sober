@@ -62,17 +62,12 @@ export const RegistrationForm: React.FC = () => {
 			})
 			.catch(function (error) {
 				console.log(error);
-				if (error.response) {
-					error.response.status === 400
-						? toast.error('Podany login jest już zajęty')
-						: toast.error(
-								'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
-						  );
-					setIsSubmitting((prevState) => (prevState = false));
-				} else {
+				if (!error.response || error.response.status === 500) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
-					setIsSubmitting((prevState) => (prevState = false));
+				} else {
+					toast.error('Podany login jest już zajęty');
 				}
+				setIsSubmitting((prevState) => (prevState = false));
 			});
 	};
 	return (
