@@ -53,7 +53,11 @@ export const LoginForm: React.FC = () => {
 			})
 			.catch(function (error) {
 				console.log(error);
-				if (!error.response || error.response.status !== 401) {
+				if (
+					!error.response ||
+					error.response.status !== 401 ||
+					error.response.status !== 400
+				) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else {
 					toast.error('Zły login lub hasło');
