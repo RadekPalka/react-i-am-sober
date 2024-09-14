@@ -27,15 +27,14 @@ export const AddictionDetails: React.FC = () => {
 
 	useEffect(() => {
 		console.log(addictionId);
-		if (addictionId) {
-			const id = +addictionId?.slice(1, addictionId.length);
 
-			getAddictionDetails(id)
-				.then((res) => {
-					setAddictionDetails(res.data);
-				})
-				.catch((error) => console.log(error));
-		}
+		const id = Number(addictionId?.slice(1, addictionId.length));
+
+		getAddictionDetails(id)
+			.then((res) => {
+				setAddictionDetails(res.data);
+			})
+			.catch((error) => console.log(error));
 	}, []);
 
 	return (
