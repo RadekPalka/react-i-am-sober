@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAddictionDetails } from '../clients/AccountClients';
-type AddictionDetailsProps = {
-	id: number;
-	name: string;
-	costPerDay: number;
-	createdAt: string;
-	deadline: string;
-	lastIncidents: { id: number; createdAt: string }[];
-	numberOfIncidents: number;
-	limitOfLastIncidents: number;
-};
+import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
+
 type status = 'loading' | 'success' | 'error';
 export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
