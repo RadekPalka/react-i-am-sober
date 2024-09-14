@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAddictionDetails } from '../clients/AccountClients';
 type AddictionDetailsProps = {
 	id: number;
@@ -11,8 +11,11 @@ type AddictionDetailsProps = {
 	numberOfIncidents: number;
 	limitOfLastIncidents: number;
 };
+type status = 'loading' | 'success' | 'error';
 export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
+	const [fetchStatus, setFetchStatus] = useState<status>('loading');
+	const navigate = useNavigate();
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
 			id: 0,
@@ -32,11 +35,27 @@ export const AddictionDetails: React.FC = () => {
 
 		getAddictionDetails(id)
 			.then((res) => {
+				setFetchStatus('success');
 				setAddictionDetails(res.data);
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				setFetchStatus('error');
+				console.log(error);
+			});
 	}, []);
 
+	if (fetchStatus === 'loading') {
+		return <h1>Loading</h1>;
+	} else if (fetchStatus === 'error') {
+		return (
+			<>
+				<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
+				<button onClick={() => navigate(`/addiction/${addictionId}`)}>
+					Odśwież stronę
+				</button>
+			</>
+		);
+	}
 	return (
 		<>
 			<h1>{addictionDetails.name}</h1>
