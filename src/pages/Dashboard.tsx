@@ -12,9 +12,9 @@ import {
 	getPaginatedAddictions,
 	logout,
 } from '../clients/AccountClients';
-import { AddictionCard } from '../components/AddictionCard';
+
 import { StyledButton } from '../components/StyledButton';
-import { getToken, removeToken } from '../clients/SessionTokenService';
+import { removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { UserAddictions } from '../types/UserAddictions';
 import { AddictionsList } from '../components/AddictionsList';
@@ -26,7 +26,7 @@ export const Dashboard: React.FC = () => {
 	const navigate = useNavigate();
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
-	const [token, setToken] = useState<string | null>('');
+
 	const [isDataLoaded, setIsDataLoaded] = useState(false);
 	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
 		useState(true);
@@ -35,12 +35,16 @@ export const Dashboard: React.FC = () => {
 	const pageSize = 10;
 
 	const updateUserAddictions = () => {
+		console.log(pageNumber);
 		getPaginatedAddictions(pageNumber)
 			.then((response) => {
 				console.log(response.data);
 				setUserAddictions([...userAddictions, ...response.data]);
 				setIsDataLoaded(true);
-				console.log(response.data.length);
+				setPageNumber((prevPageNumber) => prevPageNumber + 1);
+				console.log(response.data);
+				console.log(userAddictions);
+				setPageNumber(pageNumber + 1);
 				if (response.data.length < pageSize) {
 					setIsPaginationButtonEnabled((prevState) => (prevState = false));
 				}
@@ -54,33 +58,25 @@ export const Dashboard: React.FC = () => {
 			});
 	};
 	const updateUserData = () => {
-		token &&
-			fetchUserData()
-				.then((response) => {
-					setPageNumber((prevState) => prevState + 1);
-					setUserData({
-						id: response.data.id,
-						username: response.data.username,
-					});
-
-					console.log(response.data);
-					updateUserAddictions();
-				})
-				.catch((error) => {
-					console.error('Error fetching data:', error);
-					toast.error('Błąd autoryzacji');
+		fetchUserData()
+			.then((response) => {
+				setUserData({
+					id: response.data.id,
+					username: response.data.username,
 				});
+
+				console.log(response.data);
+				updateUserAddictions();
+			})
+			.catch((error) => {
+				console.error('Error fetching data:', error);
+				toast.error('Błąd autoryzacji');
+			});
 	};
 
 	useEffect(() => {
-		setToken((prevState) => (prevState = getToken()));
-		if (getToken()) {
-			updateUserData();
-		} else {
-			toast.error('Autoryzacja się nie udała. Proszę się zalogować');
-			navigate('/login-page');
-		}
-	}, [token]);
+		updateUserData();
+	}, []);
 
 	const handleLogoutButton = () => {
 		logout()
@@ -122,6 +118,7 @@ export const Dashboard: React.FC = () => {
 							disabled={isButtonDisabled}
 							onClick={async () => {
 								setIsButtonDisabled(true);
+
 								updateUserAddictions();
 							}}
 						>
