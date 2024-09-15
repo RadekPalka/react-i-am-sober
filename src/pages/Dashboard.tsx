@@ -41,7 +41,7 @@ export const Dashboard: React.FC = () => {
 				console.log(response.data);
 				setUserAddictions([...userAddictions, ...response.data]);
 				setIsDataLoaded(true);
-				setPageNumber((prevPageNumber) => prevPageNumber + 1);
+
 				console.log(response.data);
 				console.log(userAddictions);
 				setPageNumber(pageNumber + 1);
