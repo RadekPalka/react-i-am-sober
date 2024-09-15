@@ -17,6 +17,8 @@ import { StyledButton } from '../components/StyledButton';
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { UserAddictions } from '../types/UserAddictions';
+import { AddictionsList } from '../components/AddictionsList';
+import { NoAddictionsMessage } from '../components/NoAddictionsMessage';
 
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
@@ -31,6 +33,7 @@ export const Dashboard: React.FC = () => {
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	console.log(userData);
 	const pageSize = 10;
+
 	const updateUserAddictions = () => {
 		getPaginatedAddictions(pageNumber)
 			.then((response) => {
@@ -108,41 +111,25 @@ export const Dashboard: React.FC = () => {
 			</StyledNav>
 			<HeadingContainer>
 				<StyledH1>Witaj {userData.username}</StyledH1>
-				{userAddictions.length ? (
-					<div>
-						<ul>
-							{userAddictions.map((addiction) => (
-								<li key={addiction.id}>
-									<AddictionCard
-										name={addiction.name}
-										costPerDay={addiction.costPerDay}
-										deadline={addiction.deadline}
-										id={addiction.id}
-									/>
-								</li>
-							))}
-						</ul>
-						{isPaginationButtonEnabled && (
-							<StyledButton
-								disabled={isButtonDisabled}
-								onClick={async () => {
-									setIsButtonDisabled(true);
-									console.log(pageNumber);
-									console.log(isButtonDisabled);
-									updateUserAddictions();
-								}}
-							>
-								Wczytaj kolejne
-							</StyledButton>
-						)}
-					</div>
-				) : (
-					<StyledH1>
-						Wygląda na to, że jeszcze nie dodałeś żadnego uzależnienia do
-						monitorowania. Aby rozpocząć, kliknij poniższy link i wypełnij
-						krótki formularz, który pomoże Ci śledzić swoje postępy.
-					</StyledH1>
-				)}
+				<>
+					{userAddictions.length > 0 ? (
+						<AddictionsList userAddictions={userAddictions} />
+					) : (
+						<NoAddictionsMessage />
+					)}
+					{isPaginationButtonEnabled && (
+						<StyledButton
+							disabled={isButtonDisabled}
+							onClick={async () => {
+								setIsButtonDisabled(true);
+								updateUserAddictions();
+							}}
+						>
+							Wczytaj kolejne
+						</StyledButton>
+					)}
+				</>
+
 				<StyledNav $justifyContent='center'>
 					<StyledUl>
 						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
