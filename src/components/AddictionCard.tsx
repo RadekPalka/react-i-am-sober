@@ -7,6 +7,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 	costPerDay,
 	deadline,
 	id,
+	removeAddiction,
 }) => {
 	const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<button onClick={() => navigate(`/addiction/:${id}`)}>
 				Pokaż szczegóły
 			</button>
-			<button>Usuń</button>
+			<button onClick={() => removeAddiction(id)}>Usuń</button>
 		</div>
 	);
 };

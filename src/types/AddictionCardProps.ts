@@ -3,4 +3,5 @@ export type AddictionCardProps = {
 	costPerDay: number;
 	deadline: string | null;
 	id: number;
+	removeAddiction: (id: number) => void;
 };

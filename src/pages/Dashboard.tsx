@@ -109,7 +109,10 @@ export const Dashboard: React.FC = () => {
 				<StyledH1>Witaj {userData.username}</StyledH1>
 				<>
 					{userAddictions.length > 0 ? (
-						<AddictionsList userAddictions={userAddictions} />
+						<AddictionsList
+							userAddictions={userAddictions}
+							setUserAddictions={setUserAddictions}
+						/>
 					) : (
 						<NoAddictionsMessage />
 					)}
