@@ -2,6 +2,8 @@ import React from 'react';
 import { AddictionCard } from './AddictionCard';
 import { AddictionsListProps } from '../types/AddictionsListProps';
 import { StyledButton } from './StyledButton';
+import { deleteAddiction } from '../clients/AccountClients';
+import { toast } from 'react-toastify';
 export const AddictionsList: React.FC<AddictionsListProps> = ({
 	userAddictions,
 	setUserAddictions,
@@ -11,7 +13,18 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 	updateUserAddictions,
 }) => {
 	const removeAddiction = (id: number) => {
-		setUserAddictions((prevState) => prevState.filter((el) => el.id !== id));
+		deleteAddiction(id)
+			.then((res) => {
+				console.log(res);
+				setUserAddictions((prevState) =>
+					prevState.filter((el) => el.id !== id)
+				);
+				toast.success('Uzależnienie usunięto pomyślnie');
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error('Błąd połącznia. Spróbuj ponownie później');
+			});
 	};
 	return (
 		<div>

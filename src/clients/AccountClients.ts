@@ -98,3 +98,13 @@ export const getAddictionDetails = (id: number) => {
 		},
 	});
 };
+
+export const deleteAddiction = (id: number) => {
+	const token = getToken();
+	return api.delete(`/addiction/${id}`, {
+		headers: {
+			Authorization: token,
+			'Content-Type': 'application/json',
+		},
+	});
+};
