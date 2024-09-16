@@ -107,28 +107,19 @@ export const Dashboard: React.FC = () => {
 			</StyledNav>
 			<HeadingContainer>
 				<StyledH1>Witaj {userData.username}</StyledH1>
-				<>
-					{userAddictions.length > 0 ? (
-						<AddictionsList
-							userAddictions={userAddictions}
-							setUserAddictions={setUserAddictions}
-						/>
-					) : (
-						<NoAddictionsMessage />
-					)}
-					{isPaginationButtonEnabled && (
-						<StyledButton
-							disabled={isButtonDisabled}
-							onClick={async () => {
-								setIsButtonDisabled(true);
 
-								updateUserAddictions();
-							}}
-						>
-							Wczytaj kolejne
-						</StyledButton>
-					)}
-				</>
+				{userAddictions.length > 0 ? (
+					<AddictionsList
+						userAddictions={userAddictions}
+						setUserAddictions={setUserAddictions}
+						setIsButtonDisabled={setIsButtonDisabled}
+						updateUserAddictions={updateUserAddictions}
+						isPaginationButtonEnabled={isPaginationButtonEnabled}
+						isButtonDisabled={isButtonDisabled}
+					/>
+				) : (
+					<NoAddictionsMessage />
+				)}
 
 				<StyledNav $justifyContent='center'>
 					<StyledUl>

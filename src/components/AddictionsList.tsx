@@ -1,9 +1,14 @@
 import React from 'react';
 import { AddictionCard } from './AddictionCard';
 import { AddictionsListProps } from '../types/AddictionsListProps';
+import { StyledButton } from './StyledButton';
 export const AddictionsList: React.FC<AddictionsListProps> = ({
 	userAddictions,
 	setUserAddictions,
+	isButtonDisabled,
+	isPaginationButtonEnabled,
+	setIsButtonDisabled,
+	updateUserAddictions,
 }) => {
 	const removeAddiction = (id: number) => {
 		setUserAddictions((prevState) => prevState.filter((el) => el.id !== id));
@@ -23,6 +28,18 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 					</li>
 				))}
 			</ul>
+			{isPaginationButtonEnabled && (
+				<StyledButton
+					disabled={isButtonDisabled}
+					onClick={() => {
+						setIsButtonDisabled(true);
+
+						updateUserAddictions();
+					}}
+				>
+					Wczytaj kolejne
+				</StyledButton>
+			)}
 		</div>
 	);
 };
