@@ -7,7 +7,6 @@ import { StyledDiv } from './StyledDiv';
 import { StyledForm } from './StyledForm';
 import { StyledButton } from './StyledButton';
 import { createAddiction } from '../clients/AccountClients';
-import { getToken } from '../clients/SessionTokenService';
 import { AddictionData } from '../types/AddictionData';
 import { toast } from 'react-toastify';
 
