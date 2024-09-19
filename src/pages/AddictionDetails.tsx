@@ -61,6 +61,7 @@ export const AddictionDetails: React.FC = () => {
 					name={addictionDetails.name}
 					costPerDay={addictionDetails.costPerDay}
 					createdAt={addictionDetails.createdAt}
+					id={Number(addictionId?.slice(1, addictionId.length))}
 				/>
 			)}
 		</>

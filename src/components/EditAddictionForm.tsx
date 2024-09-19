@@ -7,11 +7,13 @@ import { DailyCostInput } from './DailyCostInput';
 import { StyledButton } from './StyledButton';
 import { EditAddictionFormProps } from '../types/EditAddictionFormProps';
 import { AddictionData } from '../types/AddictionData';
+import { updateAddiction } from '../clients/AccountClients';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
 	costPerDay,
 	createdAt,
+	id,
 }) => {
 	const formatDate = (dateString: string): string => {
 		const date = new Date(dateString);
@@ -36,7 +38,18 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 		detoxStartDate: formatDate(createdAt),
 	});
 
-	const handleSubmit = () => {};
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		console.log(userAddiction.addictionDailyCost);
+		e.preventDefault();
+		updateAddiction(
+			id,
+			userAddiction.addictionType,
+			userAddiction.addictionDailyCost,
+			userAddiction.detoxStartDate
+		)
+			.then((res) => console.log(res))
+			.catch((error) => console.log(error));
+	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<StyledDiv>

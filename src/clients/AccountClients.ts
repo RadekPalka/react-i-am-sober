@@ -108,3 +108,26 @@ export const deleteAddiction = (id: number) => {
 		},
 	});
 };
+
+export const updateAddiction = (
+	id: number,
+	name: string,
+	costPerDay: number,
+	createdAt: string
+) => {
+	const token = getToken();
+	return api.put(
+		`/addiction/${id}`,
+		{
+			name,
+			costPerDay,
+			createdAt,
+		},
+		{
+			headers: {
+				Authorization: token,
+				'Content-Type': 'application/json',
+			},
+		}
+	);
+};
