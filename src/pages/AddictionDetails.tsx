@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
+import { EditAddictionForm } from '../components/EditAddictionForm';
 
 type status = 'loading' | 'success' | 'error';
 export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
 	const [fetchStatus, setFetchStatus] = useState<status>('loading');
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const navigate = useNavigate();
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
@@ -51,6 +53,16 @@ export const AddictionDetails: React.FC = () => {
 	return (
 		<>
 			<h1>{addictionDetails.name}</h1>
+			<p>{addictionDetails.costPerDay}</p>
+			<p>{addictionDetails.createdAt}</p>
+			<button onClick={() => setIsModalOpen(true)}>Edytuj</button>
+			{isModalOpen && (
+				<EditAddictionForm
+					name={addictionDetails.name}
+					costPerDay={addictionDetails.costPerDay}
+					createdAt={addictionDetails.createdAt}
+				/>
+			)}
 		</>
 	);
 };
