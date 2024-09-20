@@ -8,6 +8,7 @@ import { StyledButton } from './StyledButton';
 import { EditAddictionFormProps } from '../types/EditAddictionFormProps';
 import { AddictionData } from '../types/AddictionData';
 import { updateAddiction } from '../clients/AccountClients';
+import { toast } from 'react-toastify';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
@@ -15,6 +16,8 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	createdAt,
 	id,
 	setIsModalOpen,
+	addictionDetails,
+	setAddictionDetails,
 }) => {
 	const formatDate = (dateString: string): string => {
 		const date = new Date(dateString);
@@ -48,8 +51,21 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 			userAddiction.addictionDailyCost,
 			userAddiction.detoxStartDate
 		)
-			.then((res) => console.log(res))
-			.catch((error) => console.log(error));
+			.then((res) => {
+				console.log(res);
+				setAddictionDetails({
+					...addictionDetails,
+					name: userAddiction.addictionType,
+					costPerDay: userAddiction.addictionDailyCost,
+					createdAt: userAddiction.detoxStartDate,
+				});
+				toast.success('Aktualizacja przebiegła pomyślnie');
+				setIsModalOpen(false);
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error('Bład połączenia');
+			});
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>

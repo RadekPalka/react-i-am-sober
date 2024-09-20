@@ -97,6 +97,8 @@ export const AddictionDetails: React.FC = () => {
 					createdAt={addictionDetails.createdAt}
 					id={Number(addictionId?.slice(1, addictionId.length))}
 					setIsModalOpen={setIsModalOpen}
+					addictionDetails={addictionDetails}
+					setAddictionDetails={setAddictionDetails}
 				/>
 			)}
 		</>
