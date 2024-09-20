@@ -14,7 +14,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 	return (
 		<div>
 			<h2>{name}</h2>
-			<p>{costPerDay} PLN</p>
+			<p>Dzienny koszt: {costPerDay} PLN</p>
 			{deadline && <p>{deadline}</p>}
 			<button onClick={() => navigate(`/addiction/:${id}`)}>
 				Pokaż szczegóły
