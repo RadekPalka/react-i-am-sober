@@ -3,4 +3,5 @@ export type EditAddictionFormProps = {
 	costPerDay: number;
 	createdAt: string;
 	id: number;
+	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };

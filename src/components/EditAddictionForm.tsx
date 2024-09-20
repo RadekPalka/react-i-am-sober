@@ -14,6 +14,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	costPerDay,
 	createdAt,
 	id,
+	setIsModalOpen,
 }) => {
 	const formatDate = (dateString: string): string => {
 		const date = new Date(dateString);
@@ -70,8 +71,8 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 					userAddiction={userAddiction}
 				/>
 			</StyledDiv>
-			<StyledButton type='submit'>Dodaj</StyledButton>
-			<StyledButton type='button' onClick={() => navigate('/dashboard')}>
+			<StyledButton type='submit'>Edytuj</StyledButton>
+			<StyledButton type='button' onClick={() => setIsModalOpen(false)}>
 				Anuluj
 			</StyledButton>
 		</StyledForm>

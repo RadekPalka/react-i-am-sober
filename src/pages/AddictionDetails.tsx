@@ -62,6 +62,7 @@ export const AddictionDetails: React.FC = () => {
 					costPerDay={addictionDetails.costPerDay}
 					createdAt={addictionDetails.createdAt}
 					id={Number(addictionId?.slice(1, addictionId.length))}
+					setIsModalOpen={setIsModalOpen}
 				/>
 			)}
 		</>
