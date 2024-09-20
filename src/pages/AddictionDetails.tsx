@@ -9,6 +9,7 @@ export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
 	const [fetchStatus, setFetchStatus] = useState<status>('loading');
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [sobrietyDays, setSobrietyDays] = useState(0);
 	const navigate = useNavigate();
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
@@ -22,6 +23,26 @@ export const AddictionDetails: React.FC = () => {
 			limitOfLastIncidents: 0,
 		});
 
+	const formatDate = (date: string) => {
+		return new Date(date).toLocaleDateString('en-CA', {
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		});
+	};
+
+	const calculateSobrietyDays = () => {
+		const start = new Date(addictionDetails.createdAt);
+		const today = new Date();
+
+		const differenceInMilliseconds = today.getTime() - start.getTime();
+
+		return Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+	};
+
 	useEffect(() => {
 		console.log(addictionId);
 
@@ -30,14 +51,20 @@ export const AddictionDetails: React.FC = () => {
 		getAddictionDetails(id)
 			.then((res) => {
 				setFetchStatus('success');
-				setAddictionDetails(res.data);
+				setAddictionDetails((prevDetails) => ({
+					...prevDetails,
+					...res.data,
+					createdAt: formatDate(res.data.createdAt),
+				}));
 			})
 			.catch((error) => {
 				setFetchStatus('error');
 				console.log(error);
 			});
 	}, []);
-
+	useEffect(() => {
+		setSobrietyDays(calculateSobrietyDays());
+	}, [addictionDetails]);
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
 	} else if (fetchStatus === 'error') {
@@ -53,8 +80,15 @@ export const AddictionDetails: React.FC = () => {
 	return (
 		<>
 			<h1>{addictionDetails.name}</h1>
-			<p>{addictionDetails.costPerDay}</p>
-			<p>{addictionDetails.createdAt}</p>
+			<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
+			<p>
+				Data rozpoczęcia treźwienia: {formatDate(addictionDetails.createdAt)}
+			</p>
+			<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
+			<p>
+				Ilość zaoszczędzonych pieniędzy:{' '}
+				{sobrietyDays * addictionDetails.costPerDay}
+			</p>
 			<button onClick={() => setIsModalOpen(true)}>Edytuj</button>
 			{isModalOpen && (
 				<EditAddictionForm
