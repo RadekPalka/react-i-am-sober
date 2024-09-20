@@ -87,7 +87,7 @@ export const AddictionDetails: React.FC = () => {
 			<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
 			<p>
 				Ilość zaoszczędzonych pieniędzy:{' '}
-				{sobrietyDays * addictionDetails.costPerDay}
+				{sobrietyDays * addictionDetails.costPerDay} PLN
 			</p>
 			<button onClick={() => setIsModalOpen(true)}>Edytuj</button>
 			{isModalOpen && (
