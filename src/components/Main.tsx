@@ -1,17 +1,13 @@
-import styled from 'styled-components';
 import { HeaderContent } from './HeaderContent';
 import { StyledNav } from './StyledNav';
 import React from 'react';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
-const StyledMain = styled.main`
-	background-color: #e7e2dc;
-`;
 
 export const Main: React.FC = () => {
 	return (
-		<StyledMain>
+		<main>
 			<HeaderContent />
 			<StyledNav $justifyContent='center'>
 				<StyledUl>
@@ -23,6 +19,6 @@ export const Main: React.FC = () => {
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
-		</StyledMain>
+		</main>
 	);
 };
