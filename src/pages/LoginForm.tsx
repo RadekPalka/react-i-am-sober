@@ -14,6 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { loginAction } from '../clients/AccountClients';
 import { getToken, saveToken } from '../clients/SessionTokenService';
+import { StyledNav } from '../components/StyledNav';
+import { StyledUl } from '../components/StyledUl';
+import { StyledLi } from '../components/StyledLi';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -65,48 +68,62 @@ export const LoginForm: React.FC = () => {
 			});
 	};
 	return (
-		<StyledSection>
-			<HeadingContainer>
-				<StyledH1>Strona logowania</StyledH1>
-			</HeadingContainer>
-			<StyledForm onSubmit={handleForm}>
-				<AuthInput
-					disabled={isLoggingIn}
-					value={login}
-					labelText='Login'
-					onChange={(value) => setLogin(value)}
-					type='text'
-					id='login'
-				/>
-				<AuthInput
-					disabled={isLoggingIn}
-					value={password}
-					labelText='Hasło'
-					onChange={(value) => setPassword(value)}
-					type='password'
-					id='password'
-				/>
-				<label htmlFor='is-remembered'>Zapamiętaj mnie</label>
-				<input
-					disabled={isLoggingIn}
-					type='checkbox'
-					id='is-remembered'
-					checked={isRemembered}
-					onChange={() => setIsRemembered((value) => !value)}
-				/>
-				<StyledButton type='submit' disabled={isLoggingIn}>
-					Zaloguj się
-				</StyledButton>
-			</StyledForm>
-			<StyledAuthMessage>
-				<span>Nie masz konta? </span>
-				<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-			</StyledAuthMessage>
-			<StyledAuthMessage>lub</StyledAuthMessage>
-			<StyledAuthMessage>
-				<span>Wróć do </span>
-				<StyledLink to='/'>strony głównej</StyledLink>
-			</StyledAuthMessage>
-		</StyledSection>
+		<>
+			<header>
+				<StyledNav $justifyContent='end'>
+					<StyledUl>
+						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+							<StyledLink to='/'>Strona główna</StyledLink>
+						</StyledLi>
+						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
+							<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+						</StyledLi>
+					</StyledUl>
+				</StyledNav>
+			</header>
+			<StyledSection>
+				<HeadingContainer>
+					<StyledH1>Strona logowania</StyledH1>
+				</HeadingContainer>
+				<StyledForm onSubmit={handleForm}>
+					<AuthInput
+						disabled={isLoggingIn}
+						value={login}
+						labelText='Login'
+						onChange={(value) => setLogin(value)}
+						type='text'
+						id='login'
+					/>
+					<AuthInput
+						disabled={isLoggingIn}
+						value={password}
+						labelText='Hasło'
+						onChange={(value) => setPassword(value)}
+						type='password'
+						id='password'
+					/>
+					<label htmlFor='is-remembered'>Zapamiętaj mnie</label>
+					<input
+						disabled={isLoggingIn}
+						type='checkbox'
+						id='is-remembered'
+						checked={isRemembered}
+						onChange={() => setIsRemembered((value) => !value)}
+					/>
+					<StyledButton type='submit' disabled={isLoggingIn}>
+						Zaloguj się
+					</StyledButton>
+				</StyledForm>
+				<StyledAuthMessage>
+					<span>Nie masz konta? </span>
+					<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+				</StyledAuthMessage>
+				<StyledAuthMessage>lub</StyledAuthMessage>
+				<StyledAuthMessage>
+					<span>Wróć do </span>
+					<StyledLink to='/'>strony głównej</StyledLink>
+				</StyledAuthMessage>
+			</StyledSection>
+		</>
 	);
 };
