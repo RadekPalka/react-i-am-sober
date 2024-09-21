@@ -7,20 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import { StyledSection } from '../components/StyledSection';
 import { StyledH1 } from '../components/StyledH1';
 import { HeadingContainer } from '../components/HeadingContainer';
-import { fetchUserData, logout } from '../clients/AccountClients';
+import { fetchUserData } from '../clients/AccountClients';
 import { StyledNav } from '../components/StyledNav';
 import { StyledLi } from '../components/StyledLi';
-import { StyledButton } from '../components/StyledButton';
 import { StyledUl } from '../components/StyledUl';
 import { getToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
+import { LogoutButton } from '../components/LogoutButton';
 export const AddictionInfoForm: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	const updateUserData = () => {
 		const token = getToken();
 		token &&
-			fetchUserData(token)
+			fetchUserData()
 				.then((response) => {
 					setUserData(response.data);
 					navigate('/dashboard');
@@ -30,10 +30,7 @@ export const AddictionInfoForm: React.FC = () => {
 					toast.error('Błąd autoryzacji');
 				});
 	};
-	const handleLogout = () => {
-		const token = getToken();
-		token && logout(token);
-	};
+
 	useEffect(() => {
 		!userData.id && updateUserData();
 	}, []);
@@ -45,13 +42,13 @@ export const AddictionInfoForm: React.FC = () => {
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-						<StyledButton onClick={handleLogout}>Wyloguj się</StyledButton>
+						<LogoutButton />
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
 			<StyledSection>
 				<HeadingContainer>
-					<StyledH1>Witaj {userData.login}</StyledH1>
+					<StyledH1>Witaj {userData.username}</StyledH1>
 				</HeadingContainer>
 
 				<Form />
