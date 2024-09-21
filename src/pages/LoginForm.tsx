@@ -71,7 +71,7 @@ export const LoginForm: React.FC = () => {
 		<>
 			<header>
 				<StyledNav $justifyContent='end'>
-					<StyledUl $justifyContent='end'>
+					<StyledUl $justifyContent='end' $width='300px'>
 						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
 							<StyledLink to='/'>Strona główna</StyledLink>
 						</StyledLi>

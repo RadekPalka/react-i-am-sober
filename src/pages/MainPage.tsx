@@ -19,11 +19,11 @@ export const MainPage: React.FC = () => {
 		<>
 			<header>
 				<StyledNav $justifyContent='end'>
-					<StyledUl>
+					<StyledUl $justifyContent='end'>
 						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
 							<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
 						</StyledLi>
-						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
+						<StyledLi $color='#e3e3e3' $background='#2c2c2c' $marginLeft='5px'>
 							<StyledLink to='/login-page'>Zaloguj się</StyledLink>
 						</StyledLi>
 					</StyledUl>

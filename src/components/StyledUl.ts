@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 type UlStyledProps = {
 	$justifyContent?: string;
+	$width?: string;
 };
 export const StyledUl = styled.ul<UlStyledProps>`
 	display: flex;
@@ -8,5 +9,5 @@ export const StyledUl = styled.ul<UlStyledProps>`
 	justify-content: ${(props) => props.$justifyContent || 'space-between'};
 	list-style-type: none;
 	margin-right: 5px;
-	width: 300px;
+	width: ${(props) => props.$width || '200px'};
 `;
