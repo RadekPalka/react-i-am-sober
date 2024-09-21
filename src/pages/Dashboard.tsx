@@ -6,24 +6,20 @@ import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
 import {
 	fetchUserData,
 	getPaginatedAddictions,
-	logout,
 } from '../clients/AccountClients';
 
-import { StyledButton } from '../components/StyledButton';
-import { removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { UserAddictions } from '../types/UserAddictions';
 import { AddictionsList } from '../components/AddictionsList';
 import { NoAddictionsMessage } from '../components/NoAddictionsMessage';
+import { LogoutButton } from '../components/LogoutButton';
 
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 
-	const navigate = useNavigate();
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
 
@@ -78,19 +74,6 @@ export const Dashboard: React.FC = () => {
 		updateUserData();
 	}, []);
 
-	const handleLogoutButton = () => {
-		logout()
-			.then((res) => {
-				removeToken();
-				console.log(res);
-				toast.success('Zostałeś wylogowany(a) pomyślnie');
-				navigate('/login-page');
-			})
-			.catch((error) => {
-				console.log(error);
-				toast.error('Błąd połączenia. Spróbuj ponownie później');
-			});
-	};
 	if (!isDataLoaded) {
 		return <h1>Loading</h1>;
 	}
@@ -99,9 +82,7 @@ export const Dashboard: React.FC = () => {
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-						<StyledButton onClick={handleLogoutButton}>
-							Wyloguj się
-						</StyledButton>
+						<LogoutButton />
 					</StyledLi>
 				</StyledUl>
 			</StyledNav>
