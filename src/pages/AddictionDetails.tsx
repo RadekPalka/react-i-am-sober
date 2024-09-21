@@ -7,6 +7,7 @@ import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
+import { LogoutButton } from '../components/LogoutButton';
 
 type status = 'loading' | 'success' | 'error';
 export const AddictionDetails: React.FC = () => {
@@ -89,7 +90,9 @@ export const AddictionDetails: React.FC = () => {
 						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
 							<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
 						</StyledLi>
-						<StyledLi $color='#e3e3e3' $background='#2c2c2c'></StyledLi>
+						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
+							<LogoutButton />
+						</StyledLi>
 					</StyledUl>
 				</StyledNav>
 			</header>
