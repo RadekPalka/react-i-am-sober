@@ -8,5 +8,5 @@ export const StyledUl = styled.ul<UlStyledProps>`
 	justify-content: ${(props) => props.$justifyContent || 'space-between'};
 	list-style-type: none;
 	margin-right: 5px;
-	width: 200px;
+	width: 300px;
 `;

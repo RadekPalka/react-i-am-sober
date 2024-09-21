@@ -3,9 +3,11 @@ type StyledLiProps = {
 	$background: string;
 	$border?: string;
 	$color: string;
+	$marginLeft?: string;
 };
 export const StyledLi = styled.li<StyledLiProps>`
 	display: block;
+	margin-left: ${(props) => props.$marginLeft};
 	padding: 8px;
 	color: ${(props) => props.$color};
 	font-size: 12px;

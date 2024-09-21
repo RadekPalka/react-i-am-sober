@@ -74,11 +74,11 @@ export const RegistrationForm: React.FC = () => {
 		<>
 			<header>
 				<StyledNav $justifyContent='end'>
-					<StyledUl>
+					<StyledUl $justifyContent='end'>
 						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
 							<StyledLink to='/'>Strona główna</StyledLink>
 						</StyledLi>
-						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
+						<StyledLi $color='#e3e3e3' $background='#2c2c2c' $marginLeft='5px'>
 							<StyledLink to='/login-page'>Zaloguj się</StyledLink>
 						</StyledLi>
 					</StyledUl>
