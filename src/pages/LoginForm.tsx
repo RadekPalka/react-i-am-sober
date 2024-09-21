@@ -17,6 +17,7 @@ import { getToken, saveToken } from '../clients/SessionTokenService';
 import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
+import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -102,13 +103,10 @@ export const LoginForm: React.FC = () => {
 						type='password'
 						id='password'
 					/>
-					<label htmlFor='is-remembered'>Zapamiętaj mnie</label>
-					<input
-						disabled={isLoggingIn}
-						type='checkbox'
-						id='is-remembered'
-						checked={isRemembered}
-						onChange={() => setIsRemembered((value) => !value)}
+					<RememberMeCheckbox
+						isLoggingIn={isLoggingIn}
+						isRemembered={isRemembered}
+						setIsRemembered={setIsRemembered}
 					/>
 					<StyledButton type='submit' disabled={isLoggingIn}>
 						Zaloguj się
