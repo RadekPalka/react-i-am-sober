@@ -21,7 +21,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 }) => {
 	const formatDate = (dateString: string): string => {
 		const date = new Date(dateString);
-		const formattedDateTime = date
+		return date
 			.toLocaleDateString('en-CA', {
 				year: 'numeric',
 				month: '2-digit',
@@ -31,10 +31,6 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 				hour12: false,
 			})
 			.replaceAll(',', '');
-
-		console.log(`${formattedDateTime}`);
-
-		return `${formattedDateTime}`;
 	};
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: name,
