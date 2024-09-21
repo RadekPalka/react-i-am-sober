@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
+import { StyledNav } from '../components/StyledNav';
+import { StyledUl } from '../components/StyledUl';
+import { StyledLi } from '../components/StyledLi';
+import { StyledLink } from '../components/StyledLink';
 
 type status = 'loading' | 'success' | 'error';
 export const AddictionDetails: React.FC = () => {
@@ -79,6 +83,16 @@ export const AddictionDetails: React.FC = () => {
 	}
 	return (
 		<>
+			<header>
+				<StyledNav $justifyContent='end'>
+					<StyledUl>
+						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+							<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
+						</StyledLi>
+						<StyledLi $color='#e3e3e3' $background='#2c2c2c'></StyledLi>
+					</StyledUl>
+				</StyledNav>
+			</header>
 			<h1>{addictionDetails.name}</h1>
 			<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
 			<p>
