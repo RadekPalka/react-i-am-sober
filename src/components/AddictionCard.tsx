@@ -9,12 +9,14 @@ import { StyledLink } from './StyledLink';
 
 const CardWrapper = styled.li`
 	display: flex;
-	//justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	flex-direction: column;
 	width: 25%;
+	height: 200px;
 	border: 1px solid black;
 `;
+
 export const AddictionCard: React.FC<AddictionCardProps> = ({
 	name,
 	costPerDay,

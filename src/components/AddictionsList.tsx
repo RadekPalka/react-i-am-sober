@@ -9,7 +9,9 @@ import styled from 'styled-components';
 const AddictionsUl = styled.ul`
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-around;
 	width: 100%;
+	gap: 50px;
 `;
 
 export const AddictionsList: React.FC<AddictionsListProps> = ({
