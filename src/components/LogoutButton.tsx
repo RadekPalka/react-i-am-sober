@@ -20,5 +20,13 @@ export const LogoutButton: React.FC = () => {
 				toast.error('Błąd połączenia. Spróbuj ponownie później');
 			});
 	};
-	return <StyledButton onClick={handleLogoutButton}>Wyloguj się</StyledButton>;
+	return (
+		<StyledButton
+			$padding='6px'
+			$margin='10px 5px'
+			onClick={handleLogoutButton}
+		>
+			Wyloguj się
+		</StyledButton>
+	);
 };

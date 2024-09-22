@@ -86,7 +86,7 @@ export const AddictionDetails: React.FC = () => {
 		<>
 			<header>
 				<StyledNav $justifyContent='end'>
-					<StyledUl>
+					<StyledUl $justifyContent='end' $width='300px'>
 						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
 							<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
 						</StyledLi>

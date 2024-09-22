@@ -80,7 +80,7 @@ export const Dashboard: React.FC = () => {
 	return (
 		<>
 			<StyledNav $justifyContent='end'>
-				<StyledUl>
+				<StyledUl $justifyContent='end'>
 					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
 						<LogoutButton />
 					</StyledLi>
