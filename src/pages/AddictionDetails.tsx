@@ -9,6 +9,7 @@ import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { LogoutButton } from '../components/LogoutButton';
 import styled from 'styled-components';
+import { StyledButton } from '../components/StyledButton';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -112,7 +113,7 @@ export const AddictionDetails: React.FC = () => {
 					Ilość zaoszczędzonych pieniędzy:{' '}
 					{sobrietyDays * addictionDetails.costPerDay} PLN
 				</p>
-				<button onClick={() => setIsModalOpen(true)}>Edytuj</button>
+				<StyledButton onClick={() => setIsModalOpen(true)}>Edytuj</StyledButton>
 			</AddictionDetailsContainer>
 			{isModalOpen && (
 				<EditAddictionForm
