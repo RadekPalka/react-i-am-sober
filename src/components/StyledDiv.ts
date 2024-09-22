@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 export const StyledDiv = styled.div`
-	text-align: center;
+	display: flex;
+	justify-content: center;
+	gap: 3px;
 	margin-top: 10px;
 `;
