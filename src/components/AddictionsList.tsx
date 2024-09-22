@@ -4,6 +4,14 @@ import { AddictionsListProps } from '../types/AddictionsListProps';
 import { StyledButton } from './StyledButton';
 import { deleteAddiction } from '../clients/AccountClients';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
+
+const AddictionsUl = styled.ul`
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+`;
+
 export const AddictionsList: React.FC<AddictionsListProps> = ({
 	userAddictions,
 	setUserAddictions,
@@ -28,19 +36,18 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 	};
 	return (
 		<div>
-			<ul>
+			<AddictionsUl>
 				{userAddictions.map((addiction) => (
-					<li key={addiction.id}>
-						<AddictionCard
-							name={addiction.name}
-							costPerDay={addiction.costPerDay}
-							deadline={addiction.deadline}
-							id={addiction.id}
-							removeAddiction={removeAddiction}
-						/>
-					</li>
+					<AddictionCard
+						key={addiction.id}
+						name={addiction.name}
+						costPerDay={addiction.costPerDay}
+						deadline={addiction.deadline}
+						id={addiction.id}
+						removeAddiction={removeAddiction}
+					/>
 				))}
-			</ul>
+			</AddictionsUl>
 			{isPaginationButtonEnabled && (
 				<StyledButton
 					disabled={isButtonDisabled}

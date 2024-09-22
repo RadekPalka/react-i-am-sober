@@ -8,7 +8,7 @@ import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.li`
 	display: flex;
 	//justify-content: center;
 	align-items: center;
