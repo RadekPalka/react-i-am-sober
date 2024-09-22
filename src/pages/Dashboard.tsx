@@ -103,7 +103,7 @@ export const Dashboard: React.FC = () => {
 				)}
 
 				<StyledNav $justifyContent='center'>
-					<StyledUl>
+					<StyledUl $justifyContent='center'>
 						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
 							<StyledLink to='/addiction-info'>
 								Dodaj nowe uzależnienie
