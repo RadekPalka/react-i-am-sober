@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AddictionCardProps } from '../types/AddictionCardProps';
-import { useNavigate } from 'react-router-dom';
 import { StyledButton } from './StyledButton';
 import { StyledNav } from './StyledNav';
 import { StyledUl } from './StyledUl';
@@ -23,8 +22,6 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 	id,
 	removeAddiction,
 }) => {
-	const navigate = useNavigate();
-
 	return (
 		<CardWrapper>
 			<h2>{name}</h2>
