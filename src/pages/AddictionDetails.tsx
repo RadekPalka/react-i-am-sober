@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
@@ -8,14 +8,21 @@ import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { LogoutButton } from '../components/LogoutButton';
+import styled from 'styled-components';
 
+const AddictionDetailsContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50%;
+	margin: 0 auto;
+`;
 type status = 'loading' | 'success' | 'error';
 export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
 	const [fetchStatus, setFetchStatus] = useState<status>('loading');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [sobrietyDays, setSobrietyDays] = useState(0);
-	const navigate = useNavigate();
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
 			id: 0,
@@ -76,9 +83,7 @@ export const AddictionDetails: React.FC = () => {
 		return (
 			<>
 				<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
-				<button onClick={() => navigate(`/addiction/${addictionId}`)}>
-					Odśwież stronę
-				</button>
+				<StyledLink to={`/addiction/${addictionId}`}>Odśwież stronę</StyledLink>
 			</>
 		);
 	}
@@ -86,7 +91,7 @@ export const AddictionDetails: React.FC = () => {
 		<>
 			<header>
 				<StyledNav $justifyContent='end'>
-					<StyledUl $justifyContent='end'>
+					<StyledUl $justifyContent='end' $width='300px'>
 						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
 							<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
 						</StyledLi>
@@ -96,17 +101,19 @@ export const AddictionDetails: React.FC = () => {
 					</StyledUl>
 				</StyledNav>
 			</header>
-			<h1>{addictionDetails.name}</h1>
-			<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
-			<p>
-				Data rozpoczęcia treźwienia: {formatDate(addictionDetails.createdAt)}
-			</p>
-			<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
-			<p>
-				Ilość zaoszczędzonych pieniędzy:{' '}
-				{sobrietyDays * addictionDetails.costPerDay} PLN
-			</p>
-			<button onClick={() => setIsModalOpen(true)}>Edytuj</button>
+			<AddictionDetailsContainer>
+				<h1>{addictionDetails.name}</h1>
+				<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
+				<p>
+					Data rozpoczęcia treźwienia: {formatDate(addictionDetails.createdAt)}
+				</p>
+				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
+				<p>
+					Ilość zaoszczędzonych pieniędzy:{' '}
+					{sobrietyDays * addictionDetails.costPerDay} PLN
+				</p>
+				<button onClick={() => setIsModalOpen(true)}>Edytuj</button>
+			</AddictionDetailsContainer>
 			{isModalOpen && (
 				<EditAddictionForm
 					name={addictionDetails.name}
