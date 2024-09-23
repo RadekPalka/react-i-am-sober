@@ -16,7 +16,6 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	createdAt,
 	id,
 	setIsModalOpen,
-	addictionDetails,
 	setAddictionDetails,
 }) => {
 	const formatDate = (dateString: string): string => {
@@ -50,7 +49,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 			.then((res) => {
 				console.log(res);
 				setAddictionDetails({
-					...addictionDetails,
+					...res.data,
 					name: userAddiction.addictionType,
 					costPerDay: userAddiction.addictionDailyCost,
 					createdAt: userAddiction.detoxStartDate,

@@ -118,7 +118,6 @@ export const AddictionDetails: React.FC = () => {
 					createdAt={addictionDetails.createdAt}
 					id={Number(addictionId)}
 					setIsModalOpen={setIsModalOpen}
-					addictionDetails={addictionDetails}
 					setAddictionDetails={setAddictionDetails}
 				/>
 			)}

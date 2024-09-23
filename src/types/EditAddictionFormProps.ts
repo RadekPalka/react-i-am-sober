@@ -6,7 +6,6 @@ export type EditAddictionFormProps = {
 	createdAt: string;
 	id: number;
 	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	addictionDetails: AddictionDetailsProps;
 	setAddictionDetails: React.Dispatch<
 		React.SetStateAction<AddictionDetailsProps>
 	>;
