@@ -16,6 +16,7 @@ import { UserAddictions } from '../types/UserAddictions';
 import { AddictionsList } from '../components/AddictionsList';
 import { NoAddictionsMessage } from '../components/NoAddictionsMessage';
 import { LogoutButton } from '../components/LogoutButton';
+import { useNavigate } from 'react-router-dom';
 
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
@@ -29,7 +30,7 @@ export const Dashboard: React.FC = () => {
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	console.log(userData);
 	const pageSize = 10;
-
+	const navigate = useNavigate();
 	const updateUserAddictions = () => {
 		console.log(pageNumber);
 		getPaginatedAddictions(pageNumber)
@@ -67,6 +68,7 @@ export const Dashboard: React.FC = () => {
 			.catch((error) => {
 				console.error('Error fetching data:', error);
 				toast.error('Błąd autoryzacji');
+				navigate('/login-page');
 			});
 	};
 
