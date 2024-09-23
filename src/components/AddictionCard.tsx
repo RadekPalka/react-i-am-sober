@@ -32,7 +32,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $background='transparent'>
-						<StyledLink to={`/addiction/:${id}`}>Pokaż szczegóły</StyledLink>
+						<StyledLink to={`/addiction/${id}`}>Pokaż szczegóły</StyledLink>
 					</StyledLi>
 					<StyledLi $background='transparent' $color='white' $border='none'>
 						<StyledButton

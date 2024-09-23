@@ -57,11 +57,7 @@ export const AddictionDetails: React.FC = () => {
 	};
 
 	useEffect(() => {
-		console.log(addictionId);
-
-		const id = Number(addictionId?.slice(1, addictionId.length));
-
-		getAddictionDetails(id)
+		getAddictionDetails(Number(addictionId))
 			.then((res) => {
 				setFetchStatus('success');
 				setAddictionDetails((prevDetails) => ({
@@ -120,7 +116,7 @@ export const AddictionDetails: React.FC = () => {
 					name={addictionDetails.name}
 					costPerDay={addictionDetails.costPerDay}
 					createdAt={addictionDetails.createdAt}
-					id={Number(addictionId?.slice(1, addictionId.length))}
+					id={Number(addictionId)}
 					setIsModalOpen={setIsModalOpen}
 					addictionDetails={addictionDetails}
 					setAddictionDetails={setAddictionDetails}
