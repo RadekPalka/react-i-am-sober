@@ -34,7 +34,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: name,
 		addictionDailyCost: costPerDay,
-		detoxStartDate: formatDate(createdAt),
+		detoxStartDate: '',
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,8 +43,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 		updateAddiction(
 			id,
 			userAddiction.addictionType,
-			userAddiction.addictionDailyCost,
-			userAddiction.detoxStartDate
+			userAddiction.addictionDailyCost
 		)
 			.then((res) => {
 				console.log(res);

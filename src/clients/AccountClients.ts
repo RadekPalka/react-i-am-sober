@@ -110,8 +110,7 @@ export const deleteAddiction = (id: number) => {
 export const updateAddiction = (
 	id: number,
 	name: string,
-	costPerDay: number,
-	createdAt: string
+	costPerDay: number
 ) => {
 	const token = getToken();
 	return api.put(
@@ -119,7 +118,6 @@ export const updateAddiction = (
 		{
 			name,
 			costPerDay,
-			createdAt,
 		},
 		{
 			headers: {
