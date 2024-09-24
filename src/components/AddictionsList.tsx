@@ -32,8 +32,14 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 				toast.success('Uzależnienie usunięto pomyślnie');
 			})
 			.catch((error) => {
-				console.log(error);
-				toast.error('Błąd połącznia. Spróbuj ponownie później');
+				if (!error.status || error.status.code === 500) {
+					console.log(error);
+					toast.error('Błąd połącznia. Spróbuj ponownie później');
+				} else {
+					toast.error(
+						'Operacja nie powiodła się. Odśwież stronę i spróbuj ponownie'
+					);
+				}
 			});
 	};
 	return (
