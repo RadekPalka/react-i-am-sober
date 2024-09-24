@@ -115,7 +115,6 @@ export const AddictionDetails: React.FC = () => {
 				<EditAddictionForm
 					name={addictionDetails.name}
 					costPerDay={addictionDetails.costPerDay}
-					createdAt={addictionDetails.createdAt}
 					id={Number(addictionId)}
 					setIsModalOpen={setIsModalOpen}
 					setAddictionDetails={setAddictionDetails}

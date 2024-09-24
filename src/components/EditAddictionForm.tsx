@@ -13,7 +13,6 @@ import { toast } from 'react-toastify';
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
 	costPerDay,
-	createdAt,
 	id,
 	setIsModalOpen,
 	setAddictionDetails,
@@ -51,7 +50,6 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 					...res.data,
 					name: userAddiction.addictionType,
 					costPerDay: userAddiction.addictionDailyCost,
-					createdAt: userAddiction.detoxStartDate,
 				});
 				toast.success('Aktualizacja przebiegła pomyślnie');
 				setIsModalOpen(false);
