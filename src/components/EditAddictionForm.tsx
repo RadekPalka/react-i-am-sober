@@ -9,6 +9,7 @@ import { EditAddictionFormProps } from '../types/EditAddictionFormProps';
 import { AddictionData } from '../types/AddictionData';
 import { updateAddiction } from '../clients/AccountClients';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
@@ -17,6 +18,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	setIsModalOpen,
 	setAddictionDetails,
 }) => {
+	const navigate = useNavigate();
 	const formatDate = (dateString: string): string => {
 		const date = new Date(dateString);
 		return date
@@ -55,8 +57,22 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 				setIsModalOpen(false);
 			})
 			.catch((error) => {
-				console.log(error);
-				toast.error('Bład połączenia');
+				if (!error.response || error.response.status === 500) {
+					toast.error(
+						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
+					);
+				} else if (error.response.status === 400) {
+					toast.error(
+						'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
+					);
+				} else if (error.response.status === 401) {
+					toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
+					navigate('/login-page');
+				} else if (error.response.status === 404) {
+					toast.error(
+						'Operacja się nie powiodła. Proszę odwieżyć stronę i spróbować ponownie'
+					);
+				}
 			});
 	};
 	return (

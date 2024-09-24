@@ -22,7 +22,6 @@ export const DailyCostInput: React.FC<AddictionInputsProps> = ({
 				type='number'
 				id='daily-cost'
 				min='0'
-				value={userAddiction.addictionDailyCost || ''}
 				onChange={handleChange}
 				required
 			/>
