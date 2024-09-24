@@ -10,7 +10,7 @@ import { createAddiction } from '../clients/AccountClients';
 import { AddictionData } from '../types/AddictionData';
 import { toast } from 'react-toastify';
 
-export const Form: React.FC = () => {
+export const CreateAddictionForm: React.FC = () => {
 	const navigate = useNavigate();
 
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({

@@ -1,4 +1,4 @@
-import { Form } from '../components';
+import { CreateAddictionForm } from '../components';
 import { useEffect } from 'react';
 import React from 'react';
 import { useUserContext } from '../context/UserContext';
@@ -51,7 +51,7 @@ export const AddictionInfoForm: React.FC = () => {
 					<StyledH1>Witaj {userData.username}</StyledH1>
 				</HeadingContainer>
 
-				<Form />
+				<CreateAddictionForm />
 			</StyledSection>
 		</>
 	);
