@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
-import { AddictionInfoForm } from './pages/AddictionInfoForm';
 import { UserProvider } from './context/UserContext';
-
-import { Dashboard, MainPage, RegistrationForm, LoginForm } from './pages';
+import {
+	Dashboard,
+	MainPage,
+	RegistrationForm,
+	LoginForm,
+	CreateAddictionPage,
+} from './pages';
 import { AddictionDetails } from './pages/AddictionDetails';
 
 const AppWrapper = styled.div`
@@ -24,7 +28,7 @@ const App: React.FC = () => {
 			<UserProvider>
 				<Routes>
 					<Route path='/' element={<MainPage />} />
-					<Route path='/addiction-info' element={<AddictionInfoForm />} />
+					<Route path='/create-addiction' element={<CreateAddictionPage />} />
 					<Route path='/dashboard' element={<Dashboard />} />
 					<Route path='/registration-page' element={<RegistrationForm />} />
 					<Route path='/login-page' element={<LoginForm />} />

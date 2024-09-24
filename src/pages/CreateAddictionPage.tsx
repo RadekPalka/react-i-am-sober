@@ -1,4 +1,4 @@
-import { CreateAddictionForm } from '../components';
+import { CreateAddictionForm } from '../components/CreateAddictionForm';
 import { useEffect } from 'react';
 import React from 'react';
 import { useUserContext } from '../context/UserContext';
@@ -14,7 +14,7 @@ import { StyledUl } from '../components/StyledUl';
 import { getToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { LogoutButton } from '../components/LogoutButton';
-export const AddictionInfoForm: React.FC = () => {
+export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	const updateUserData = () => {
