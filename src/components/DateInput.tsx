@@ -25,7 +25,7 @@ export const DateInput: React.FC<AddictionInputsProps> = ({
 				value={userAddiction.detoxStartDate}
 				max={userAddiction.detoxStartDate}
 				onChange={handleChange}
-				required
+				// required
 			/>
 		</>
 	);
