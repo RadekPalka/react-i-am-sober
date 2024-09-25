@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
@@ -10,6 +10,7 @@ import { StyledLink } from '../components/StyledLink';
 import { LogoutButton } from '../components/LogoutButton';
 import styled from 'styled-components';
 import { StyledButton } from '../components/StyledButton';
+import { toast } from 'react-toastify';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -35,6 +36,7 @@ export const AddictionDetails: React.FC = () => {
 			numberOfIncidents: 0,
 			limitOfLastIncidents: 0,
 		});
+	const navigate = useNavigate();
 
 	const formatDate = (date: string) => {
 		return new Date(date).toLocaleDateString('en-CA', {
@@ -68,7 +70,15 @@ export const AddictionDetails: React.FC = () => {
 			})
 			.catch((error) => {
 				setFetchStatus('error');
-				console.log(error);
+				if (error.status.code === 401) {
+					toast.error('Błąd autoryzacji');
+					navigate('/dashboard');
+				} else if (error.status.code === 404) {
+					toast.error('Operacja się nie powiodła');
+					navigate('/dashboard');
+				} else {
+					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+				}
 			});
 	}, []);
 	useEffect(() => {
