@@ -24,7 +24,9 @@ export const Dashboard: React.FC = () => {
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
 
-	const [isDataLoaded, setIsDataLoaded] = useState(false);
+	const [status, setStatus] = useState<'loading' | 'error' | 'success'>(
+		'loading'
+	);
 	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
 		useState(true);
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -37,7 +39,7 @@ export const Dashboard: React.FC = () => {
 			.then((response) => {
 				console.log(response.data);
 				setUserAddictions([...userAddictions, ...response.data]);
-				setIsDataLoaded(true);
+				setStatus('success');
 
 				console.log(response.data);
 				console.log(userAddictions);
@@ -54,14 +56,12 @@ export const Dashboard: React.FC = () => {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 					console.log('Error');
 				} else if (error.status.code === 400) {
-					toast.error('Operacj się nie powidła');
+					toast.error('Operacja się nie powiodła');
 				} else if (error.status.code === 401) {
 					toast.error('Błąd autoryzacji');
 					navigate('/login-page');
 				}
 				setIsButtonDisabled((prevState) => (prevState = false));
-
-				console.log(isButtonDisabled, isDataLoaded);
 			});
 	};
 	const updateUserData = () => {
@@ -76,9 +76,16 @@ export const Dashboard: React.FC = () => {
 				updateUserAddictions();
 			})
 			.catch((error) => {
-				console.error('Error fetching data:', error);
-				toast.error('Błąd autoryzacji');
-				navigate('/login-page');
+				if (!error.status || error.status.code === 500) {
+					toast.error('Błąd połączenia. Spróbuj ponownie później');
+					console.log(error);
+					setStatus('error');
+				} else {
+					console.error('Error fetching data:', error);
+					toast.error('Błąd autoryzacji');
+					navigate('/login-page');
+				}
+				console.log('ok');
 			});
 	};
 
@@ -86,8 +93,10 @@ export const Dashboard: React.FC = () => {
 		updateUserData();
 	}, []);
 
-	if (!isDataLoaded) {
+	if (status === 'loading') {
 		return <h1>Loading</h1>;
+	} else if (status === 'error') {
+		return <button>Odśwież</button>;
 	}
 	return (
 		<>
