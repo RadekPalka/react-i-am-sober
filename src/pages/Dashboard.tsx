@@ -50,14 +50,18 @@ export const Dashboard: React.FC = () => {
 			})
 			.catch((error) => {
 				console.log(error);
-				if (error.status.code === 400) {
+				if (!error.status || error.status.code === 500) {
+					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+					console.log('Error');
+				} else if (error.status.code === 400) {
 					toast.error('Operacj się nie powidła');
 				} else if (error.status.code === 401) {
 					toast.error('Błąd autoryzacji');
 					navigate('/login-page');
 				}
-				toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				setIsButtonDisabled((prevState) => (prevState = false));
+
+				console.log(isButtonDisabled, isDataLoaded);
 			});
 	};
 	const updateUserData = () => {

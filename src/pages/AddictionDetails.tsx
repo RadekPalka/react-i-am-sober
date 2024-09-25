@@ -70,14 +70,15 @@ export const AddictionDetails: React.FC = () => {
 			})
 			.catch((error) => {
 				setFetchStatus('error');
+				if (!error.status || error.status.error === 500) {
+					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+				}
 				if (error.status.code === 401) {
 					toast.error('Błąd autoryzacji');
 					navigate('/login-page');
 				} else if (error.status.code === 404) {
 					toast.error('Operacja się nie powiodła');
 					navigate('/dashboard');
-				} else {
-					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				}
 			});
 	}, []);
