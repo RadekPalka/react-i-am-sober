@@ -72,7 +72,7 @@ export const AddictionDetails: React.FC = () => {
 				setFetchStatus('error');
 				if (error.status.code === 401) {
 					toast.error('Błąd autoryzacji');
-					navigate('/dashboard');
+					navigate('/login-page');
 				} else if (error.status.code === 404) {
 					toast.error('Operacja się nie powiodła');
 					navigate('/dashboard');
