@@ -23,7 +23,7 @@ export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 	const [isRemembered, setIsRemembered] = useState(false);
-	const [isLoggingIn, setIsLoggingIn] = useState(false);
+	const [isFormEnabled, setIsFormEnabled] = useState(true);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -47,7 +47,7 @@ export const LoginForm: React.FC = () => {
 		console.log('Logowanie');
 		e.preventDefault();
 		if (!validateInputs()) return;
-		setIsLoggingIn((prevState) => !prevState);
+		setIsFormEnabled((prevState) => !prevState);
 		loginAction(login, password)
 			.then(function (response) {
 				console.log(response);
@@ -57,6 +57,7 @@ export const LoginForm: React.FC = () => {
 			})
 			.catch(function (error) {
 				console.log(error);
+				setIsFormEnabled((prevState) => !prevState);
 				if (!error.response || error.response.status === 500) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else {
@@ -84,7 +85,7 @@ export const LoginForm: React.FC = () => {
 				</HeadingContainer>
 				<StyledForm onSubmit={handleForm}>
 					<AuthInput
-						disabled={isLoggingIn}
+						disabled={!isFormEnabled}
 						value={login}
 						labelText='Login'
 						onChange={(value) => setLogin(value)}
@@ -92,7 +93,7 @@ export const LoginForm: React.FC = () => {
 						id='login'
 					/>
 					<AuthInput
-						disabled={isLoggingIn}
+						disabled={!isFormEnabled}
 						value={password}
 						labelText='Hasło'
 						onChange={(value) => setPassword(value)}
@@ -100,11 +101,11 @@ export const LoginForm: React.FC = () => {
 						id='password'
 					/>
 					<RememberMeCheckbox
-						isLoggingIn={isLoggingIn}
+						isCheckboxEnabled={isFormEnabled}
 						isRemembered={isRemembered}
 						setIsRemembered={setIsRemembered}
 					/>
-					<StyledButton type='submit' disabled={isLoggingIn}>
+					<StyledButton type='submit' disabled={!isFormEnabled}>
 						Zaloguj się
 					</StyledButton>
 				</StyledForm>

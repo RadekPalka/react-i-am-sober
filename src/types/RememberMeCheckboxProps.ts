@@ -1,5 +1,5 @@
 export type RememberMeCheckboxProps = {
-	isLoggingIn: boolean;
+	isCheckboxEnabled: boolean;
 	isRemembered: boolean;
 	setIsRemembered: React.Dispatch<React.SetStateAction<boolean>>;
 };
