@@ -13,7 +13,7 @@ import { removeToken } from '../clients/SessionTokenService';
 
 export const CreateAddictionForm: React.FC = () => {
 	const navigate = useNavigate();
-
+	const [isFormEnabled, setIsFormEnabled] = useState(true);
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: '',
 		addictionDailyCost: 0,
@@ -31,6 +31,7 @@ export const CreateAddictionForm: React.FC = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setIsFormEnabled((prevState) => !prevState);
 		createAddiction(userAddiction)
 			.then((res) => {
 				console.log(res);
@@ -39,6 +40,7 @@ export const CreateAddictionForm: React.FC = () => {
 				navigate('/dashboard');
 			})
 			.catch((error) => {
+				setIsFormEnabled((prevState) => !prevState);
 				console.log(error);
 				if (!error.response || error.response.status === 500) {
 					toast.error(
@@ -59,24 +61,33 @@ export const CreateAddictionForm: React.FC = () => {
 		<StyledForm onSubmit={handleSubmit}>
 			<StyledDiv>
 				<AddictionInput
+					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 				/>
 			</StyledDiv>
 			<StyledDiv>
 				<DateInput
+					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 				/>
 			</StyledDiv>
 			<StyledDiv>
 				<DailyCostInput
+					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 				/>
 			</StyledDiv>
-			<StyledButton type='submit'>Dodaj</StyledButton>
-			<StyledButton type='button' onClick={() => navigate('/dashboard')}>
+			<StyledButton type='submit' disabled={!isFormEnabled}>
+				Dodaj
+			</StyledButton>
+			<StyledButton
+				type='button'
+				disabled={!isFormEnabled}
+				onClick={() => navigate('/dashboard')}
+			>
 				Anuluj
 			</StyledButton>
 		</StyledForm>

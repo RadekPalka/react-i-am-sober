@@ -5,6 +5,7 @@ import React from 'react';
 import { AddictionInputsProps } from '../types/AddictionInputsProps';
 
 export const AddictionInput: React.FC<AddictionInputsProps> = ({
+	isInputDisabled,
 	setUserAddiction,
 	userAddiction,
 }) => {
@@ -22,6 +23,7 @@ export const AddictionInput: React.FC<AddictionInputsProps> = ({
 				list='Addiction-type'
 				value={userAddiction.addictionType}
 				onChange={handleChange}
+				disabled={isInputDisabled}
 				required
 			/>
 			<datalist id='Addiction-type'>

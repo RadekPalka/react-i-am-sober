@@ -5,6 +5,7 @@ import React from 'react';
 import { AddictionInputsProps } from '../types/AddictionInputsProps';
 import { AddictionData } from '../types/AddictionData';
 export const DateInput: React.FC<AddictionInputsProps> = ({
+	isInputDisabled,
 	setUserAddiction,
 	userAddiction,
 }) => {
@@ -25,6 +26,7 @@ export const DateInput: React.FC<AddictionInputsProps> = ({
 				value={userAddiction.detoxStartDate}
 				max={userAddiction.detoxStartDate}
 				onChange={handleChange}
+				disabled={isInputDisabled}
 				// required
 			/>
 		</>

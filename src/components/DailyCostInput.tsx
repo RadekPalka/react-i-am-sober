@@ -4,6 +4,7 @@ import React from 'react';
 import { AddictionInputsProps } from '../types/AddictionInputsProps';
 import { AddictionData } from '../types/AddictionData';
 export const DailyCostInput: React.FC<AddictionInputsProps> = ({
+	isInputDisabled,
 	setUserAddiction,
 	userAddiction,
 }) => {
@@ -22,7 +23,9 @@ export const DailyCostInput: React.FC<AddictionInputsProps> = ({
 				type='number'
 				id='daily-cost'
 				min='0'
+				value={userAddiction.addictionDailyCost}
 				onChange={handleChange}
+				disabled={isInputDisabled}
 				required
 			/>
 		</>
