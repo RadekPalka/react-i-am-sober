@@ -78,11 +78,11 @@ export const Dashboard: React.FC = () => {
 				updateUserAddictions();
 			})
 			.catch((error) => {
-				if (!error.status || error.status.code === 500) {
+				if (!error.response || error.response.status === 500) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
 					console.log(error);
 					setStatus('error');
-				} else {
+				} else if (error.response.status === 401) {
 					removeToken();
 					console.error('Error fetching data:', error);
 					toast.error('Błąd autoryzacji');
