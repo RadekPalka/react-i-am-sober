@@ -9,6 +9,7 @@ import { StyledButton } from './StyledButton';
 import { createAddiction } from '../clients/AccountClients';
 import { AddictionData } from '../types/AddictionData';
 import { toast } from 'react-toastify';
+import { removeToken } from '../clients/SessionTokenService';
 
 export const CreateAddictionForm: React.FC = () => {
 	const navigate = useNavigate();
@@ -48,7 +49,8 @@ export const CreateAddictionForm: React.FC = () => {
 						'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
 					);
 				} else if (error.response.status === 401) {
-					toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
+					removeToken();
+					toast.error('Błąd autoryzacji. Proszę zalogować się ponownie.');
 					navigate('/login-page');
 				}
 			});

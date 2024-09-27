@@ -53,12 +53,12 @@ export const Dashboard: React.FC = () => {
 			})
 			.catch((error) => {
 				console.log(error);
-				if (!error.status || error.status.code === 500) {
+				if (!error.response || error.response.status === 500) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 					console.log('Error');
-				} else if (error.status.code === 400) {
+				} else if (error.response.status === 400) {
 					toast.error('Operacja się nie powiodła');
-				} else if (error.status.code === 401) {
+				} else if (error.response.status === 401) {
 					removeToken();
 					toast.error('Błąd autoryzacji');
 					navigate('/login-page');

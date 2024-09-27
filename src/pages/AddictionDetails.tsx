@@ -11,6 +11,7 @@ import { LogoutButton } from '../components/LogoutButton';
 import styled from 'styled-components';
 import { StyledButton } from '../components/StyledButton';
 import { toast } from 'react-toastify';
+import { removeToken } from '../clients/SessionTokenService';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -70,13 +71,14 @@ export const AddictionDetails: React.FC = () => {
 			})
 			.catch((error) => {
 				setFetchStatus('error');
-				if (!error.status || error.status.error === 500) {
+				if (!error.response || error.response.status === 500) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				}
-				if (error.status.code === 401) {
+				if (error.response.status === 401) {
+					removeToken();
 					toast.error('Błąd autoryzacji');
 					navigate('/login-page');
-				} else if (error.status.code === 404) {
+				} else if (error.response.status === 404) {
 					toast.error('Operacja się nie powiodła');
 					navigate('/dashboard');
 				}
