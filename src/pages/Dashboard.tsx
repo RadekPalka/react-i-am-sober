@@ -17,6 +17,7 @@ import { AddictionsList } from '../components/AddictionsList';
 import { NoAddictionsMessage } from '../components/NoAddictionsMessage';
 import { LogoutButton } from '../components/LogoutButton';
 import { useNavigate } from 'react-router-dom';
+import { removeToken } from '../clients/SessionTokenService';
 
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
@@ -58,6 +59,7 @@ export const Dashboard: React.FC = () => {
 				} else if (error.status.code === 400) {
 					toast.error('Operacja się nie powiodła');
 				} else if (error.status.code === 401) {
+					removeToken();
 					toast.error('Błąd autoryzacji');
 					navigate('/login-page');
 				}
