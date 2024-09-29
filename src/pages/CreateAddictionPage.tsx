@@ -11,7 +11,7 @@ import { fetchUserData } from '../clients/AccountClients';
 import { StyledNav } from '../components/StyledNav';
 import { StyledLi } from '../components/StyledLi';
 import { StyledUl } from '../components/StyledUl';
-import { getToken } from '../clients/SessionTokenService';
+import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { LogoutButton } from '../components/LogoutButton';
 export const CreateAddictionPage: React.FC = () => {
@@ -23,11 +23,18 @@ export const CreateAddictionPage: React.FC = () => {
 			fetchUserData()
 				.then((response) => {
 					setUserData(response.data);
-					navigate('/dashboard');
 				})
 				.catch((error) => {
-					console.error('Error fetching data:', error);
-					toast.error('Błąd autoryzacji');
+					if (!error.response || error.response.status === 500) {
+						toast.error(
+							'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'
+						);
+					} else {
+						removeToken();
+						console.error('Error fetching data:', error);
+						toast.error('Błąd autoryzacji');
+						navigate('/login-page');
+					}
 				});
 	};
 
