@@ -1,5 +1,5 @@
 import { CreateAddictionForm } from '../components/CreateAddictionForm';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -17,15 +17,21 @@ import { LogoutButton } from '../components/LogoutButton';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
+	const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+		'success'
+	);
 	const updateUserData = () => {
+		setStatus('loading');
 		const token = getToken();
 		token &&
 			fetchUserData()
 				.then((response) => {
 					setUserData(response.data);
+					setStatus('success');
 				})
 				.catch((error) => {
 					if (!error.response || error.response.status === 500) {
+						setStatus('error');
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'
 						);
@@ -41,8 +47,10 @@ export const CreateAddictionPage: React.FC = () => {
 	useEffect(() => {
 		!userData.id && updateUserData();
 	}, []);
-	if (!userData.id) {
+	if (status === 'loading') {
 		return <h1>Loading</h1>;
+	} else if (status === 'error') {
+		return <button onClick={() => window.location.reload()}>Odśwież</button>;
 	}
 	return (
 		<>
