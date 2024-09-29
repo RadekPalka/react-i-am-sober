@@ -99,7 +99,7 @@ export const Dashboard: React.FC = () => {
 	if (status === 'loading') {
 		return <h1>Loading</h1>;
 	} else if (status === 'error') {
-		return <button>Odśwież</button>;
+		return <button onClick={() => navigate(0)}>Odśwież</button>;
 	}
 	return (
 		<>

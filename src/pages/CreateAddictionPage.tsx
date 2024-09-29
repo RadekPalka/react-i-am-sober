@@ -50,7 +50,7 @@ export const CreateAddictionPage: React.FC = () => {
 	if (status === 'loading') {
 		return <h1>Loading</h1>;
 	} else if (status === 'error') {
-		return <button onClick={() => window.location.reload()}>Odśwież</button>;
+		return <button onClick={() => navigate(0)}>Odśwież</button>;
 	}
 	return (
 		<>
