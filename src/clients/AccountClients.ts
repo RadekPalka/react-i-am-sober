@@ -66,12 +66,16 @@ export const createAddiction = ({
 
 export const logout = (): Promise<string> => {
 	const token = getToken();
-	return api.post('/account/logout', {
-		headers: {
-			Authorization: token,
-			'Content-Type': 'application/json',
-		},
-	});
+	return api.post(
+		'/account/logout',
+		{},
+		{
+			headers: {
+				Authorization: token,
+				'Content-Type': 'application/json',
+			},
+		}
+	);
 };
 
 export const getPaginatedAddictions = (pageNumber: number) => {
@@ -130,10 +134,14 @@ export const updateAddiction = (
 
 export const addIncident = (id: string) => {
 	const token = getToken();
-	return api.post(`/addiction/${id}/incident`, {
-		headers: {
-			Authorization: token,
-			'Content-Type': 'application/json',
-		},
-	});
+	return api.post(
+		`/addiction/${id}/incident`,
+		{},
+		{
+			headers: {
+				Authorization: token,
+				'Content-Type': 'application/json',
+			},
+		}
+	);
 };

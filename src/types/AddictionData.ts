@@ -1,5 +1,5 @@
 export type AddictionData = {
 	addictionType: string;
 	detoxStartDate: string;
-	addictionDailyCost: number;
+	addictionDailyCost: number | string;
 };
