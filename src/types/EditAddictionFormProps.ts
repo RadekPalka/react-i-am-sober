@@ -2,7 +2,7 @@ import { AddictionDetailsProps } from './AddictionDetailsProps';
 
 export type EditAddictionFormProps = {
 	name: string;
-	costPerDay: number;
+	costPerDay: number | string;
 	id: number;
 	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setAddictionDetails: React.Dispatch<

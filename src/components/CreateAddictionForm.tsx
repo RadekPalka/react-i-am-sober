@@ -16,7 +16,7 @@ export const CreateAddictionForm: React.FC = () => {
 	const [isFormEnabled, setIsFormEnabled] = useState(true);
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: '',
-		addictionDailyCost: 0,
+		addictionDailyCost: '',
 		detoxStartDate: new Date()
 			.toLocaleDateString('en-CA', {
 				year: 'numeric',
