@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
@@ -39,6 +39,7 @@ export const AddictionDetails: React.FC = () => {
 			limitOfLastIncidents: 0,
 		});
 	const navigate = useNavigate();
+	const modalRef = useRef<HTMLDivElement | null>(null);
 
 	const formatDate = (date: string) => {
 		return new Date(date).toLocaleDateString('en-CA', {
@@ -65,14 +66,14 @@ export const AddictionDetails: React.FC = () => {
 			addIncident(addictionId)
 				.then((res) => {
 					console.log(res);
-					toast.success('Pomyślnie dodano inydent');
+					toast.success('Pomyślnie dodano incydent');
 				})
 				.catch((error) => {
 					console.log(error);
 					if (!error.response || error.response.status === 500) {
 						toast.error('Błąd połączneia sieciowego. Spróbuj ponownie później');
 					} else if (error.response.status === 401) {
-						removeToken();
+						//removeToken();
 						toast.error('Błąd autoryzacji');
 					} else {
 						toast.error('Operacja się nie powiodła');
@@ -151,21 +152,28 @@ export const AddictionDetails: React.FC = () => {
 					Dodaj incydent
 				</StyledButton>
 				<StyledButton
-					onClick={() => setIsModalOpen(true)}
+					onClick={() => {
+						setIsModalOpen(true);
+						console.log(modalRef.current);
+						modalRef.current &&
+							modalRef.current.scrollIntoView({ behavior: 'smooth' });
+					}}
 					disabled={isButtonDisabled}
 				>
 					Edytuj
 				</StyledButton>
 			</AddictionDetailsContainer>
-			{isModalOpen && (
-				<EditAddictionForm
-					name={addictionDetails.name}
-					costPerDay={addictionDetails.costPerDay}
-					id={Number(addictionId)}
-					setIsModalOpen={setIsModalOpen}
-					setAddictionDetails={setAddictionDetails}
-				/>
-			)}
+			<div ref={modalRef}>
+				{isModalOpen && (
+					<EditAddictionForm
+						name={addictionDetails.name}
+						costPerDay={addictionDetails.costPerDay}
+						id={Number(addictionId)}
+						setIsModalOpen={setIsModalOpen}
+						setAddictionDetails={setAddictionDetails}
+					/>
+				)}
+			</div>
 		</>
 	);
 };

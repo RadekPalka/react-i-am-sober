@@ -12,7 +12,7 @@ const CardWrapper = styled.li`
 	justify-content: space-around;
 	align-items: center;
 	flex-direction: column;
-	width: 25%;
+	width: 300px;
 	height: 200px;
 	border: 1px solid black;
 `;

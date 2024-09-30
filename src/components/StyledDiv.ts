@@ -4,4 +4,7 @@ export const StyledDiv = styled.div`
 	justify-content: center;
 	gap: 3px;
 	margin-top: 10px;
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `;
