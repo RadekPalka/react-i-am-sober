@@ -114,7 +114,7 @@ export const deleteAddiction = (id: number) => {
 export const updateAddiction = (
 	id: number,
 	name: string,
-	costPerDay: number
+	costPerDay: number | string
 ) => {
 	const token = getToken();
 	return api.put(

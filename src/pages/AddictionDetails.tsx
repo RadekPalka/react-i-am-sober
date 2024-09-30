@@ -32,7 +32,7 @@ export const AddictionDetails: React.FC = () => {
 			id: 0,
 			name: '',
 			costPerDay: 0,
-			createdAt: '',
+			startDate: '',
 			deadline: '',
 			lastIncidents: [],
 			numberOfIncidents: 0,
@@ -53,7 +53,7 @@ export const AddictionDetails: React.FC = () => {
 	};
 
 	const calculateSobrietyDays = () => {
-		const start = new Date(addictionDetails.createdAt);
+		const start = new Date(addictionDetails.startDate);
 		const today = new Date();
 
 		const differenceInMilliseconds = today.getTime() - start.getTime();
@@ -92,7 +92,6 @@ export const AddictionDetails: React.FC = () => {
 				setAddictionDetails((prevDetails) => ({
 					...prevDetails,
 					...res.data,
-					createdAt: formatDate(res.data.createdAt),
 				}));
 			})
 			.catch((error) => {
@@ -119,7 +118,7 @@ export const AddictionDetails: React.FC = () => {
 		return (
 			<>
 				<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
-				<StyledLink to={`/addiction/${addictionId}`}>Odśwież stronę</StyledLink>
+				<StyledButton onClick={() => navigate(0)}></StyledButton>
 			</>
 		);
 	}
@@ -141,7 +140,7 @@ export const AddictionDetails: React.FC = () => {
 				<h1>{addictionDetails.name}</h1>
 				<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
 				<p>
-					Data rozpoczęcia treźwienia: {formatDate(addictionDetails.createdAt)}
+					Data rozpoczęcia treźwienia: {formatDate(addictionDetails.startDate)}
 				</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
 				<p>
