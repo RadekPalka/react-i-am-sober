@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAddictionDetails } from '../clients/AccountClients';
+import { addIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
 import { StyledNav } from '../components/StyledNav';
@@ -25,6 +25,7 @@ export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
 	const [fetchStatus, setFetchStatus] = useState<status>('loading');
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	const [sobrietyDays, setSobrietyDays] = useState(0);
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
@@ -58,7 +59,31 @@ export const AddictionDetails: React.FC = () => {
 
 		return Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 	};
-
+	const handleIncidentButton = () => {
+		if (addictionId) {
+			setIsButtonDisabled((prev) => !prev);
+			addIncident(addictionId)
+				.then((res) => {
+					console.log(res);
+					toast.success('Pomyślnie dodano inydent');
+				})
+				.catch((error) => {
+					console.log(error);
+					if (!error.response || error.response.status === 500) {
+						toast.error('Błąd połączneia sieciowego. Spróbuj ponownie później');
+					} else if (error.response.status === 401) {
+						removeToken();
+						toast.error('Błąd autoryzacji');
+					} else {
+						toast.error('Operacja się nie powiodła');
+						navigate('/dashboard');
+					}
+				})
+				.finally(() => {
+					setIsButtonDisabled((prev) => !prev);
+				});
+		}
+	};
 	useEffect(() => {
 		getAddictionDetails(Number(addictionId))
 			.then((res) => {
@@ -122,7 +147,15 @@ export const AddictionDetails: React.FC = () => {
 					Ilość zaoszczędzonych pieniędzy:{' '}
 					{sobrietyDays * addictionDetails.costPerDay} PLN
 				</p>
-				<StyledButton onClick={() => setIsModalOpen(true)}>Edytuj</StyledButton>
+				<StyledButton onClick={handleIncidentButton}>
+					Dodaj incydent
+				</StyledButton>
+				<StyledButton
+					onClick={() => setIsModalOpen(true)}
+					disabled={isButtonDisabled}
+				>
+					Edytuj
+				</StyledButton>
 			</AddictionDetailsContainer>
 			{isModalOpen && (
 				<EditAddictionForm

@@ -127,3 +127,13 @@ export const updateAddiction = (
 		}
 	);
 };
+
+export const addIncident = (id: string) => {
+	const token = getToken();
+	return api.post(`/addiction/${id}/incident`, {
+		headers: {
+			Authorization: token,
+			'Content-Type': 'application/json',
+		},
+	});
+};
