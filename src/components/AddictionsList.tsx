@@ -5,6 +5,8 @@ import { StyledButton } from './StyledButton';
 import { deleteAddiction } from '../clients/AccountClients';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import { removeToken } from '../clients/SessionTokenService';
+import { useNavigate } from 'react-router-dom';
 
 const AddictionsUl = styled.ul`
 	display: flex;
@@ -22,6 +24,7 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 	setIsButtonDisabled,
 	updateUserAddictions,
 }) => {
+	const navigate = useNavigate();
 	const removeAddiction = (id: number) => {
 		deleteAddiction(id)
 			.then((res) => {
@@ -32,13 +35,16 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 				toast.success('Uzależnienie usunięto pomyślnie');
 			})
 			.catch((error) => {
-				if (!error.status || error.status.code === 500) {
+				if (
+					!error.status ||
+					(error.status.code >= 500 && error.status.code < 600)
+				) {
 					console.log(error);
 					toast.error('Błąd połącznia. Spróbuj ponownie później');
 				} else {
-					toast.error(
-						'Operacja nie powiodła się. Odśwież stronę i spróbuj ponownie'
-					);
+					toast.error('Błąd autoryzacji');
+					removeToken();
+					navigate('/login-page');
 				}
 			});
 	};
