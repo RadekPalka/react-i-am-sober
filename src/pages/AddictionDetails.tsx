@@ -69,13 +69,17 @@ export const AddictionDetails: React.FC = () => {
 				})
 				.catch((error) => {
 					console.log(error);
-					if (!error.response || error.response.status === 500) {
+					if (
+						!error.response ||
+						(error.response.status >= 500 && error.response.status < 600)
+					) {
 						toast.error('Błąd połączneia sieciowego. Spróbuj ponownie później');
 					} else if (error.response.status === 401) {
 						removeToken();
 						toast.error('Błąd autoryzacji');
+						navigate('/login-page');
 					} else {
-						toast.error('Operacja się nie powiodła');
+						toast.error('Dane uzależnienie nie istnieje');
 						navigate('/dashboard');
 					}
 				})
