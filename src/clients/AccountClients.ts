@@ -116,14 +116,17 @@ export const deleteAddiction = (id: number) => {
 export const updateAddiction = (
 	id: number,
 	name: string,
-	costPerDay: number | string
+	costPerDay: number | string,
+	detoxStartDate: string
 ) => {
+	console.log(detoxStartDate);
 	const token = getToken();
 	return api.put(
 		`/addiction/${id}`,
 		{
 			name,
 			costPerDay,
+			detoxStartDate,
 		},
 		{
 			headers: {

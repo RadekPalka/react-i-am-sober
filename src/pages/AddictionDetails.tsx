@@ -32,10 +32,11 @@ export const AddictionDetails: React.FC = () => {
 			id: 0,
 			name: '',
 			costPerDay: 0,
-			startDate: '',
+			detoxStartDate: '',
 			lastIncidents: [],
 			numberOfIncidents: 0,
 			limitOfLastIncidents: 0,
+			createdAt: '',
 		});
 	const navigate = useNavigate();
 	const modalRef = useRef<HTMLDivElement | null>(null);
@@ -52,7 +53,7 @@ export const AddictionDetails: React.FC = () => {
 	};
 
 	const calculateSobrietyDays = () => {
-		const start = new Date(addictionDetails.startDate);
+		const start = new Date(addictionDetails.detoxStartDate);
 		const today = new Date();
 
 		const differenceInMilliseconds = today.getTime() - start.getTime();
@@ -91,6 +92,7 @@ export const AddictionDetails: React.FC = () => {
 	useEffect(() => {
 		getAddictionDetails(Number(addictionId))
 			.then((res) => {
+				console.log(res.data);
 				setFetchStatus('success');
 				setAddictionDetails((prevDetails) => ({
 					...prevDetails,
@@ -142,7 +144,9 @@ export const AddictionDetails: React.FC = () => {
 			<AddictionDetailsContainer>
 				<h1>{addictionDetails.name}</h1>
 				<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
-				<p>Data rozpoczęcia zmiany: {formatDate(addictionDetails.startDate)}</p>
+				<p>
+					Data rozpoczęcia zmiany: {formatDate(addictionDetails.detoxStartDate)}
+				</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
 				<p>
 					Ilość zaoszczędzonych pieniędzy:{' '}
@@ -168,9 +172,11 @@ export const AddictionDetails: React.FC = () => {
 					<EditAddictionForm
 						name={addictionDetails.name}
 						costPerDay={addictionDetails.costPerDay}
+						detoxStartDate={addictionDetails.detoxStartDate}
 						id={Number(addictionId)}
 						setIsModalOpen={setIsModalOpen}
 						setAddictionDetails={setAddictionDetails}
+						createdAt={addictionDetails.createdAt}
 					/>
 				)}
 			</div>

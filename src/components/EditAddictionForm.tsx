@@ -15,9 +15,22 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
 	costPerDay,
 	id,
+	detoxStartDate,
+	createdAt,
 	setIsModalOpen,
 	setAddictionDetails,
 }) => {
+	const maxDate = new Date(createdAt)
+		.toLocaleDateString('en-CA', {
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		})
+		.replaceAll(',', '');
+
 	const navigate = useNavigate();
 	const [isFormEnabled, setIsFormEnabled] = useState(true);
 	const formatDate = (dateString: string): string => {
@@ -36,7 +49,8 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: name,
 		addictionDailyCost: costPerDay,
-		detoxStartDate: '',
+		detoxStartDate: formatDate(detoxStartDate),
+		createdAt: createdAt,
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +59,8 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 		updateAddiction(
 			id,
 			userAddiction.addictionType,
-			userAddiction.addictionDailyCost
+			userAddiction.addictionDailyCost,
+			userAddiction.detoxStartDate
 		)
 			.then((res) => {
 				console.log(res);
@@ -53,6 +68,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 					...res.data,
 					name: userAddiction.addictionType,
 					costPerDay: userAddiction.addictionDailyCost,
+					detoxStartDate: userAddiction.detoxStartDate,
 				});
 				toast.success('Aktualizacja przebiegła pomyślnie');
 				setIsModalOpen(false);
@@ -93,6 +109,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					isInputDisabled={!isFormEnabled}
+					max={maxDate}
 				/>
 			</StyledDiv>
 			<StyledDiv>

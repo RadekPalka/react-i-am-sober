@@ -8,7 +8,9 @@ export const DateInput: React.FC<AddictionInputsProps> = ({
 	isInputDisabled,
 	setUserAddiction,
 	userAddiction,
+	max,
 }) => {
+	console.log(max);
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserAddiction((prevState: AddictionData) => ({
 			...prevState,
@@ -24,7 +26,7 @@ export const DateInput: React.FC<AddictionInputsProps> = ({
 				type='datetime-local'
 				id='addiction-free-date'
 				value={userAddiction.detoxStartDate}
-				max={userAddiction.detoxStartDate}
+				max={max}
 				onChange={handleChange}
 				disabled={isInputDisabled}
 				required
