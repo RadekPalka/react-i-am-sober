@@ -78,7 +78,10 @@ export const Dashboard: React.FC = () => {
 				updateUserAddictions();
 			})
 			.catch((error) => {
-				if (!error.response || error.response.status === 500) {
+				if (
+					!error.response ||
+					(error.response.status >= 500 && error.response.status < 600)
+				) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
 					console.log(error);
 					setStatus('error');

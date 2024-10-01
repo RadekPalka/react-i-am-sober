@@ -30,7 +30,10 @@ export const CreateAddictionPage: React.FC = () => {
 					setStatus('success');
 				})
 				.catch((error) => {
-					if (!error.response || error.response.status === 500) {
+					if (
+						!error.response ||
+						(error.response.status >= 500 && error.response.status < 600)
+					) {
 						setStatus('error');
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'
