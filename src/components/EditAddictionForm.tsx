@@ -58,7 +58,10 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 				setIsModalOpen(false);
 			})
 			.catch((error) => {
-				if (!error.response || error.response.status === 500) {
+				if (
+					!error.response ||
+					(error.response.status >= 500 && error.response.status < 600)
+				) {
 					toast.error(
 						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
 					);
@@ -70,9 +73,8 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 					toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
 					navigate('/login-page');
 				} else if (error.response.status === 404) {
-					toast.error(
-						'Operacja się nie powiodła. Proszę odwieżyć stronę i spróbować ponownie'
-					);
+					toast.error('Dane uzależnienie nie istnieje');
+					navigate('/dashboard');
 				}
 			})
 			.finally(() => setIsFormEnabled(true));
