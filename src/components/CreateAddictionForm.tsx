@@ -31,7 +31,7 @@ export const CreateAddictionForm: React.FC = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setIsFormEnabled((prevState) => !prevState);
+		setIsFormEnabled(false);
 		createAddiction(userAddiction)
 			.then((res) => {
 				console.log(res);
@@ -40,7 +40,7 @@ export const CreateAddictionForm: React.FC = () => {
 				navigate('/dashboard');
 			})
 			.catch((error) => {
-				setIsFormEnabled((prevState) => !prevState);
+				setIsFormEnabled(true);
 				console.log(error);
 				if (!error.response || error.response.status === 500) {
 					toast.error(
