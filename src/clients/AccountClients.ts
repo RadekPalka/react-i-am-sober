@@ -137,11 +137,11 @@ export const updateAddiction = (
 	);
 };
 
-export const addIncident = (id: string) => {
+export const addIncident = (id: string, incidentDate: string) => {
 	const token = getToken();
 	return api.post(
 		`/addiction/${id}/incident`,
-		{},
+		{ incidentDate },
 		{
 			headers: {
 				Authorization: token,

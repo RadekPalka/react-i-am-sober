@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { StyledButton } from '../components/StyledButton';
 import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
+import { CreateIncidentForm } from '../components/CreateIncidentForm';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -25,7 +26,8 @@ export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
 	const [fetchStatus, setFetchStatus] = useState<status>('loading');
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+	const [isIncidentModalOpen, setIsIncidentModalOpen] = useState(false);
+
 	const [sobrietyDays, setSobrietyDays] = useState(0);
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
@@ -60,35 +62,7 @@ export const AddictionDetails: React.FC = () => {
 
 		return Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 	};
-	const handleIncidentButton = () => {
-		if (addictionId) {
-			setIsButtonDisabled(true);
-			addIncident(addictionId)
-				.then((res) => {
-					console.log(res);
-					toast.success('Pomyślnie dodano incydent');
-				})
-				.catch((error) => {
-					console.log(error);
-					if (
-						!error.response ||
-						(error.response.status >= 500 && error.response.status < 600)
-					) {
-						toast.error('Błąd połączneia sieciowego. Spróbuj ponownie później');
-					} else if (error.response.status === 401) {
-						removeToken();
-						toast.error('Błąd autoryzacji');
-						navigate('/login-page');
-					} else {
-						toast.error('Dane uzależnienie nie istnieje');
-						navigate('/dashboard');
-					}
-				})
-				.finally(() => {
-					setIsButtonDisabled(false);
-				});
-		}
-	};
+
 	useEffect(() => {
 		getAddictionDetails(Number(addictionId))
 			.then((res) => {
@@ -152,9 +126,16 @@ export const AddictionDetails: React.FC = () => {
 					Ilość zaoszczędzonych pieniędzy:{' '}
 					{sobrietyDays * addictionDetails.costPerDay} PLN
 				</p>
-				<StyledButton onClick={handleIncidentButton}>
+				<StyledButton onClick={() => setIsIncidentModalOpen(true)}>
 					Dodaj incydent
 				</StyledButton>
+				{isIncidentModalOpen && (
+					<CreateIncidentForm
+						min={addictionDetails.detoxStartDate}
+						id={addictionId}
+						setIsIncidentModalOpen={setIsIncidentModalOpen}
+					/>
+				)}
 				<StyledButton
 					onClick={() => {
 						setIsModalOpen(true);
@@ -162,7 +143,6 @@ export const AddictionDetails: React.FC = () => {
 						modalRef.current &&
 							modalRef.current.scrollIntoView({ behavior: 'smooth' });
 					}}
-					disabled={isButtonDisabled}
 				>
 					Edytuj
 				</StyledButton>
