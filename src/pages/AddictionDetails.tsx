@@ -61,7 +61,7 @@ export const AddictionDetails: React.FC = () => {
 	};
 	const handleIncidentButton = () => {
 		if (addictionId) {
-			setIsButtonDisabled((prev) => !prev);
+			setIsButtonDisabled(true);
 			addIncident(addictionId)
 				.then((res) => {
 					console.log(res);
@@ -84,7 +84,7 @@ export const AddictionDetails: React.FC = () => {
 					}
 				})
 				.finally(() => {
-					setIsButtonDisabled((prev) => !prev);
+					setIsButtonDisabled(false);
 				});
 		}
 	};
@@ -142,9 +142,7 @@ export const AddictionDetails: React.FC = () => {
 			<AddictionDetailsContainer>
 				<h1>{addictionDetails.name}</h1>
 				<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
-				<p>
-					Data rozpoczęcia treźwienia: {formatDate(addictionDetails.startDate)}
-				</p>
+				<p>Data rozpoczęcia zmiany: {formatDate(addictionDetails.startDate)}</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
 				<p>
 					Ilość zaoszczędzonych pieniędzy:{' '}

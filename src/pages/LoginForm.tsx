@@ -47,7 +47,7 @@ export const LoginForm: React.FC = () => {
 		console.log('Logowanie');
 		e.preventDefault();
 		if (!validateInputs()) return;
-		setIsFormEnabled((false);
+		setIsFormEnabled(false);
 		loginAction(login, password)
 			.then(function (response) {
 				console.log(response);
@@ -65,9 +65,10 @@ export const LoginForm: React.FC = () => {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else if (error.response.status === 401) {
 					toast.error('Zły login lub hasło');
-				}
-				else if (error.response.status === 400){
-					toast.error('Wystąpił błąd podczas logowania. Proszę spróbować ponownie.');
+				} else if (error.response.status === 400) {
+					toast.error(
+						'Wystąpił błąd podczas logowania. Proszę spróbować ponownie.'
+					);
 				}
 			});
 	};

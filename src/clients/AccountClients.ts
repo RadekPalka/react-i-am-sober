@@ -47,6 +47,7 @@ export const fetchUserData = () => {
 export const createAddiction = ({
 	addictionType,
 	addictionDailyCost,
+	detoxStartDate,
 }: AddictionData) => {
 	const token = getToken();
 	return api.post(
@@ -54,6 +55,7 @@ export const createAddiction = ({
 		{
 			name: addictionType,
 			costPerDay: addictionDailyCost,
+			detoxStartDate,
 		},
 		{
 			headers: {
