@@ -50,7 +50,6 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 						key={addiction.id}
 						name={addiction.name}
 						costPerDay={addiction.costPerDay}
-						deadline={addiction.deadline}
 						id={addiction.id}
 						removeAddiction={removeAddiction}
 					/>

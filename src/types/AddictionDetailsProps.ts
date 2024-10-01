@@ -3,7 +3,6 @@ export type AddictionDetailsProps = {
 	name: string;
 	costPerDay: number;
 	startDate: string;
-	deadline: string;
 	lastIncidents: { id: number; createdAt: string }[];
 	numberOfIncidents: number;
 	limitOfLastIncidents: number;

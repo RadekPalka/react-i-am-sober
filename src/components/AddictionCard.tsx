@@ -20,7 +20,6 @@ const CardWrapper = styled.li`
 export const AddictionCard: React.FC<AddictionCardProps> = ({
 	name,
 	costPerDay,
-	deadline,
 	id,
 	removeAddiction,
 }) => {
@@ -28,7 +27,6 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 		<CardWrapper>
 			<h2>{name}</h2>
 			<p>Dzienny koszt: {costPerDay} PLN</p>
-			{deadline && <p>{deadline}</p>}
 			<StyledNav $justifyContent='end'>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $background='transparent'>

@@ -33,7 +33,6 @@ export const AddictionDetails: React.FC = () => {
 			name: '',
 			costPerDay: 0,
 			startDate: '',
-			deadline: '',
 			lastIncidents: [],
 			numberOfIncidents: 0,
 			limitOfLastIncidents: 0,
