@@ -73,7 +73,7 @@ export const AddictionDetails: React.FC = () => {
 					if (!error.response || error.response.status === 500) {
 						toast.error('Błąd połączneia sieciowego. Spróbuj ponownie później');
 					} else if (error.response.status === 401) {
-						//removeToken();
+						removeToken();
 						toast.error('Błąd autoryzacji');
 					} else {
 						toast.error('Operacja się nie powiodła');

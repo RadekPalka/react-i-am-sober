@@ -19,6 +19,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	setAddictionDetails,
 }) => {
 	const navigate = useNavigate();
+	const [isFormEnabled, setIsFormEnabled] = useState(true);
 	const formatDate = (dateString: string): string => {
 		const date = new Date(dateString);
 		return date
@@ -39,7 +40,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		console.log(userAddiction.addictionDailyCost);
+		setIsFormEnabled(false);
 		e.preventDefault();
 		updateAddiction(
 			id,
@@ -73,7 +74,8 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 						'Operacja się nie powiodła. Proszę odwieżyć stronę i spróbować ponownie'
 					);
 				}
-			});
+			})
+			.finally(() => setIsFormEnabled(true));
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>
@@ -81,21 +83,24 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 				<AddictionInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
+					isInputDisabled={!isFormEnabled}
 				/>
 			</StyledDiv>
 			<StyledDiv>
 				<DateInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
+					isInputDisabled={!isFormEnabled}
 				/>
 			</StyledDiv>
 			<StyledDiv>
 				<DailyCostInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
+					isInputDisabled={!isFormEnabled}
 				/>
 			</StyledDiv>
-			<StyledButton type='submit'>Edytuj</StyledButton>
+			<StyledButton type='submit'>Zapisz</StyledButton>
 			<StyledButton type='button' onClick={() => setIsModalOpen(false)}>
 				Anuluj
 			</StyledButton>
