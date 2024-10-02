@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addIncident, getAddictionDetails } from '../clients/AccountClients';
+import { getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
 import { StyledNav } from '../components/StyledNav';
@@ -13,6 +13,7 @@ import { StyledButton } from '../components/StyledButton';
 import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { CreateIncidentForm } from '../components/CreateIncidentForm';
+import { formatDateForInput } from '../clients/dateUtils';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -43,17 +44,6 @@ export const AddictionDetails: React.FC = () => {
 	const navigate = useNavigate();
 	const modalRef = useRef<HTMLDivElement | null>(null);
 
-	const formatDate = (date: string) => {
-		return new Date(date).toLocaleDateString('en-CA', {
-			year: 'numeric',
-			month: '2-digit',
-			day: '2-digit',
-			hour: '2-digit',
-			minute: '2-digit',
-			hour12: false,
-		});
-	};
-
 	const calculateSobrietyDays = () => {
 		const start = new Date(addictionDetails.detoxStartDate);
 		const today = new Date();
@@ -62,7 +52,6 @@ export const AddictionDetails: React.FC = () => {
 
 		return Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 	};
-
 	useEffect(() => {
 		getAddictionDetails(Number(addictionId))
 			.then((res) => {
@@ -119,7 +108,8 @@ export const AddictionDetails: React.FC = () => {
 				<h1>{addictionDetails.name}</h1>
 				<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
 				<p>
-					Data rozpoczęcia zmiany: {formatDate(addictionDetails.detoxStartDate)}
+					Data rozpoczęcia zmiany:{' '}
+					{formatDateForInput(new Date(addictionDetails.detoxStartDate))}
 				</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
 				<p>

@@ -6,6 +6,7 @@ import { addIncident } from '../clients/AccountClients';
 import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { useNavigate } from 'react-router-dom';
+import { formatDateForInput } from '../clients/dateUtils';
 
 type CreateIncidentFormProps = {
 	min: string;
@@ -18,35 +19,18 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	id,
 	setIsIncidentModalOpen,
 }) => {
-	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+	const [isFormDisabled, setIsFormDisabled] = useState(false);
 
 	const navigate = useNavigate();
-	const formatMinDate = new Date(min)
-		.toLocaleDateString('en-CA', {
-			year: 'numeric',
-			month: '2-digit',
-			day: '2-digit',
-			hour: '2-digit',
-			minute: '2-digit',
-			hour12: false,
-		})
-		.replaceAll(',', '');
+	const formatMinDate = formatDateForInput(new Date(min));
 
-	const formatMaxDate = new Date()
-		.toLocaleDateString('en-CA', {
-			year: 'numeric',
-			month: '2-digit',
-			day: '2-digit',
-			hour: '2-digit',
-			minute: '2-digit',
-			hour12: false,
-		})
-		.replaceAll(',', '');
+	const formatMaxDate = formatDateForInput(new Date());
+
 	const [incidentDate, setIncidentDate] = useState(formatMaxDate);
 	const handleIncidentButton = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (id) {
-			setIsButtonDisabled(true);
+			setIsFormDisabled(true);
 			addIncident(id, incidentDate)
 				.then((res) => {
 					console.log(res);
@@ -69,7 +53,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 					}
 				})
 				.finally(() => {
-					setIsButtonDisabled(false);
+					setIsFormDisabled(false);
 				});
 		}
 	};
@@ -80,16 +64,16 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 				value={incidentDate}
 				max={formatMaxDate}
 				min={formatMinDate}
-				disabled={isButtonDisabled}
+				disabled={isFormDisabled}
 				onChange={(e) => setIncidentDate(e.target.value)}
 			/>
-			<StyledButton type='submit' disabled={isButtonDisabled}>
+			<StyledButton type='submit' disabled={isFormDisabled}>
 				Dodaj
 			</StyledButton>
 			<StyledButton
 				type='button'
 				onClick={() => setIsIncidentModalOpen(false)}
-				disabled={isButtonDisabled}
+				disabled={isFormDisabled}
 			>
 				Anuluj
 			</StyledButton>

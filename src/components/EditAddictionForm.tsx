@@ -10,6 +10,7 @@ import { AddictionData } from '../types/AddictionData';
 import { updateAddiction } from '../clients/AccountClients';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { formatDateForInput } from '../clients/dateUtils';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
@@ -20,36 +21,15 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	setIsModalOpen,
 	setAddictionDetails,
 }) => {
-	const maxDate = new Date(createdAt)
-		.toLocaleDateString('en-CA', {
-			year: 'numeric',
-			month: '2-digit',
-			day: '2-digit',
-			hour: '2-digit',
-			minute: '2-digit',
-			hour12: false,
-		})
-		.replaceAll(',', '');
+	const maxDate = formatDateForInput(new Date(createdAt));
 
 	const navigate = useNavigate();
 	const [isFormEnabled, setIsFormEnabled] = useState(true);
-	const formatDate = (dateString: string): string => {
-		const date = new Date(dateString);
-		return date
-			.toLocaleDateString('en-CA', {
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit',
-				hour12: false,
-			})
-			.replaceAll(',', '');
-	};
+
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: name,
 		addictionDailyCost: costPerDay,
-		detoxStartDate: formatDate(detoxStartDate),
+		detoxStartDate: formatDateForInput(new Date(detoxStartDate)),
 		createdAt: createdAt,
 	});
 

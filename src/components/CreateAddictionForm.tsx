@@ -10,6 +10,7 @@ import { createAddiction } from '../clients/AccountClients';
 import { AddictionData } from '../types/AddictionData';
 import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
+import { formatDateForInput } from '../clients/dateUtils';
 
 export const CreateAddictionForm: React.FC = () => {
 	const navigate = useNavigate();
@@ -17,26 +18,7 @@ export const CreateAddictionForm: React.FC = () => {
 	const [userAddiction, setUserAddiction] = useState<AddictionData>({
 		addictionType: '',
 		addictionDailyCost: '',
-		detoxStartDate: new Date()
-			.toLocaleDateString('en-CA', {
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit',
-				hour12: false,
-			})
-			.replaceAll(',', ''),
-		createdAt: new Date()
-			.toLocaleDateString('en-CA', {
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit',
-				hour12: false,
-			})
-			.replaceAll(',', ''),
+		detoxStartDate: formatDateForInput(new Date()),
 	});
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -82,7 +64,7 @@ export const CreateAddictionForm: React.FC = () => {
 					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
-					max={userAddiction.createdAt}
+					max={formatDateForInput(new Date())}
 				/>
 			</StyledDiv>
 			<StyledDiv>
