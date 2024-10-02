@@ -8,5 +8,5 @@ export const formatDateForInput = (date: Date): string => {
 			minute: '2-digit',
 			hour12: false,
 		})
-		.replaceAll(',', '');
+		.replace(',', '');
 };
