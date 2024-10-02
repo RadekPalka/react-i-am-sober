@@ -93,7 +93,7 @@ export const getPaginatedAddictions = (pageNumber: number) => {
 	});
 };
 
-export const getAddictionDetails = (id: number) => {
+export const getAddictionDetails = (id: string) => {
 	const token = getToken();
 	return api.get(`/addiction/${id}`, {
 		headers: {
@@ -103,7 +103,7 @@ export const getAddictionDetails = (id: number) => {
 	});
 };
 
-export const deleteAddiction = (id: number) => {
+export const deleteAddiction = (id: string) => {
 	const token = getToken();
 	return api.delete(`/addiction/${id}`, {
 		headers: {
@@ -114,7 +114,7 @@ export const deleteAddiction = (id: number) => {
 };
 
 export const updateAddiction = (
-	id: number,
+	id: string,
 	name: string,
 	costPerDay: number | string,
 	detoxStartDate: string

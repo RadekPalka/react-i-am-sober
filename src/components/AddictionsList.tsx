@@ -25,7 +25,7 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 	updateUserAddictions,
 }) => {
 	const navigate = useNavigate();
-	const removeAddiction = (id: number) => {
+	const removeAddiction = (id: string) => {
 		deleteAddiction(id)
 			.then((res) => {
 				console.log(res);

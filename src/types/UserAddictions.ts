@@ -1,5 +1,5 @@
 export type UserAddictions = {
-	id: number;
+	id: string;
 	name: string;
 	costPerDay: number;
 };

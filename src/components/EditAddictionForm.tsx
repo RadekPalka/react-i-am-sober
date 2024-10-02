@@ -36,44 +36,45 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		setIsFormEnabled(false);
 		e.preventDefault();
-		updateAddiction(
-			id,
-			userAddiction.addictionType,
-			userAddiction.addictionDailyCost,
-			userAddiction.detoxStartDate
-		)
-			.then((res) => {
-				console.log(res);
-				setAddictionDetails({
-					...res.data,
-					name: userAddiction.addictionType,
-					costPerDay: userAddiction.addictionDailyCost,
-					detoxStartDate: userAddiction.detoxStartDate,
-				});
-				toast.success('Aktualizacja przebiegła pomyślnie');
-				setIsModalOpen(false);
-			})
-			.catch((error) => {
-				if (
-					!error.response ||
-					(error.response.status >= 500 && error.response.status < 600)
-				) {
-					toast.error(
-						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
-					);
-				} else if (error.response.status === 400) {
-					toast.error(
-						'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
-					);
-				} else if (error.response.status === 401) {
-					toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
-					navigate('/login-page');
-				} else if (error.response.status === 404) {
-					toast.error('Dane uzależnienie nie istnieje');
-					navigate('/dashboard');
-				}
-			})
-			.finally(() => setIsFormEnabled(true));
+		id &&
+			updateAddiction(
+				id,
+				userAddiction.addictionType,
+				userAddiction.addictionDailyCost,
+				userAddiction.detoxStartDate
+			)
+				.then((res) => {
+					console.log(res);
+					setAddictionDetails({
+						...res.data,
+						name: userAddiction.addictionType,
+						costPerDay: userAddiction.addictionDailyCost,
+						detoxStartDate: userAddiction.detoxStartDate,
+					});
+					toast.success('Aktualizacja przebiegła pomyślnie');
+					setIsModalOpen(false);
+				})
+				.catch((error) => {
+					if (
+						!error.response ||
+						(error.response.status >= 500 && error.response.status < 600)
+					) {
+						toast.error(
+							'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
+						);
+					} else if (error.response.status === 400) {
+						toast.error(
+							'Wprowadzone dane są nieprawidłowe. Proszę sprawdzić formularz i spróbować ponownie.'
+						);
+					} else if (error.response.status === 401) {
+						toast.error('Sesja wygasła. Proszę zalogować się ponownie.');
+						navigate('/login-page');
+					} else if (error.response.status === 404) {
+						toast.error('Dane uzależnienie nie istnieje');
+						navigate('/dashboard');
+					}
+				})
+				.finally(() => setIsFormEnabled(true));
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>

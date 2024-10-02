@@ -53,29 +53,32 @@ export const AddictionDetails: React.FC = () => {
 		return Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 	};
 	useEffect(() => {
-		getAddictionDetails(Number(addictionId))
-			.then((res) => {
-				console.log(res.data);
-				setFetchStatus('success');
-				setAddictionDetails((prevDetails) => ({
-					...prevDetails,
-					...res.data,
-				}));
-			})
-			.catch((error) => {
-				setFetchStatus('error');
-				if (!error.response || error.response.status === 500) {
-					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
-				}
-				if (error.response.status === 401) {
-					removeToken();
-					toast.error('Błąd autoryzacji');
-					navigate('/login-page');
-				} else if (error.response.status === 404) {
-					toast.error('Operacja się nie powiodła');
-					navigate('/dashboard');
-				}
-			});
+		addictionId &&
+			getAddictionDetails(addictionId)
+				.then((res) => {
+					console.log(res.data);
+					setFetchStatus('success');
+					setAddictionDetails((prevDetails) => ({
+						...prevDetails,
+						...res.data,
+					}));
+				})
+				.catch((error) => {
+					setFetchStatus('error');
+					if (!error.response || error.response.status === 500) {
+						toast.error(
+							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
+						);
+					}
+					if (error.response.status === 401) {
+						removeToken();
+						toast.error('Błąd autoryzacji');
+						navigate('/login-page');
+					} else if (error.response.status === 404) {
+						toast.error('Operacja się nie powiodła');
+						navigate('/dashboard');
+					}
+				});
 	}, []);
 	useEffect(() => {
 		setSobrietyDays(calculateSobrietyDays());
@@ -143,7 +146,7 @@ export const AddictionDetails: React.FC = () => {
 						name={addictionDetails.name}
 						costPerDay={addictionDetails.costPerDay}
 						detoxStartDate={addictionDetails.detoxStartDate}
-						id={Number(addictionId)}
+						id={addictionId}
 						setIsModalOpen={setIsModalOpen}
 						setAddictionDetails={setAddictionDetails}
 						createdAt={addictionDetails.createdAt}
