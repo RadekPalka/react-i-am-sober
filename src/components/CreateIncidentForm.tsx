@@ -12,12 +12,14 @@ type CreateIncidentFormProps = {
 	min: string;
 	id: string | undefined;
 	setIsIncidentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	increaseNumberOfIncidents: () => void;
 };
 
 export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	min,
 	id,
 	setIsIncidentModalOpen,
+	increaseNumberOfIncidents,
 }) => {
 	const [isFormDisabled, setIsFormDisabled] = useState(false);
 
@@ -35,6 +37,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 				.then((res) => {
 					console.log(res);
 					toast.success('Pomyślnie dodano incydent');
+					increaseNumberOfIncidents();
 				})
 				.catch((error) => {
 					console.log(error);

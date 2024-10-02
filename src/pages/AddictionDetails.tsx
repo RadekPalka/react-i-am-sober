@@ -50,7 +50,16 @@ export const AddictionDetails: React.FC = () => {
 
 		const differenceInMilliseconds = today.getTime() - start.getTime();
 
-		return Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+		return (
+			Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) -
+			addictionDetails.numberOfIncidents
+		);
+	};
+	const increaseNumberOfIncidents = () => {
+		setAddictionDetails((prev) => ({
+			...prev,
+			numberOfIncidents: Number(prev.numberOfIncidents) + 1,
+		}));
 	};
 	useEffect(() => {
 		addictionId &&
@@ -62,6 +71,7 @@ export const AddictionDetails: React.FC = () => {
 						...prevDetails,
 						...res.data,
 					}));
+					console.log(addictionDetails);
 				})
 				.catch((error) => {
 					setFetchStatus('error');
@@ -83,6 +93,14 @@ export const AddictionDetails: React.FC = () => {
 	useEffect(() => {
 		setSobrietyDays(calculateSobrietyDays());
 	}, [addictionDetails]);
+
+	const formatCurrency = (number: number): string => {
+		return new Intl.NumberFormat('pl-PL', {
+			style: 'currency',
+			currency: 'PLN',
+		}).format(number);
+	};
+
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
 	} else if (fetchStatus === 'error') {
@@ -115,10 +133,29 @@ export const AddictionDetails: React.FC = () => {
 					{formatDateForInput(new Date(addictionDetails.detoxStartDate))}
 				</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
+				<p>Ilość incydentów: {addictionDetails.numberOfIncidents}</p>
 				<p>
 					Ilość zaoszczędzonych pieniędzy:{' '}
-					{sobrietyDays * addictionDetails.costPerDay} PLN
+					{formatCurrency(sobrietyDays * addictionDetails.costPerDay)}
 				</p>
+				{sobrietyDays + addictionDetails.numberOfIncidents < 30 && (
+					<p>
+						Prognozowane miesięczne oszczędności:{' '}
+						{formatCurrency(
+							(30 - addictionDetails.numberOfIncidents) *
+								addictionDetails.costPerDay
+						)}
+					</p>
+				)}
+				{sobrietyDays + addictionDetails.numberOfIncidents < 365 && (
+					<p>
+						Prognozowane roczne oszczędności:{' '}
+						{formatCurrency(
+							(365 - addictionDetails.numberOfIncidents) *
+								addictionDetails.costPerDay
+						)}
+					</p>
+				)}
 				<StyledButton onClick={() => setIsIncidentModalOpen(true)}>
 					Dodaj incydent
 				</StyledButton>
@@ -127,6 +164,7 @@ export const AddictionDetails: React.FC = () => {
 						min={addictionDetails.detoxStartDate}
 						id={addictionId}
 						setIsIncidentModalOpen={setIsIncidentModalOpen}
+						increaseNumberOfIncidents={increaseNumberOfIncidents}
 					/>
 				)}
 				<StyledButton
