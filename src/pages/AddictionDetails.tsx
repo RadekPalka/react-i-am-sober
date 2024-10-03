@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
@@ -51,12 +51,14 @@ export const AddictionDetails: React.FC = () => {
 		(30 - addictionDetails.numberOfIncidents) * addictionDetails.costPerDay;
 	const estimatedAnnualSavings =
 		(365 - addictionDetails.numberOfIncidents) * addictionDetails.costPerDay;
-	const increaseNumberOfIncidents = () => {
+
+	const increaseNumberOfIncidents = useCallback(() => {
 		setAddictionDetails((prev) => ({
 			...prev,
-			numberOfIncidents: Number(prev.numberOfIncidents) + 1,
+			numberOfIncidents: prev.numberOfIncidents + 1,
 		}));
-	};
+	}, [setAddictionDetails]);
+
 	useEffect(() => {
 		addictionId &&
 			getAddictionDetails(addictionId)
