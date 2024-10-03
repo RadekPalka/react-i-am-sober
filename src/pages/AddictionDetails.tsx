@@ -13,7 +13,7 @@ import { StyledButton } from '../components/StyledButton';
 import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { CreateIncidentForm } from '../components/CreateIncidentForm';
-import { formatDateForInput } from '../clients/dateUtils';
+import { formatDateForDisplay } from '../clients/dateUtils';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -126,7 +126,7 @@ export const AddictionDetails: React.FC = () => {
 				<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
 				<p>
 					Data rozpoczęcia zmiany:{' '}
-					{formatDateForInput(new Date(addictionDetails.detoxStartDate))}
+					{formatDateForDisplay(new Date(addictionDetails.detoxStartDate))}
 				</p>
 				<p>Ilość dni ogółem: {daysSinceDetoxStart}</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
