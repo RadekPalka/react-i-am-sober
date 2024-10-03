@@ -23,7 +23,7 @@ export const DateInput: React.FC<AddictionInputsProps> = ({
 				Wybierz datę uwolnienia się od uzależnienia
 			</label>
 			<StyledInput
-				type='datetime-local'
+				type='date'
 				id='addiction-free-date'
 				value={userAddiction.detoxStartDate}
 				max={max}

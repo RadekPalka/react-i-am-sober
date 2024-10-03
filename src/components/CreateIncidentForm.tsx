@@ -24,6 +24,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	const [isFormDisabled, setIsFormDisabled] = useState(false);
 
 	const navigate = useNavigate();
+	console.log(min);
 	const formatMinDate = formatDateForInput(new Date(min));
 
 	const formatMaxDate = formatDateForInput(new Date());
@@ -63,7 +64,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	return (
 		<StyledForm onSubmit={handleIncidentButton}>
 			<StyledInput
-				type='datetime-local'
+				type='date'
 				value={incidentDate}
 				max={formatMaxDate}
 				min={formatMinDate}
