@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { CreateIncidentForm } from '../components/CreateIncidentForm';
 import { formatDateForDisplay } from '../clients/dateUtils';
+import { IncidentType } from '../types/IncidentType';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -97,6 +98,19 @@ export const AddictionDetails: React.FC = () => {
 		}).format(number);
 	};
 
+	const createIncident = (arr: IncidentType) => {
+		setAddictionDetails((prev) => ({
+			...prev,
+			lastIncidents: [...prev.lastIncidents, arr],
+		}));
+	};
+
+	const isIDateDuplicated = (date: string) => {
+		return addictionDetails.lastIncidents.some(
+			(el) => el.incidentDate === date
+		);
+	};
+
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
 	} else if (fetchStatus === 'error') {
@@ -156,6 +170,8 @@ export const AddictionDetails: React.FC = () => {
 						id={addictionId}
 						setIsIncidentModalOpen={setIsIncidentModalOpen}
 						increaseNumberOfIncidents={increaseNumberOfIncidents}
+						createIncident={createIncident}
+						isIDateDuplicated={isIDateDuplicated}
 					/>
 				)}
 				<StyledButton
@@ -182,6 +198,9 @@ export const AddictionDetails: React.FC = () => {
 					/>
 				)}
 			</div>
+			<button onClick={() => console.log(addictionDetails)}>
+				console.log(addictionDetails)
+			</button>
 		</>
 	);
 };
