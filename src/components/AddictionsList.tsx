@@ -27,8 +27,7 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 	const navigate = useNavigate();
 	const removeAddiction = (id: string) => {
 		deleteAddiction(id)
-			.then((res) => {
-				console.log(res);
+			.then(() => {
 				setUserAddictions((prevState) =>
 					prevState.filter((el) => el.id !== id)
 				);
@@ -39,7 +38,6 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 					!error.status ||
 					(error.status.code >= 500 && error.status.code < 600)
 				) {
-					console.log(error);
 					toast.error('Błąd połącznia. Spróbuj ponownie później');
 				} else {
 					toast.error('Błąd autoryzacji');

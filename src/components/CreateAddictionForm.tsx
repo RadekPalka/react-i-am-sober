@@ -25,15 +25,12 @@ export const CreateAddictionForm: React.FC = () => {
 		e.preventDefault();
 		setIsFormEnabled(false);
 		createAddiction(userAddiction)
-			.then((res) => {
-				console.log(res);
+			.then(() => {
 				toast.success('Uzależnienie dodano pomyślnie');
-				console.log(userAddiction);
 				navigate('/dashboard');
 			})
 			.catch((error) => {
 				setIsFormEnabled(true);
-				console.log(error);
 				if (!error.response || error.response.status === 500) {
 					toast.error(
 						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
@@ -49,7 +46,6 @@ export const CreateAddictionForm: React.FC = () => {
 				}
 			});
 	};
-	console.log(userAddiction);
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<StyledDiv>

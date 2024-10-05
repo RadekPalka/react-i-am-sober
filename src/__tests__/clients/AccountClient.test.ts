@@ -19,12 +19,10 @@ const mockedApi = api as jest.Mocked<typeof api>;
 describe('api tests', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
-		console.log = jest.fn();
 	});
 	it('should show success message and navigate on successful account creation', async () => {
 		mockedApi.post.mockResolvedValueOnce({ data: {} });
 		await createAccount('login', 'password', mockNavigate);
-		expect(console.log).toHaveBeenCalled();
 		expect(toast.success).toHaveBeenCalledWith(
 			'Rejestracja zakończona sukcesem'
 		);

@@ -9,14 +9,12 @@ export const LogoutButton: React.FC = () => {
 	const navigate = useNavigate();
 	const handleLogoutButton = () => {
 		logout()
-			.then((res) => {
+			.then(() => {
 				removeToken();
-				console.log(res);
 				toast.success('Zostałeś wylogowany(a) pomyślnie');
 				navigate('/login-page');
 			})
 			.catch((error) => {
-				console.log(error);
 				toast.error('Błąd połączenia. Spróbuj ponownie później');
 			});
 	};

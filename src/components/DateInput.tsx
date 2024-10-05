@@ -10,7 +10,6 @@ export const DateInput: React.FC<AddictionInputsProps> = ({
 	userAddiction,
 	max,
 }) => {
-	console.log(max);
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserAddiction((prevState: AddictionData) => ({
 			...prevState,

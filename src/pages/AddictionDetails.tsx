@@ -64,14 +64,12 @@ export const AddictionDetails: React.FC = () => {
 		addictionId &&
 			getAddictionDetails(addictionId)
 				.then((res) => {
-					console.log(res.data);
 					setFetchStatus('success');
 					setAddictionDetails((prevDetails) => ({
 						...prevDetails,
 						...res.data,
 						numberOfIncidents: Number(res.data.numberOfIncidents),
 					}));
-					console.log(addictionDetails);
 				})
 				.catch((error) => {
 					setFetchStatus('error');
@@ -177,7 +175,6 @@ export const AddictionDetails: React.FC = () => {
 				<StyledButton
 					onClick={() => {
 						setIsModalOpen(true);
-						console.log(modalRef.current);
 						modalRef.current &&
 							modalRef.current.scrollIntoView({ behavior: 'smooth' });
 					}}
@@ -198,9 +195,6 @@ export const AddictionDetails: React.FC = () => {
 					/>
 				)}
 			</div>
-			<button onClick={() => console.log(addictionDetails)}>
-				console.log(addictionDetails)
-			</button>
 		</>
 	);
 };

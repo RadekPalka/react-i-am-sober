@@ -29,7 +29,6 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	const [isFormDisabled, setIsFormDisabled] = useState(false);
 
 	const navigate = useNavigate();
-	console.log(min);
 	const formatMinDate = formatDateForInput(new Date(min));
 
 	const formatMaxDate = formatDateForInput(new Date());
@@ -44,14 +43,12 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 			}
 			setIsFormDisabled(true);
 			addIncident(id, incidentDate)
-				.then((res) => {
-					console.log(res);
+				.then(() => {
 					toast.success('Pomyślnie dodano incydent');
 					increaseNumberOfIncidents();
 					createIncident({ id: Number(id), incidentDate: formattedDate });
 				})
 				.catch((error) => {
-					console.log(error);
 					if (
 						!error.response ||
 						(error.response.status >= 500 && error.response.status < 600)

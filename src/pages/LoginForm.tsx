@@ -44,19 +44,15 @@ export const LoginForm: React.FC = () => {
 	};
 
 	const handleForm = (e: FormEvent<HTMLFormElement>) => {
-		console.log('Logowanie');
 		e.preventDefault();
 		if (!validateInputs()) return;
 		setIsFormEnabled(false);
 		loginAction(login, password)
 			.then(function (response) {
-				console.log(response);
 				saveToken(isRemembered, response.data.sessionToken);
-
 				navigate('/dashboard');
 			})
 			.catch(function (error) {
-				console.log(error);
 				setIsFormEnabled(true);
 				if (
 					!error.response ||

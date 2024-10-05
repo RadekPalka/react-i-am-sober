@@ -55,13 +55,11 @@ export const RegistrationForm: React.FC = () => {
 		if (!validateInputs()) return;
 		setIsSubmitting((prevState) => (prevState = true));
 		createAccount(login, password)
-			.then(function (response) {
-				console.log(response);
+			.then(function () {
 				toast.success('Rejestracja zakończona sukcesem');
 				navigate('/login-page');
 			})
 			.catch(function (error) {
-				console.log(error);
 				if (!error.response || error.response.status === 500) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else {

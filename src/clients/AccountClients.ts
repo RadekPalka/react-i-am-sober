@@ -119,7 +119,6 @@ export const updateAddiction = (
 	costPerDay: number | string,
 	detoxStartDate: string
 ) => {
-	console.log(detoxStartDate);
 	const token = getToken();
 	return api.put(
 		`/addiction/${id}`,

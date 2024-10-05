@@ -31,31 +31,22 @@ export const Dashboard: React.FC = () => {
 	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
 		useState(true);
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-	console.log(userData);
 	const pageSize = 10;
 	const navigate = useNavigate();
 	const updateUserAddictions = () => {
-		console.log(pageNumber);
 		getPaginatedAddictions(pageNumber)
 			.then((response) => {
-				console.log(response.data);
 				setUserAddictions([...userAddictions, ...response.data]);
 				setStatus('success');
-
-				console.log(response.data);
-				console.log(userAddictions);
 				setPageNumber(pageNumber + 1);
 				if (response.data.length < pageSize) {
 					setIsPaginationButtonEnabled((prevState) => (prevState = false));
 				}
-				console.log(userAddictions);
 				setIsButtonDisabled((prevState) => (prevState = false));
 			})
 			.catch((error) => {
-				console.log(error);
 				if (!error.response || error.response.status === 500) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
-					console.log('Error');
 				} else if (error.response.status === 400) {
 					toast.error('Operacja się nie powiodła');
 				} else if (error.response.status === 401) {
@@ -73,8 +64,6 @@ export const Dashboard: React.FC = () => {
 					id: response.data.id,
 					username: response.data.username,
 				});
-
-				console.log(response.data);
 				updateUserAddictions();
 			})
 			.catch((error) => {
@@ -83,15 +72,12 @@ export const Dashboard: React.FC = () => {
 					(error.response.status >= 500 && error.response.status < 600)
 				) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
-					console.log(error);
 					setStatus('error');
 				} else if (error.response.status === 401) {
 					removeToken();
-					console.error('Error fetching data:', error);
 					toast.error('Błąd autoryzacji');
 					navigate('/login-page');
 				}
-				console.log('ok');
 			});
 	};
 
