@@ -7,12 +7,16 @@ import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
+import { IncidentType } from '../types/IncidentType';
+import { isAxiosError } from 'axios';
 
 type CreateIncidentFormProps = {
 	min: string;
 	id: string | undefined;
 	setIsIncidentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	increaseNumberOfIncidents: () => void;
+	createIncident: (arr: IncidentType) => void;
+	isIDateDuplicated: (date: string) => boolean;
 };
 
 export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
@@ -20,6 +24,8 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	id,
 	setIsIncidentModalOpen,
 	increaseNumberOfIncidents,
+	createIncident,
+	isIDateDuplicated,
 }) => {
 	const [isFormDisabled, setIsFormDisabled] = useState(false);
 
@@ -33,12 +39,17 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	const handleIncidentButton = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (id) {
+			const formattedDate = new Date(incidentDate).toISOString();
+			if (isIDateDuplicated(formattedDate)) {
+				return toast.error('Incydent o tej dacie już istnieje');
+			}
 			setIsFormDisabled(true);
 			addIncident(id, incidentDate)
 				.then((res) => {
 					console.log(res);
 					toast.success('Pomyślnie dodano incydent');
 					increaseNumberOfIncidents();
+					createIncident({ id: Number(id), incidentDate: formattedDate });
 				})
 				.catch((error) => {
 					console.log(error);
@@ -57,7 +68,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 					}
 				})
 				.finally(() => {
-					setIsFormDisabled(false);
+					setIsIncidentModalOpen(false);
 				});
 		}
 	};
