@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
-import { IncidentType } from '../types/IncidentType';
 
 type CreateIncidentFormProps = {
 	min: string;
@@ -23,8 +22,6 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	id,
 	setIsIncidentModalOpen,
 	increaseNumberOfIncidents,
-	createIncident,
-	isIDateDuplicated,
 }) => {
 	const [isFormDisabled, setIsFormDisabled] = useState(false);
 
