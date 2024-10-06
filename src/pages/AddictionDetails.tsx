@@ -117,6 +117,7 @@ export const AddictionDetails: React.FC = () => {
 				.then(() => {
 					setAddictionDetails((prev) => ({
 						...prev,
+						numberOfIncidents: prev.numberOfIncidents - 1,
 						lastIncidents: prev.lastIncidents.filter(
 							(el) => el.id !== incidentId
 						),
@@ -235,6 +236,7 @@ export const AddictionDetails: React.FC = () => {
 					<LastIncidentsList
 						lastIncidents={addictionDetails.lastIncidents}
 						removeIncident={removeIncident}
+						buttonDisabled={Boolean(modalState)}
 					/>
 				)}
 			</AddictionDetailsContainer>
