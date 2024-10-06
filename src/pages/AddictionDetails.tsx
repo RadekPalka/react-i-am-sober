@@ -15,6 +15,7 @@ import { removeToken } from '../clients/SessionTokenService';
 import { CreateIncidentForm } from '../components/CreateIncidentForm';
 import { formatDateForDisplay } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
+import { LastIncidentsList } from '../components/LastIncidentsList';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -163,6 +164,28 @@ export const AddictionDetails: React.FC = () => {
 				)}
 				<StyledButton
 					onClick={() => {
+						setModalState('editAddiction');
+						editModalRef.current &&
+							editModalRef.current.scrollIntoView({ behavior: 'smooth' });
+					}}
+				>
+					Edytuj
+				</StyledButton>
+				<div ref={editModalRef}>
+					{modalState === 'editAddiction' && (
+						<EditAddictionForm
+							name={addictionDetails.name}
+							costPerDay={addictionDetails.costPerDay}
+							detoxStartDate={addictionDetails.detoxStartDate}
+							id={addictionId}
+							closeModal={() => setModalState(null)}
+							setAddictionDetails={setAddictionDetails}
+							createdAt={addictionDetails.createdAt}
+						/>
+					)}
+				</div>
+				<StyledButton
+					onClick={() => {
 						setModalState('incidentForm');
 						incidentModalRef.current &&
 							incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -180,29 +203,10 @@ export const AddictionDetails: React.FC = () => {
 						isIDateDuplicated={isIDateDuplicated}
 					/>
 				)}
-				<StyledButton
-					onClick={() => {
-						setModalState('editAddiction');
-						editModalRef.current &&
-							editModalRef.current.scrollIntoView({ behavior: 'smooth' });
-					}}
-				>
-					Edytuj
-				</StyledButton>
-			</AddictionDetailsContainer>
-			<div ref={editModalRef}>
-				{modalState === 'editAddiction' && (
-					<EditAddictionForm
-						name={addictionDetails.name}
-						costPerDay={addictionDetails.costPerDay}
-						detoxStartDate={addictionDetails.detoxStartDate}
-						id={addictionId}
-						closeModal={() => setModalState(null)}
-						setAddictionDetails={setAddictionDetails}
-						createdAt={addictionDetails.createdAt}
-					/>
+				{addictionDetails.lastIncidents.length > 0 && (
+					<LastIncidentsList lastIncidents={addictionDetails.lastIncidents} />
 				)}
-			</div>
+			</AddictionDetailsContainer>
 		</>
 	);
 };
