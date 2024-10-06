@@ -24,11 +24,12 @@ const AddictionDetailsContainer = styled.div`
 	margin: 0 auto;
 `;
 type status = 'loading' | 'success' | 'error';
+type ModalState = 'editAddiction' | 'incidentForm' | null;
+
 export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
 	const [fetchStatus, setFetchStatus] = useState<status>('loading');
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isIncidentModalOpen, setIsIncidentModalOpen] = useState(false);
+	const [modalState, setModalState] = useState<ModalState>(null);
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
 			id: 0,
@@ -41,7 +42,8 @@ export const AddictionDetails: React.FC = () => {
 			createdAt: '',
 		});
 	const navigate = useNavigate();
-	const modalRef = useRef<HTMLDivElement | null>(null);
+	const editModalRef = useRef<HTMLDivElement | null>(null);
+	const incidentModalRef = useRef<HTMLDivElement | null>(null);
 	const daysSinceDetoxStart = Math.floor(
 		(new Date().getTime() -
 			new Date(addictionDetails.detoxStartDate).getTime()) /
@@ -83,7 +85,7 @@ export const AddictionDetails: React.FC = () => {
 						toast.error('Błąd autoryzacji');
 						navigate('/login-page');
 					} else if (error.response.status === 404) {
-						toast.error('Operacja się nie powiodła');
+						toast.error('Uzależnienie nie istnieje');
 						navigate('/dashboard');
 					}
 				});
@@ -159,14 +161,20 @@ export const AddictionDetails: React.FC = () => {
 						{formatCurrency(estimatedAnnualSavings)}
 					</p>
 				)}
-				<StyledButton onClick={() => setIsIncidentModalOpen(true)}>
+				<StyledButton
+					onClick={() => {
+						setModalState('incidentForm');
+						incidentModalRef.current &&
+							incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
+					}}
+				>
 					Dodaj incydent
 				</StyledButton>
-				{isIncidentModalOpen && (
+				{modalState === 'incidentForm' && (
 					<CreateIncidentForm
 						min={addictionDetails.detoxStartDate}
 						id={addictionId}
-						setIsIncidentModalOpen={setIsIncidentModalOpen}
+						closeModal={() => setModalState(null)}
 						increaseNumberOfIncidents={increaseNumberOfIncidents}
 						createIncident={createIncident}
 						isIDateDuplicated={isIDateDuplicated}
@@ -174,22 +182,22 @@ export const AddictionDetails: React.FC = () => {
 				)}
 				<StyledButton
 					onClick={() => {
-						setIsModalOpen(true);
-						modalRef.current &&
-							modalRef.current.scrollIntoView({ behavior: 'smooth' });
+						setModalState('editAddiction');
+						editModalRef.current &&
+							editModalRef.current.scrollIntoView({ behavior: 'smooth' });
 					}}
 				>
 					Edytuj
 				</StyledButton>
 			</AddictionDetailsContainer>
-			<div ref={modalRef}>
-				{isModalOpen && (
+			<div ref={editModalRef}>
+				{modalState === 'editAddiction' && (
 					<EditAddictionForm
 						name={addictionDetails.name}
 						costPerDay={addictionDetails.costPerDay}
 						detoxStartDate={addictionDetails.detoxStartDate}
 						id={addictionId}
-						setIsModalOpen={setIsModalOpen}
+						closeModal={() => setModalState(null)}
 						setAddictionDetails={setAddictionDetails}
 						createdAt={addictionDetails.createdAt}
 					/>

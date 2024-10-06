@@ -14,7 +14,7 @@ export const LogoutButton: React.FC = () => {
 				toast.success('Zostałeś wylogowany(a) pomyślnie');
 				navigate('/login-page');
 			})
-			.catch((error) => {
+			.catch(() => {
 				toast.error('Błąd połączenia. Spróbuj ponownie później');
 			});
 	};

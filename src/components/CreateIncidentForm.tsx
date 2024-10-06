@@ -12,7 +12,7 @@ import { IncidentType } from '../types/IncidentType';
 type CreateIncidentFormProps = {
 	min: string;
 	id: string | undefined;
-	setIsIncidentModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	closeModal: () => void;
 	increaseNumberOfIncidents: () => void;
 	createIncident: (arr: IncidentType) => void;
 	isIDateDuplicated: (date: string) => boolean;
@@ -21,7 +21,7 @@ type CreateIncidentFormProps = {
 export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	min,
 	id,
-	setIsIncidentModalOpen,
+	closeModal,
 	increaseNumberOfIncidents,
 	createIncident,
 	isIDateDuplicated,
@@ -64,7 +64,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 					}
 				})
 				.finally(() => {
-					setIsIncidentModalOpen(false);
+					closeModal();
 				});
 		}
 	};
@@ -83,7 +83,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 			</StyledButton>
 			<StyledButton
 				type='button'
-				onClick={() => setIsIncidentModalOpen(false)}
+				onClick={closeModal}
 				disabled={isFormDisabled}
 			>
 				Anuluj

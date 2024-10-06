@@ -18,7 +18,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	id,
 	detoxStartDate,
 	createdAt,
-	setIsModalOpen,
+	closeModal,
 	setAddictionDetails,
 }) => {
 	const maxDate = formatDateForInput(new Date(createdAt));
@@ -51,7 +51,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 						detoxStartDate: userAddiction.detoxStartDate,
 					});
 					toast.success('Aktualizacja przebiegła pomyślnie');
-					setIsModalOpen(false);
+					closeModal();
 				})
 				.catch((error) => {
 					if (
@@ -100,7 +100,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 				/>
 			</StyledDiv>
 			<StyledButton type='submit'>Zapisz</StyledButton>
-			<StyledButton type='button' onClick={() => setIsModalOpen(false)}>
+			<StyledButton type='button' onClick={closeModal}>
 				Anuluj
 			</StyledButton>
 		</StyledForm>
