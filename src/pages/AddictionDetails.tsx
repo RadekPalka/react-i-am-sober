@@ -98,10 +98,10 @@ export const AddictionDetails: React.FC = () => {
 		}).format(number);
 	};
 
-	const createIncident = (arr: IncidentType) => {
+	const createIncident = (newIncident: IncidentType) => {
 		setAddictionDetails((prev) => ({
 			...prev,
-			lastIncidents: [...prev.lastIncidents, arr],
+			lastIncidents: [...prev.lastIncidents, newIncident],
 		}));
 	};
 

@@ -14,7 +14,7 @@ type CreateIncidentFormProps = {
 	id: string | undefined;
 	closeModal: () => void;
 	increaseNumberOfIncidents: () => void;
-	createIncident: (arr: IncidentType) => void;
+	createIncident: (newIncident: IncidentType) => void;
 	isIDateDuplicated: (date: string) => boolean;
 };
 
