@@ -124,7 +124,10 @@ export const AddictionDetails: React.FC = () => {
 					toast.success('Incydent usunięty pomyślnie');
 				})
 				.catch((error) => {
-					if (!error.response || error.response.status === 500) {
+					if (
+						!error.response ||
+						(error.response.status >= 500 && error.response.status < 600)
+					) {
 						toast.error('Błąd połączenia sieciowego. Spróbuj ponownie później');
 					} else if (error.response.status === 401) {
 						toast.error('Błąd autoryzacji');
