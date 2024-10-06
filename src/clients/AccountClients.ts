@@ -149,3 +149,13 @@ export const addIncident = (id: string, incidentDate: string) => {
 		}
 	);
 };
+
+export const deleteIncident = (addictionId: string, incidentId: number) => {
+	const token = getToken();
+	return api.delete(`/addiction/${addictionId}/incident/${incidentId}`, {
+		headers: {
+			Authorization: token,
+			'Content-Type': 'application/json',
+		},
+	});
+};

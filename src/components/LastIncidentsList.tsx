@@ -5,6 +5,7 @@ import { formatDateForDisplay } from '../clients/dateUtils';
 
 export const LastIncidentsList: React.FC<LastIncidentsListProps> = ({
 	lastIncidents,
+	removeIncident,
 }) => {
 	const formatDate = (date: string) => formatDateForDisplay(new Date(date));
 	return (
@@ -15,7 +16,9 @@ export const LastIncidentsList: React.FC<LastIncidentsListProps> = ({
 					<li key={incident.id}>
 						<div>
 							<p>{formatDate(incident.incidentDate)}</p>
-							<StyledButton>Usuń</StyledButton>
+							<StyledButton onClick={() => removeIncident(incident.id)}>
+								Usuń
+							</StyledButton>
 						</div>
 					</li>
 				))}

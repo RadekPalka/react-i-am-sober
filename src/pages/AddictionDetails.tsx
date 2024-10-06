@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAddictionDetails } from '../clients/AccountClients';
+import { deleteIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
 import { StyledNav } from '../components/StyledNav';
@@ -80,8 +80,7 @@ export const AddictionDetails: React.FC = () => {
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
 						);
-					}
-					if (error.response.status === 401) {
+					} else if (error.response.status === 401) {
 						removeToken();
 						toast.error('Błąd autoryzacji');
 						navigate('/login-page');
@@ -110,6 +109,32 @@ export const AddictionDetails: React.FC = () => {
 		return addictionDetails.lastIncidents.some(
 			(el) => el.incidentDate === date
 		);
+	};
+
+	const removeIncident = (incidentId: number) => {
+		addictionId &&
+			deleteIncident(addictionId, incidentId)
+				.then(() => {
+					setAddictionDetails((prev) => ({
+						...prev,
+						lastIncidents: prev.lastIncidents.filter(
+							(el) => el.id !== incidentId
+						),
+					}));
+					toast.success('Incydent usunięty pomyślnie');
+				})
+				.catch((error) => {
+					if (!error.response || error.response.status === 500) {
+						toast.error('Błąd połączenia sieciowego. Spróbuj ponownie później');
+					} else if (error.response.status === 401) {
+						toast.error('Błąd autoryzacji');
+						removeToken();
+						navigate('/login-page');
+					} else if (error.response.status === 404) {
+						toast.error('Uzależnienie nie istnieje');
+						navigate('/dashboard');
+					}
+				});
 	};
 
 	if (fetchStatus === 'loading') {
@@ -204,7 +229,10 @@ export const AddictionDetails: React.FC = () => {
 					/>
 				)}
 				{addictionDetails.lastIncidents.length > 0 && (
-					<LastIncidentsList lastIncidents={addictionDetails.lastIncidents} />
+					<LastIncidentsList
+						lastIncidents={addictionDetails.lastIncidents}
+						removeIncident={removeIncident}
+					/>
 				)}
 			</AddictionDetailsContainer>
 		</>
