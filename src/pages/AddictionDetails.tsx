@@ -61,7 +61,7 @@ export const AddictionDetails: React.FC = () => {
 			...prev,
 			numberOfIncidents: prev.numberOfIncidents + 1,
 		}));
-	}, [setAddictionDetails]);
+	}, [addictionDetails.numberOfIncidents]);
 
 	useEffect(() => {
 		addictionId &&
@@ -236,7 +236,7 @@ export const AddictionDetails: React.FC = () => {
 					<LastIncidentsList
 						lastIncidents={addictionDetails.lastIncidents}
 						removeIncident={removeIncident}
-						buttonDisabled={Boolean(modalState)}
+						buttonDisabled={modalState !== null}
 					/>
 				)}
 			</AddictionDetailsContainer>
