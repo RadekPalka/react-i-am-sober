@@ -14,6 +14,7 @@ import { StyledUl } from '../components/StyledUl';
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { LogoutButton } from '../components/LogoutButton';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
@@ -30,10 +31,7 @@ export const CreateAddictionPage: React.FC = () => {
 					setStatus('success');
 				})
 				.catch((error) => {
-					if (
-						!error.response ||
-						(error.response.status >= 500 && error.response.status < 600)
-					) {
+					if (handleNetworkError(error)) {
 						setStatus('error');
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'

@@ -18,6 +18,7 @@ import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -54,10 +55,7 @@ export const LoginForm: React.FC = () => {
 			})
 			.catch(function (error) {
 				setIsFormEnabled(true);
-				if (
-					!error.response ||
-					(error.response.status >= 500 && error.response.status < 600)
-				) {
+				if (handleNetworkError(error)) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else if (error.response.status === 401) {
 					toast.error('Zły login lub hasło');

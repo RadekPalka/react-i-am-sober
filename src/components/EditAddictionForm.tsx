@@ -11,6 +11,7 @@ import { updateAddiction } from '../clients/AccountClients';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
@@ -54,10 +55,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 					closeModal();
 				})
 				.catch((error) => {
-					if (
-						!error.response ||
-						(error.response.status >= 500 && error.response.status < 600)
-					) {
+					if (handleNetworkError(error)) {
 						toast.error(
 							'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
 						);

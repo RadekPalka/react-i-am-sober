@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { removeToken } from '../clients/SessionTokenService';
 import { useNavigate } from 'react-router-dom';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 
 const AddictionsUl = styled.ul`
 	display: flex;
@@ -34,10 +35,7 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 				toast.success('Uzależnienie usunięto pomyślnie');
 			})
 			.catch((error) => {
-				if (
-					!error.status ||
-					(error.status.code >= 500 && error.status.code < 600)
-				) {
+				if (handleNetworkError(error)) {
 					toast.error('Błąd połącznia. Spróbuj ponownie później');
 				} else {
 					toast.error('Błąd autoryzacji');

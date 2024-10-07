@@ -16,6 +16,7 @@ import { CreateIncidentForm } from '../components/CreateIncidentForm';
 import { formatDateForDisplay } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
 import { LastIncidentsList } from '../components/LastIncidentsList';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -76,7 +77,7 @@ export const AddictionDetails: React.FC = () => {
 				})
 				.catch((error) => {
 					setFetchStatus('error');
-					if (!error.response || error.response.status === 500) {
+					if (handleNetworkError(error)) {
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
 						);
@@ -125,10 +126,7 @@ export const AddictionDetails: React.FC = () => {
 					toast.success('Incydent usunięty pomyślnie');
 				})
 				.catch((error) => {
-					if (
-						!error.response ||
-						(error.response.status >= 500 && error.response.status < 600)
-					) {
+					if (handleNetworkError(error)) {
 						toast.error('Błąd połączenia sieciowego. Spróbuj ponownie później');
 					} else if (error.response.status === 401) {
 						toast.error('Błąd autoryzacji');

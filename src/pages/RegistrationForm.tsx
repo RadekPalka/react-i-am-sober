@@ -22,6 +22,7 @@ import { createAccount } from '../clients/AccountClients';
 import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -60,7 +61,7 @@ export const RegistrationForm: React.FC = () => {
 				navigate('/login-page');
 			})
 			.catch(function (error) {
-				if (!error.response || error.response.status === 500) {
+				if (handleNetworkError(error)) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else {
 					toast.error('Podany login jest już zajęty');

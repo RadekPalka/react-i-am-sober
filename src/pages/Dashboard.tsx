@@ -18,6 +18,7 @@ import { NoAddictionsMessage } from '../components/NoAddictionsMessage';
 import { LogoutButton } from '../components/LogoutButton';
 import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../clients/SessionTokenService';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
@@ -45,7 +46,7 @@ export const Dashboard: React.FC = () => {
 				setIsButtonDisabled((prevState) => (prevState = false));
 			})
 			.catch((error) => {
-				if (!error.response || error.response.status === 500) {
+				if (handleNetworkError(error)) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else if (error.response.status === 400) {
 					toast.error('Operacja się nie powiodła');
@@ -67,10 +68,7 @@ export const Dashboard: React.FC = () => {
 				updateUserAddictions();
 			})
 			.catch((error) => {
-				if (
-					!error.response ||
-					(error.response.status >= 500 && error.response.status < 600)
-				) {
+				if (handleNetworkError(error)) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
 					setStatus('error');
 				} else if (error.response.status === 401) {

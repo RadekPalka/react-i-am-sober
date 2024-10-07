@@ -8,6 +8,7 @@ import { removeToken } from '../clients/SessionTokenService';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
+import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 
 type CreateIncidentFormProps = {
 	min: string;
@@ -49,10 +50,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 					createIncident({ id: Number(id), incidentDate: formattedDate });
 				})
 				.catch((error) => {
-					if (
-						!error.response ||
-						(error.response.status >= 500 && error.response.status < 600)
-					) {
+					if (handleNetworkError(error)) {
 						toast.error('Błąd połączneia sieciowego. Spróbuj ponownie później');
 					} else if (error.response.status === 401) {
 						removeToken();
