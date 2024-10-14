@@ -1,5 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+	LineChart,
+	Line,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	Legend,
+	ResponsiveContainer,
+} from 'recharts';
 import { deleteIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
@@ -138,6 +148,17 @@ export const AddictionDetails: React.FC = () => {
 					}
 				});
 	};
+	const chartData = Array.from({ length: daysSinceDetoxStart }, (_, i) => ({
+		day: i + 1,
+		sobrietyDays: i + 1 - addictionDetails.numberOfIncidents,
+		incident: addictionDetails.lastIncidents.some(
+			(incident) =>
+				new Date(incident.incidentDate).getTime() ===
+				new Date(addictionDetails.detoxStartDate).getTime() + i * 86400000
+		)
+			? 1
+			: 0,
+	}));
 
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
@@ -145,7 +166,7 @@ export const AddictionDetails: React.FC = () => {
 		return (
 			<>
 				<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
-				<StyledButton onClick={() => navigate(0)}></StyledButton>
+				<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
 			</>
 		);
 	}
@@ -189,6 +210,33 @@ export const AddictionDetails: React.FC = () => {
 						{formatCurrency(estimatedAnnualSavings)}
 					</p>
 				)}
+				<ResponsiveContainer width='100%' height={300}>
+					<LineChart data={chartData}>
+						<CartesianGrid strokeDasharray='3 3' />
+						<XAxis
+							dataKey='day'
+							label={{ value: 'Dzień', position: 'insideBottom', offset: -5 }}
+						/>
+						<YAxis
+							label={{ value: 'Postęp', angle: -90, position: 'insideLeft' }}
+						/>
+						<Tooltip />
+						<Legend />
+						<Line
+							type='monotone'
+							dataKey='sobrietyDays'
+							stroke='#8884d8'
+							name='Dni w trzeźwości'
+						/>
+						<Line
+							type='stepAfter'
+							dataKey='incident'
+							stroke='#ff7300'
+							name='Incydent'
+							dot={false}
+						/>
+					</LineChart>
+				</ResponsiveContainer>
 				<StyledButton
 					onClick={() => {
 						setModalState('editAddiction');

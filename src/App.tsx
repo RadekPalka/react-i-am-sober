@@ -12,14 +12,18 @@ import {
 import { AddictionDetails } from './pages/AddictionDetails';
 
 const AppWrapper = styled.div`
-	height: 100vh;
-	width: 100vw;
-	justify-content: center;
-	align-items: center;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
 	font-family: 'LXGW WenKai TC', cursive;
 	font-weight: 300;
 	font-style: normal;
 	background-color: #f5f5f5;
+
+	@media (max-width: 768px) {
+		justify-content: center;
+	}
 `;
 
 const App: React.FC = () => {

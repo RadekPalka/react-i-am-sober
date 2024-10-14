@@ -26,12 +26,6 @@ export const HeaderContent: React.FC = () => {
 				I am sober - aplikacja pomagająca w wyjściu z uzależnienia. Monitoruj
 				swoją trzeźwość, śledź postępy i utrzymuj zdrowy styl życia.
 			</LocaleStyledH1>
-			<StyledCongratulationsParagraph>
-				Przede wszystkim gratulacje
-			</StyledCongratulationsParagraph>
-			<StyledParagraph>
-				Właśnie zrobiłeś duży krok ku trzeźwości
-			</StyledParagraph>
 		</StyledHeaderContent>
 	);
 };
