@@ -5,15 +5,6 @@ const StyledHeaderContent = styled.div`
 	width: 60%;
 `;
 
-const StyledCongratulationsParagraph = styled.p`
-	text-align: center;
-	margin: 30px;
-	font-weight: 600;
-`;
-const StyledParagraph = styled.p`
-	text-align: center;
-`;
-
 const LocaleStyledH1 = styled.h1`
 	line-height: 50px;
 	text-align: center;
