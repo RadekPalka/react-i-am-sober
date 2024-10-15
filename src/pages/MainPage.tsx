@@ -73,7 +73,7 @@ export const MainPage: React.FC = () => {
 					</StyledNav>
 				)}
 			</header>
-			<Main />
+			<Main isMobile={isMobile} />
 		</>
 	);
 };
