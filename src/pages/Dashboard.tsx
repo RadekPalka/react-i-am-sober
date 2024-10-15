@@ -19,6 +19,10 @@ import { LogoutButton } from '../components/LogoutButton';
 import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../clients/SessionTokenService';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { MobileNavBar } from '../components/MobileNavbar';
+import { HamburgerButton } from '../components/HamburgerButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
@@ -34,6 +38,22 @@ export const Dashboard: React.FC = () => {
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	const pageSize = 10;
 	const navigate = useNavigate();
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	useEffect(() => {
+		setIsMenuOpen(false);
+	}, [isMobile]);
+
 	const updateUserAddictions = () => {
 		getPaginatedAddictions(pageNumber)
 			.then((response) => {
@@ -90,13 +110,32 @@ export const Dashboard: React.FC = () => {
 	}
 	return (
 		<>
-			<StyledNav $justifyContent='end'>
-				<StyledUl $justifyContent='end'>
-					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-						<LogoutButton />
-					</StyledLi>
-				</StyledUl>
-			</StyledNav>
+			{isMobile && (
+				<HamburgerButton
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+				>
+					<FontAwesomeIcon icon={faBars} aria-hidden='true' />
+				</HamburgerButton>
+			)}
+			{isMobile && isMenuOpen && (
+				<MobileNavBar>
+					<ul>
+						<li>
+							<LogoutButton />
+						</li>
+					</ul>
+				</MobileNavBar>
+			)}
+			{!isMobile && (
+				<StyledNav $justifyContent='end'>
+					<StyledUl $justifyContent='end'>
+						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
+							<LogoutButton />
+						</StyledLi>
+					</StyledUl>
+				</StyledNav>
+			)}
 			<HeadingContainer>
 				<StyledH1>Witaj {userData.username}</StyledH1>
 

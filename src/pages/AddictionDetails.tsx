@@ -27,6 +27,10 @@ import { formatDateForDisplay } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
 import { LastIncidentsList } from '../components/LastIncidentsList';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { MobileNavBar } from '../components/MobileNavbar';
+import { HamburgerButton } from '../components/HamburgerButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -73,6 +77,22 @@ export const AddictionDetails: React.FC = () => {
 			numberOfIncidents: prev.numberOfIncidents + 1,
 		}));
 	}, [addictionDetails.numberOfIncidents]);
+
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	useEffect(() => {
+		setIsMenuOpen(false);
+	}, [isMobile]);
 
 	useEffect(() => {
 		addictionId &&
@@ -173,16 +193,42 @@ export const AddictionDetails: React.FC = () => {
 	return (
 		<>
 			<header>
-				<StyledNav $justifyContent='end'>
-					<StyledUl $justifyContent='end' $width='300px'>
-						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-							<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
-						</StyledLi>
-						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-							<LogoutButton />
-						</StyledLi>
-					</StyledUl>
-				</StyledNav>
+				{isMobile && (
+					<HamburgerButton
+						onClick={() => setIsMenuOpen(!isMenuOpen)}
+						aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+					>
+						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
+					</HamburgerButton>
+				)}
+				{isMobile && isMenuOpen && (
+					<MobileNavBar>
+						<ul>
+							<li>
+								<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+							</li>
+							<li>
+								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+							</li>
+						</ul>
+					</MobileNavBar>
+				)}
+				{!isMobile && (
+					<StyledNav $justifyContent='end'>
+						<StyledUl $justifyContent='end' $width='300px'>
+							<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+								<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
+							</StyledLi>
+							<StyledLi
+								$color='#2c2c2c'
+								$background='transparent'
+								$border='none'
+							>
+								<LogoutButton />
+							</StyledLi>
+						</StyledUl>
+					</StyledNav>
+				)}
 			</header>
 			<AddictionDetailsContainer>
 				<h1>{addictionDetails.name}</h1>

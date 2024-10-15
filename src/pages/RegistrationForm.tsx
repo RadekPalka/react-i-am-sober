@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthInput } from '../components';
@@ -23,6 +23,10 @@ import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { MobileNavBar } from '../components/MobileNavbar';
+import { HamburgerButton } from '../components/HamburgerButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -33,6 +37,21 @@ export const RegistrationForm: React.FC = () => {
 	const loginLabelText = 'Podaj swój login';
 	const passwordLabelText = 'Podaj swoje hasło';
 	const confirmPasswordLabelText = 'Potwierdź hasło';
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	useEffect(() => {
+		setIsMenuOpen(false);
+	}, [isMobile]);
 
 	const validateInputs = () => {
 		const minLoginLength = 4;
@@ -72,16 +91,42 @@ export const RegistrationForm: React.FC = () => {
 	return (
 		<>
 			<header>
-				<StyledNav $justifyContent='end'>
-					<StyledUl $justifyContent='end'>
-						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-							<StyledLink to='/'>Strona główna</StyledLink>
-						</StyledLi>
-						<StyledLi $color='#e3e3e3' $background='#2c2c2c' $marginLeft='5px'>
-							<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-						</StyledLi>
-					</StyledUl>
-				</StyledNav>
+				{isMobile && (
+					<HamburgerButton
+						onClick={() => setIsMenuOpen(!isMenuOpen)}
+						aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+					>
+						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
+					</HamburgerButton>
+				)}
+				{isMobile && isMenuOpen && (
+					<MobileNavBar>
+						<ul>
+							<li>
+								<StyledLink to='/'>Strona główna</StyledLink>
+							</li>
+							<li>
+								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+							</li>
+						</ul>
+					</MobileNavBar>
+				)}
+				{!isMobile && (
+					<StyledNav $justifyContent='end'>
+						<StyledUl $justifyContent='end'>
+							<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+								<StyledLink to='/'>Strona główna</StyledLink>
+							</StyledLi>
+							<StyledLi
+								$color='#e3e3e3'
+								$background='#2c2c2c'
+								$marginLeft='5px'
+							>
+								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+							</StyledLi>
+						</StyledUl>
+					</StyledNav>
+				)}
 			</header>
 			<StyledSection>
 				<HeadingContainer>

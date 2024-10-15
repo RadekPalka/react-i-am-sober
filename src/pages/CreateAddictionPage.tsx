@@ -15,12 +15,32 @@ import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { LogoutButton } from '../components/LogoutButton';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { MobileNavBar } from '../components/MobileNavbar';
+import { HamburgerButton } from '../components/HamburgerButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
 		'success'
 	);
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	useEffect(() => {
+		setIsMenuOpen(false);
+	}, [isMobile]);
+
 	const updateUserData = () => {
 		setStatus('loading');
 		const token = getToken();
@@ -55,13 +75,32 @@ export const CreateAddictionPage: React.FC = () => {
 	}
 	return (
 		<>
-			<StyledNav $justifyContent='end'>
-				<StyledUl>
-					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-						<LogoutButton />
-					</StyledLi>
-				</StyledUl>
-			</StyledNav>
+			{isMobile && (
+				<HamburgerButton
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+				>
+					<FontAwesomeIcon icon={faBars} aria-hidden='true' />
+				</HamburgerButton>
+			)}
+			{isMobile && isMenuOpen && (
+				<MobileNavBar>
+					<ul>
+						<li>
+							<LogoutButton />
+						</li>
+					</ul>
+				</MobileNavBar>
+			)}
+			{!isMobile && (
+				<StyledNav $justifyContent='end'>
+					<StyledUl>
+						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
+							<LogoutButton />
+						</StyledLi>
+					</StyledUl>
+				</StyledNav>
+			)}
 			<StyledSection>
 				<HeadingContainer>
 					<StyledH1>Witaj {userData.username}</StyledH1>
