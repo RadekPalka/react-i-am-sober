@@ -205,10 +205,10 @@ export const AddictionDetails: React.FC = () => {
 					<MobileNavBar>
 						<ul>
 							<li>
-								<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+								<LogoutButton />
 							</li>
 							<li>
-								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+								<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
 							</li>
 						</ul>
 					</MobileNavBar>
