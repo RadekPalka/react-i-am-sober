@@ -31,6 +31,8 @@ import { MobileNavBar } from '../components/MobileNavbar';
 import { HamburgerButton } from '../components/HamburgerButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { StyledMobileLi } from '../components/StyledMobileLi';
+import { StyledMobileUl } from '../components/StyledMobileUl';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -203,14 +205,21 @@ export const AddictionDetails: React.FC = () => {
 				)}
 				{isMobile && isMenuOpen && (
 					<MobileNavBar>
-						<ul>
-							<li>
+						<StyledMobileUl>
+							<StyledMobileLi>
 								<LogoutButton />
-							</li>
-							<li>
-								<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
-							</li>
-						</ul>
+							</StyledMobileLi>
+							<StyledMobileLi>
+								<StyledLink
+									to='/dashboard'
+									$display='block'
+									$padding='6px'
+									$margin='10px'
+								>
+									Panel użytkownika
+								</StyledLink>
+							</StyledMobileLi>
+						</StyledMobileUl>
 					</MobileNavBar>
 				)}
 				{!isMobile && (

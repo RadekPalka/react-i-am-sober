@@ -16,6 +16,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
 	font-weight: 300;
 	font-style: normal;
 	cursor: pointer;
+	border: none;
 	&:hover {
 		background-color: #333;
 	}

@@ -15,4 +15,5 @@ export const StyledLi = styled.li<StyledLiProps>`
 	border: ${(props) => props.$border || '1px solid #999'};
 	border-radius: 10px;
 	text-align: center;
+	list-style-type: none;
 `;
