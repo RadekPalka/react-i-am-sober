@@ -176,18 +176,13 @@ export const AddictionDetails: React.FC = () => {
 		const currentDate = new Date(addictionDetails.detoxStartDate);
 		currentDate.setDate(currentDate.getDate() + i);
 
-		// Sprawdzenie, czy tego dnia wystąpił incydent
 		const incidentOccurred = addictionDetails.lastIncidents.some(
 			(incident) =>
 				new Date(incident.incidentDate).toDateString() ===
 				currentDate.toDateString()
 		);
 
-		if (incidentOccurred) {
-			progress = 0;
-		} else {
-			progress += 1;
-		}
+		progress = incidentOccurred ? 0 : progress + 1;
 
 		return {
 			day,
