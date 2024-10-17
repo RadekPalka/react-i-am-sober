@@ -31,8 +31,9 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 
 	const navigate = useNavigate();
 	const formatMinDate = formatDateForInput(new Date(min));
-
-	const formatMaxDate = formatDateForInput(new Date());
+	const maxDate = new Date();
+	maxDate.setDate(maxDate.getDate() - 1);
+	const formatMaxDate = formatDateForInput(maxDate);
 
 	const [incidentDate, setIncidentDate] = useState(formatMaxDate);
 	const handleIncidentButton = (e: FormEvent<HTMLFormElement>) => {

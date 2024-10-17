@@ -170,17 +170,34 @@ export const AddictionDetails: React.FC = () => {
 					}
 				});
 	};
-	const chartData = Array.from({ length: daysSinceDetoxStart }, (_, i) => ({
-		day: i + 1,
-		sobrietyDays: i + 1 - addictionDetails.numberOfIncidents,
-		incident: addictionDetails.lastIncidents.some(
+	let progress = 0;
+	const chartData = Array.from({ length: daysSinceDetoxStart }, (_, i) => {
+		const day = i + 1;
+		const currentDate = new Date(addictionDetails.detoxStartDate);
+		currentDate.setDate(currentDate.getDate() + i);
+
+		// Sprawdzenie, czy tego dnia wystąpił incydent
+		const incidentOccurred = addictionDetails.lastIncidents.some(
 			(incident) =>
-				new Date(incident.incidentDate).getTime() ===
-				new Date(addictionDetails.detoxStartDate).getTime() + i * 86400000
-		)
-			? 1
-			: 0,
-	}));
+				new Date(incident.incidentDate).toDateString() ===
+				currentDate.toDateString()
+		);
+
+		if (incidentOccurred) {
+			progress = 0;
+		} else {
+			progress += 1;
+		}
+
+		return {
+			day,
+			progress,
+			incident: incidentOccurred ? 1 : 0,
+		};
+	});
+	const currentStreak = chartData.reduce((streak, day) => {
+		return day.incident === 0 ? streak + 1 : 0;
+	}, 0);
 
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
@@ -249,6 +266,7 @@ export const AddictionDetails: React.FC = () => {
 				<p>Ilość dni ogółem: {daysSinceDetoxStart}</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
 				<p>Ilość incydentów: {addictionDetails.numberOfIncidents}</p>
+				<p>Aktualny ciąg dni bez incydentów: {currentStreak}</p>
 				<p>
 					Ilość zaoszczędzonych pieniędzy:{' '}
 					{formatCurrency(sobrietyDays * addictionDetails.costPerDay)}
@@ -265,33 +283,36 @@ export const AddictionDetails: React.FC = () => {
 						{formatCurrency(estimatedAnnualSavings)}
 					</p>
 				)}
-				<ResponsiveContainer width='100%' height={300}>
-					<LineChart data={chartData}>
-						<CartesianGrid strokeDasharray='3 3' />
-						<XAxis
-							dataKey='day'
-							label={{ value: 'Dzień', position: 'insideBottom', offset: -5 }}
-						/>
-						<YAxis
-							label={{ value: 'Postęp', angle: -90, position: 'insideLeft' }}
-						/>
-						<Tooltip />
-						<Legend />
-						<Line
-							type='monotone'
-							dataKey='sobrietyDays'
-							stroke='#8884d8'
-							name='Dni w trzeźwości'
-						/>
-						<Line
-							type='stepAfter'
-							dataKey='incident'
-							stroke='#ff7300'
-							name='Incydent'
-							dot={false}
-						/>
-					</LineChart>
-				</ResponsiveContainer>
+				{daysSinceDetoxStart > 10 && (
+					<ResponsiveContainer width='100%' height={300}>
+						<LineChart data={chartData}>
+							<CartesianGrid strokeDasharray='3 3' />
+							<XAxis
+								dataKey='day'
+								label={{ value: 'Dzień', position: 'insideBottom', offset: -5 }}
+							/>
+							<YAxis
+								label={{ value: 'Postęp', angle: -90, position: 'insideLeft' }}
+							/>
+							<Tooltip />
+							<Legend />
+							<Line
+								type='monotone'
+								dataKey='progress'
+								stroke='#8884d8'
+								name='Dni w trzeźwości'
+							/>
+							<Line
+								type='stepAfter'
+								dataKey='incident'
+								stroke='#ff7300'
+								name='Incydent'
+								activeDot={{ r: 8 }}
+								strokeWidth={0}
+							/>
+						</LineChart>
+					</ResponsiveContainer>
+				)}
 				<StyledButton
 					onClick={() => {
 						setModalState('editAddiction');
@@ -316,6 +337,11 @@ export const AddictionDetails: React.FC = () => {
 				</div>
 				<StyledButton
 					onClick={() => {
+						if (!daysSinceDetoxStart) {
+							return toast.error(
+								'Nie można dodać incydentu w dniu rozpoczęcia detoksu. Spróbuj jutro.'
+							);
+						}
 						setModalState('incidentForm');
 						incidentModalRef.current &&
 							incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
