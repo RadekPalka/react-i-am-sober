@@ -15,7 +15,7 @@ export const MainPage: React.FC = () => {
 	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
+	document.title = 'Strona główna';
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth < 768);

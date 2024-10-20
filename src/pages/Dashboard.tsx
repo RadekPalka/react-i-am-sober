@@ -54,6 +54,13 @@ export const Dashboard: React.FC = () => {
 		setIsMenuOpen(false);
 	}, [isMobile]);
 
+	useEffect(() => {
+		document.title = 'Panel użytkownika';
+		if (userData.username) {
+			document.title += ` ${userData.username}`;
+		}
+	}, [userData.username]);
+
 	const updateUserAddictions = () => {
 		getPaginatedAddictions(pageNumber)
 			.then((response) => {

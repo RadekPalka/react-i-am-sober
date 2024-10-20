@@ -32,7 +32,7 @@ export const LoginForm: React.FC = () => {
 	const navigate = useNavigate();
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+	document.title = 'Zaloguj się';
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth < 768);

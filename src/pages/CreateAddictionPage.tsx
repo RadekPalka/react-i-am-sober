@@ -27,7 +27,7 @@ export const CreateAddictionPage: React.FC = () => {
 	);
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+	document.title = 'Dodaj uzależnienie';
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth < 768);

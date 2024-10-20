@@ -39,7 +39,7 @@ export const RegistrationForm: React.FC = () => {
 	const confirmPasswordLabelText = 'Potwierdź hasło';
 	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+	document.title = 'Zarejestruj się';
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth < 768);
