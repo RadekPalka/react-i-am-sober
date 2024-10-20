@@ -33,6 +33,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { StyledMobileLi } from '../components/StyledMobileLi';
 import { StyledMobileUl } from '../components/StyledMobileUl';
+import { IncidentsCalendar } from '../components/IncidentsCalendar';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -278,6 +279,10 @@ export const AddictionDetails: React.FC = () => {
 						{formatCurrency(estimatedAnnualSavings)}
 					</p>
 				)}
+				<IncidentsCalendar
+					detoxStartDate={addictionDetails.detoxStartDate}
+					lastIncidents={addictionDetails.lastIncidents}
+				/>
 				{daysSinceDetoxStart > 10 && (
 					<ResponsiveContainer width='100%' height={300}>
 						<LineChart data={chartData}>
