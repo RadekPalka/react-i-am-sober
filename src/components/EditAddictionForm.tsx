@@ -45,12 +45,12 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 				userAddiction.detoxStartDate
 			)
 				.then((res) => {
-					setAddictionDetails({
-						...res.data,
+					setAddictionDetails((prevDetails) => ({
+						...prevDetails,
 						name: userAddiction.addictionType,
-						costPerDay: userAddiction.addictionDailyCost,
+						costPerDay: Number(userAddiction.addictionDailyCost),
 						detoxStartDate: userAddiction.detoxStartDate,
-					});
+					}));
 					toast.success('Aktualizacja przebiegła pomyślnie');
 					closeModal();
 				})

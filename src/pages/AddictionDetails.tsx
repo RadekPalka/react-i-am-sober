@@ -98,6 +98,10 @@ export const AddictionDetails: React.FC = () => {
 	}, [isMobile]);
 
 	useEffect(() => {
+		document.title = addictionDetails.name;
+	}, [addictionDetails.name]);
+
+	useEffect(() => {
 		addictionId &&
 			getAddictionDetails(addictionId)
 				.then((res) => {
@@ -172,25 +176,26 @@ export const AddictionDetails: React.FC = () => {
 				});
 	};
 	let progress = 0;
-	const chartData = Array.from({ length: daysSinceDetoxStart }, (_, i) => {
-		const day = i + 1;
-		const currentDate = new Date(addictionDetails.detoxStartDate);
-		currentDate.setDate(currentDate.getDate() + i);
+	const chartData =
+		addictionDetails && addictionDetails.lastIncidents
+			? Array.from({ length: daysSinceDetoxStart }, (_, i) => {
+					const day = i + 1;
+					const currentDate = new Date(addictionDetails.detoxStartDate);
+					currentDate.setDate(currentDate.getDate() + i);
 
-		const incidentOccurred = addictionDetails.lastIncidents.some(
-			(incident) =>
-				new Date(incident.incidentDate).toDateString() ===
-				currentDate.toDateString()
-		);
-
-		progress = incidentOccurred ? 0 : progress + 1;
-
-		return {
-			day,
-			progress,
-			incident: incidentOccurred ? 1 : 0,
-		};
-	});
+					const incidentOccurred = addictionDetails.lastIncidents.some(
+						(incident) =>
+							new Date(incident.incidentDate).toDateString() ===
+							currentDate.toDateString()
+					);
+					progress = incidentOccurred ? 0 : i + 1;
+					return {
+						day,
+						progress,
+						incident: incidentOccurred ? 1 : 0,
+					};
+			  })
+			: [];
 	const currentStreak = chartData.reduce((streak, day) => {
 		return day.incident === 0 ? streak + 1 : 0;
 	}, 0);
