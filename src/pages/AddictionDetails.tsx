@@ -34,12 +34,13 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { StyledMobileLi } from '../components/StyledMobileLi';
 import { StyledMobileUl } from '../components/StyledMobileUl';
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
+import { IncidentCharts } from '../components/IncidentCharts';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 50%;
+	width: 100%;
 	margin: 0 auto;
 `;
 type status = 'loading' | 'success' | 'error';
@@ -175,30 +176,21 @@ export const AddictionDetails: React.FC = () => {
 					}
 				});
 	};
-	let progress = 0;
-	const chartData =
-		addictionDetails && addictionDetails.lastIncidents
-			? Array.from({ length: daysSinceDetoxStart }, (_, i) => {
-					const day = i + 1;
-					const currentDate = new Date(addictionDetails.detoxStartDate);
-					currentDate.setDate(currentDate.getDate() + i);
+	const currentStreak = addictionDetails.lastIncidents
+		? Array.from({ length: daysSinceDetoxStart }, (_, i) => {
+				const currentDate = new Date(addictionDetails.detoxStartDate);
+				currentDate.setDate(currentDate.getDate() + i);
 
-					const incidentOccurred = addictionDetails.lastIncidents.some(
-						(incident) =>
-							new Date(incident.incidentDate).toDateString() ===
-							currentDate.toDateString()
-					);
-					progress = incidentOccurred ? 0 : i + 1;
-					return {
-						day,
-						progress,
-						incident: incidentOccurred ? 1 : 0,
-					};
-			  })
-			: [];
-	const currentStreak = chartData.reduce((streak, day) => {
-		return day.incident === 0 ? streak + 1 : 0;
-	}, 0);
+				const incidentOccurred = addictionDetails.lastIncidents.some(
+					(incident) =>
+						new Date(incident.incidentDate).toDateString() ===
+						currentDate.toDateString()
+				);
+				return incidentOccurred ? 0 : 1;
+		  }).reduce((streak: number, day: 0 | 1) => {
+				return day === 1 ? streak + 1 : 0;
+		  }, 0)
+		: 0;
 
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
@@ -284,40 +276,17 @@ export const AddictionDetails: React.FC = () => {
 						{formatCurrency(estimatedAnnualSavings)}
 					</p>
 				)}
-				<IncidentsCalendar
-					detoxStartDate={addictionDetails.detoxStartDate}
-					lastIncidents={addictionDetails.lastIncidents}
-				/>
-				{daysSinceDetoxStart > 10 && (
-					<ResponsiveContainer width='100%' height={300}>
-						<LineChart data={chartData}>
-							<CartesianGrid strokeDasharray='3 3' />
-							<XAxis
-								dataKey='day'
-								label={{ value: 'Dzień', position: 'insideBottom', offset: -5 }}
-							/>
-							<YAxis
-								label={{ value: 'Postęp', angle: -90, position: 'insideLeft' }}
-							/>
-							<Tooltip />
-							<Legend />
-							<Line
-								type='monotone'
-								dataKey='progress'
-								stroke='#8884d8'
-								name='Dni w trzeźwości'
-							/>
-							<Line
-								type='stepAfter'
-								dataKey='incident'
-								stroke='#ff7300'
-								name='Incydent'
-								activeDot={{ r: 8 }}
-								strokeWidth={0}
-							/>
-						</LineChart>
-					</ResponsiveContainer>
-				)}
+				<details>
+					<summary>Pokaż kalendarz incydentów</summary>
+					<IncidentsCalendar
+						detoxStartDate={addictionDetails.detoxStartDate}
+						lastIncidents={addictionDetails.lastIncidents}
+					/>
+				</details>
+				<details>
+					<summary>Pokaż wykres incydentów</summary>
+					<IncidentCharts addictionDetails={addictionDetails} />
+				</details>
 				<StyledButton
 					onClick={() => {
 						setModalState('editAddiction');
