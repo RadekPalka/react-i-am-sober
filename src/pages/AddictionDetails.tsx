@@ -163,8 +163,7 @@ export const AddictionDetails: React.FC = () => {
 						removeToken();
 						navigate('/login-page');
 					} else if (error.response.status === 404) {
-						toast.error('Uzależnienie nie istnieje');
-						navigate('/dashboard');
+						toast.error('Incydent nie istnieje');
 					}
 				});
 	};
