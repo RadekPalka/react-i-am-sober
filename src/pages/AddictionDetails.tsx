@@ -168,12 +168,13 @@ export const AddictionDetails: React.FC = () => {
 					}
 				});
 	};
-	const countCurrentStreak = () => {
+	const currentStreak = (() => {
 		const incidentDates = addictionDetails.lastIncidents.map(
 			(incident) => incident.incidentDate
 		);
 		incidentDates.push(addictionDetails.detoxStartDate);
 		incidentDates.unshift(new Date().toISOString());
+
 		return Math.floor(
 			incidentDates.reduce((acc, date, index, arr) => {
 				if (index === 0) {
@@ -188,9 +189,7 @@ export const AddictionDetails: React.FC = () => {
 				60 /
 				24
 		);
-	};
-
-	const currentStreak = countCurrentStreak();
+	})();
 
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
