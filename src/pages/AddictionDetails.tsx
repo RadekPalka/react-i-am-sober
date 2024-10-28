@@ -140,7 +140,9 @@ export const AddictionDetails: React.FC = () => {
 	const createIncident = (newIncident: IncidentType) => {
 		setAddictionDetails((prev) => ({
 			...prev,
-			lastIncidents: [...prev.lastIncidents, newIncident],
+			lastIncidents: [...prev.lastIncidents, newIncident].sort((a, b) =>
+				a.incidentDate < b.incidentDate ? 1 : -1
+			),
 		}));
 	};
 
@@ -176,6 +178,7 @@ export const AddictionDetails: React.FC = () => {
 					}
 				});
 	};
+	// const currentStreak = a;
 	const currentStreak = addictionDetails.lastIncidents
 		? Array.from({ length: daysSinceDetoxStart }, (_, i) => {
 				const currentDate = new Date(addictionDetails.detoxStartDate);

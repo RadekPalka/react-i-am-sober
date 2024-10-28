@@ -23,7 +23,7 @@ export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
 	const today = new Date();
 
 	const getDatesBetween = (start: Date, end: Date): Date[] => {
-		const dates: Date[] = []; // Określamy typ tablicy jako Date[]
+		const dates: Date[] = [];
 		const current = new Date(start);
 		while (current <= end) {
 			dates.push(new Date(current));

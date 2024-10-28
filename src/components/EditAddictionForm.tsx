@@ -44,7 +44,7 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 				userAddiction.addictionDailyCost,
 				userAddiction.detoxStartDate
 			)
-				.then((res) => {
+				.then(() => {
 					setAddictionDetails((prevDetails) => ({
 						...prevDetails,
 						name: userAddiction.addictionType,

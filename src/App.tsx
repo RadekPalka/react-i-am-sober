@@ -20,10 +20,6 @@ const AppWrapper = styled.div`
 	font-weight: 300;
 	font-style: normal;
 	background-color: #f5f5f5;
-
-	@media (max-width: 768px) {
-		justify-content: center;
-	}
 `;
 
 const App: React.FC = () => {
