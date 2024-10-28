@@ -1,15 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-	LineChart,
-	Line,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend,
-	ResponsiveContainer,
-} from 'recharts';
 import { deleteIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
@@ -178,22 +168,29 @@ export const AddictionDetails: React.FC = () => {
 					}
 				});
 	};
-	// const currentStreak = a;
-	const currentStreak = addictionDetails.lastIncidents
-		? Array.from({ length: daysSinceDetoxStart }, (_, i) => {
-				const currentDate = new Date(addictionDetails.detoxStartDate);
-				currentDate.setDate(currentDate.getDate() + i);
+	const countCurrentStreak = () => {
+		const incidentDates = addictionDetails.lastIncidents.map(
+			(incident) => incident.incidentDate
+		);
+		incidentDates.push(addictionDetails.detoxStartDate);
+		incidentDates.unshift(new Date().toISOString());
+		return Math.floor(
+			incidentDates.reduce((acc, date, index, arr) => {
+				if (index === 0) {
+					return acc;
+				}
+				const previousDate = new Date(arr[index - 1]).getTime();
+				const currentDate = new Date(date).getTime();
+				return Math.max(previousDate - currentDate, acc);
+			}, 0) /
+				1000 /
+				60 /
+				60 /
+				24
+		);
+	};
 
-				const incidentOccurred = addictionDetails.lastIncidents.some(
-					(incident) =>
-						new Date(incident.incidentDate).toDateString() ===
-						currentDate.toDateString()
-				);
-				return incidentOccurred ? 0 : 1;
-		  }).reduce((streak: number, day: 0 | 1) => {
-				return day === 1 ? streak + 1 : 0;
-		  }, 0)
-		: 0;
+	const currentStreak = countCurrentStreak();
 
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
