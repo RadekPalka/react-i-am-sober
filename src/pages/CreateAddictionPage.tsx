@@ -15,7 +15,6 @@ import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 import { LogoutButton } from '../components/LogoutButton';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { MobileNavBar } from '../components/MobileNavbar';
 import { HamburgerButton } from '../components/HamburgerButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -83,15 +82,7 @@ export const CreateAddictionPage: React.FC = () => {
 					<FontAwesomeIcon icon={faBars} aria-hidden='true' />
 				</HamburgerButton>
 			)}
-			{isMobile && isMenuOpen && (
-				<MobileNavBar>
-					<ul>
-						<li>
-							<LogoutButton />
-						</li>
-					</ul>
-				</MobileNavBar>
-			)}
+
 			{!isMobile && (
 				<StyledNav $justifyContent='end'>
 					<StyledUl>

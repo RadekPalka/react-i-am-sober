@@ -9,7 +9,6 @@ import { StyledNav } from '../components/StyledNav';
 import { getToken } from '../clients/SessionTokenService';
 import { HamburgerButton } from '../components/HamburgerButton';
 import { StyledUl } from '../components/StyledUl';
-import { MobileNavBar } from '../components/MobileNavbar';
 
 export const MainPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -44,18 +43,7 @@ export const MainPage: React.FC = () => {
 						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
 					</HamburgerButton>
 				)}
-				{isMobile && isMenuOpen && (
-					<MobileNavBar>
-						<ul>
-							<li>
-								<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-							</li>
-							<li>
-								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-							</li>
-						</ul>
-					</MobileNavBar>
-				)}
+
 				{!isMobile && (
 					<StyledNav $justifyContent='end'>
 						<StyledUl $justifyContent='end'>

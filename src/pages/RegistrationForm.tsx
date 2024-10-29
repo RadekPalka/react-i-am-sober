@@ -23,7 +23,6 @@ import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { MobileNavBar } from '../components/MobileNavbar';
 import { HamburgerButton } from '../components/HamburgerButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -98,18 +97,6 @@ export const RegistrationForm: React.FC = () => {
 					>
 						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
 					</HamburgerButton>
-				)}
-				{isMobile && isMenuOpen && (
-					<MobileNavBar>
-						<ul>
-							<li>
-								<StyledLink to='/'>Strona główna</StyledLink>
-							</li>
-							<li>
-								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-							</li>
-						</ul>
-					</MobileNavBar>
 				)}
 				{!isMobile && (
 					<StyledNav $justifyContent='end'>

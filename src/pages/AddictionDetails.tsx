@@ -17,12 +17,9 @@ import { formatDateForDisplay } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
 import { LastIncidentsList } from '../components/LastIncidentsList';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { MobileNavBar } from '../components/MobileNavbar';
 import { HamburgerButton } from '../components/HamburgerButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { StyledMobileLi } from '../components/StyledMobileLi';
-import { StyledMobileUl } from '../components/StyledMobileUl';
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
 import { IncidentCharts } from '../components/IncidentCharts';
 
@@ -72,25 +69,56 @@ export const AddictionDetails: React.FC = () => {
 		}));
 	}, [addictionDetails.numberOfIncidents]);
 
-	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+	const [isMobile, setIsMobile] = useState(true);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
+		// const handleResize = () => {
+		// 	setIsMobile(window.innerWidth < 768);
+		// };
+		// window.addEventListener('resize', handleResize);
+		// return () => window.removeEventListener('resize', handleResize);
 	}, []);
 
 	useEffect(() => {
 		setIsMenuOpen(false);
 	}, [isMobile]);
 
+	const currentStreak = (() => {
+		if (addictionDetails.detoxStartDate) {
+			const incidentDates = addictionDetails.lastIncidents.map(
+				(incident) => incident.incidentDate
+			);
+			const detoxStartDate = new Date(addictionDetails.detoxStartDate);
+			detoxStartDate.setDate(detoxStartDate.getDate() - 1);
+			incidentDates.push(detoxStartDate.toISOString());
+
+			incidentDates.unshift(new Date().toISOString());
+
+			return (
+				Math.floor(
+					incidentDates.reduce((acc, date, index, arr) => {
+						if (index === 0) {
+							return acc;
+						}
+						const previousDate = new Date(arr[index - 1]).getTime();
+						const currentDate = new Date(date).getTime();
+						return Math.max(previousDate - currentDate, acc);
+					}, 0) /
+						1000 /
+						60 /
+						60 /
+						24
+				) - 1
+			);
+		}
+	})();
+
 	useEffect(() => {
 		document.title = addictionDetails.name;
-	}, [addictionDetails.name]);
+
+		//addictionDetails.detoxStartDate && countCurrentStreak();
+	}, [addictionDetails]);
 
 	useEffect(() => {
 		addictionId &&
@@ -167,33 +195,6 @@ export const AddictionDetails: React.FC = () => {
 					}
 				});
 	};
-	const currentStreak = (() => {
-		const incidentDates = addictionDetails.lastIncidents.map(
-			(incident) => incident.incidentDate
-		);
-		const detoxStartDate = new Date(addictionDetails.detoxStartDate);
-		detoxStartDate.setDate(detoxStartDate.getDate() - 1);
-		incidentDates.push(detoxStartDate.toISOString());
-
-		incidentDates.unshift(new Date().toISOString());
-
-		return (
-			Math.floor(
-				incidentDates.reduce((acc, date, index, arr) => {
-					if (index === 0) {
-						return acc;
-					}
-					const previousDate = new Date(arr[index - 1]).getTime();
-					const currentDate = new Date(date).getTime();
-					return Math.max(previousDate - currentDate, acc);
-				}, 0) /
-					1000 /
-					60 /
-					60 /
-					24
-			) - 1
-		);
-	})();
 
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
@@ -216,41 +217,17 @@ export const AddictionDetails: React.FC = () => {
 						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
 					</HamburgerButton>
 				)}
-				{isMobile && isMenuOpen && (
-					<MobileNavBar>
-						<StyledMobileUl>
-							<StyledMobileLi>
-								<LogoutButton />
-							</StyledMobileLi>
-							<StyledMobileLi>
-								<StyledLink
-									to='/dashboard'
-									$display='block'
-									$padding='6px'
-									$margin='10px'
-								>
-									Panel użytkownika
-								</StyledLink>
-							</StyledMobileLi>
-						</StyledMobileUl>
-					</MobileNavBar>
-				)}
-				{!isMobile && (
-					<StyledNav $justifyContent='end'>
-						<StyledUl $justifyContent='end' $width='300px'>
-							<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-								<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
-							</StyledLi>
-							<StyledLi
-								$color='#2c2c2c'
-								$background='transparent'
-								$border='none'
-							>
-								<LogoutButton />
-							</StyledLi>
-						</StyledUl>
-					</StyledNav>
-				)}
+
+				<StyledNav $justifyContent='end'>
+					<StyledUl $justifyContent='end' $width='300px'>
+						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+							<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
+						</StyledLi>
+						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
+							<LogoutButton />
+						</StyledLi>
+					</StyledUl>
+				</StyledNav>
 			</header>
 			<AddictionDetailsContainer>
 				<h1>{addictionDetails.name}</h1>

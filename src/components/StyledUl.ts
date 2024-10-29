@@ -10,4 +10,7 @@ export const StyledUl = styled.ul<UlStyledProps>`
 	list-style-type: none;
 	margin-right: 20px;
 	width: ${(props) => props.$width || '200px'};
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `;

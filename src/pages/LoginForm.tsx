@@ -19,7 +19,6 @@ import { StyledUl } from '../components/StyledUl';
 import { StyledLi } from '../components/StyledLi';
 import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { MobileNavBar } from '../components/MobileNavbar';
 import { HamburgerButton } from '../components/HamburgerButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -96,18 +95,7 @@ export const LoginForm: React.FC = () => {
 						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
 					</HamburgerButton>
 				)}
-				{isMobile && isMenuOpen && (
-					<MobileNavBar>
-						<ul>
-							<li>
-								<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-							</li>
-							<li>
-								<StyledLink to='/'>Strona główna</StyledLink>
-							</li>
-						</ul>
-					</MobileNavBar>
-				)}
+
 				{!isMobile && (
 					<StyledNav $justifyContent='end'>
 						<StyledUl $justifyContent='end' $width='300px'>
