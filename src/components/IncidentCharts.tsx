@@ -19,54 +19,28 @@ const ChartContainer = styled.div`
 	width: 500px;
 `;
 export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
-	const startDate = new Date(addictionDetails?.detoxStartDate);
-	const today = new Date();
-
-	const getDatesBetween = (start: Date, end: Date): Date[] => {
-		const dates: Date[] = [];
-		const current = new Date(start);
-		while (current <= end) {
-			dates.push(new Date(current));
-			current.setDate(current.getDate() + 1);
-		}
-		return dates;
-	};
-
-	const dates = getDatesBetween(startDate, today);
-
-	const incidentsPerDay: Record<string, number> =
-		addictionDetails?.lastIncidents?.reduce((acc, incident) => {
-			const dateKey = incident.incidentDate.split('T')[0];
-			if (!acc[dateKey]) {
-				acc[dateKey] = 0;
+	const incidentsPerMonth = addictionDetails.lastIncidents.reduce(
+		(acc, incident) => {
+			const key = incident.incidentDate.slice(0, 7);
+			const existingEntry = acc.find((entry) => entry.month === key);
+			if (existingEntry) {
+				existingEntry.incidents += 1;
+			} else {
+				acc.push({ month: key, incidents: 1 });
 			}
-			acc[dateKey] += 1;
 			return acc;
-		}, {} as Record<string, number>) || {};
-
-	const chartData = dates.map((date) => ({
-		date: date.getTime(),
-		incidents: incidentsPerDay[date.toISOString().split('T')[0]] || 0,
-	}));
+		},
+		[] as { month: string; incidents: number }[]
+	);
+	console.log(incidentsPerMonth);
 
 	return (
 		<ChartContainer>
 			<h2>Incydenty w czasie</h2>
 			<ResponsiveContainer width='100%' height={300}>
-				<BarChart data={chartData}>
+				<BarChart data={incidentsPerMonth}>
 					<CartesianGrid strokeDasharray='3 3' />
-					<XAxis
-						dataKey='date'
-						scale='time'
-						type='number'
-						domain={[startDate.getTime(), today.getTime()]}
-						tickFormatter={(tick) => {
-							const date = new Date(tick);
-							return `${date.getDate()}/${
-								date.getMonth() + 1
-							}/${date.getFullYear()}`;
-						}}
-					/>
+					<XAxis dataKey='month' />
 					<YAxis allowDecimals={false} />
 					<Tooltip
 						labelFormatter={(label) => {

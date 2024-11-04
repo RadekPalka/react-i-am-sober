@@ -104,14 +104,12 @@ export const AddictionDetails: React.FC = () => {
 	const currentStreak = !addictionDetails.numberOfIncidents
 		? sobrietyDays
 		: Math.floor(
-				new Date().getTime() -
-					new Date(
-						addictionDetails.lastIncidents[addictionDetails[0]].incidentDate
-					).getTime() /
-						1000 /
-						60 /
-						60 /
-						24 -
+				(new Date().getTime() -
+					new Date(addictionDetails.lastIncidents[0].incidentDate).getTime()) /
+					1000 /
+					60 /
+					60 /
+					24 -
 					1
 		  );
 
