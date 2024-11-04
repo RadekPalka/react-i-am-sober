@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { StyledNav } from './StyledNav';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
@@ -25,6 +25,16 @@ export const NavBar: React.FC<Props> = ({
 	liColor,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	useEffect(() => {
+		const closeMenu = () => {
+			if (window.innerWidth > 767) {
+				setIsMenuOpen(false);
+			}
+		};
+
+		window.addEventListener('resize', closeMenu);
+		return () => window.removeEventListener('resize', closeMenu);
+	}, []);
 	return (
 		<>
 			<HamburgerButton

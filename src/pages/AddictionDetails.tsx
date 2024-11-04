@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { deleteIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
-import { StyledNav } from '../components/StyledNav';
-import { StyledUl } from '../components/StyledUl';
-import { StyledLi } from '../components/StyledLi';
+
 import { StyledLink } from '../components/StyledLink';
 import { LogoutButton } from '../components/LogoutButton';
 import styled from 'styled-components';
@@ -17,13 +15,10 @@ import { formatDateForDisplay } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
 import { LastIncidentsList } from '../components/LastIncidentsList';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { HamburgerButton } from '../components/HamburgerButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
 import { IncidentCharts } from '../components/IncidentCharts';
 import { NavBar } from '../components/NavBar';
-import { NavItem } from '../types/NavItem';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -76,17 +71,7 @@ export const AddictionDetails: React.FC = () => {
 		}));
 	}, [addictionDetails.numberOfIncidents]);
 
-	const [isMobile, setIsMobile] = useState(true);
-
-	useEffect(() => {
-		// const handleResize = () => {
-		// 	setIsMobile(window.innerWidth < 768);
-		// };
-		// window.addEventListener('resize', handleResize);
-		// return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	const currentStreak = (() => {
+	const maxStreak = (() => {
 		if (addictionDetails.detoxStartDate) {
 			const incidentDates = addictionDetails.lastIncidents.map(
 				(incident) => incident.incidentDate
@@ -115,6 +100,20 @@ export const AddictionDetails: React.FC = () => {
 			);
 		}
 	})();
+
+	const currentStreak = !addictionDetails.numberOfIncidents
+		? sobrietyDays
+		: Math.floor(
+				new Date().getTime() -
+					new Date(
+						addictionDetails.lastIncidents[addictionDetails[0]].incidentDate
+					).getTime() /
+						1000 /
+						60 /
+						60 /
+						24 -
+					1
+		  );
 
 	useEffect(() => {
 		document.title = addictionDetails.name;
@@ -230,6 +229,7 @@ export const AddictionDetails: React.FC = () => {
 				<p>Ilość dni ogółem: {daysSinceDetoxStart}</p>
 				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
 				<p>Ilość incydentów: {addictionDetails.numberOfIncidents}</p>
+				<p>Najdłuższy ciąg dni bez incydentów: {maxStreak}</p>
 				<p>Aktualny ciąg dni bez incydentów: {currentStreak}</p>
 				<p>
 					Ilość zaoszczędzonych pieniędzy:{' '}
