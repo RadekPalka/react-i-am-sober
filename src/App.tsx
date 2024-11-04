@@ -14,12 +14,11 @@ import { AddictionDetails } from './pages/AddictionDetails';
 const AppWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
 
+	height: max-content;
 	font-family: 'LXGW WenKai TC', cursive;
 	font-weight: 300;
 	font-style: normal;
-	background-color: #f5f5f5;
 `;
 
 const App: React.FC = () => {

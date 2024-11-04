@@ -37,21 +37,8 @@ export const Dashboard: React.FC = () => {
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 	const pageSize = 10;
 	const navigate = useNavigate();
-	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	useEffect(() => {
-		setIsMenuOpen(false);
-	}, [isMobile]);
 
 	useEffect(() => {
 		document.title = 'Panel użytkownika';
@@ -116,24 +103,21 @@ export const Dashboard: React.FC = () => {
 	}
 	return (
 		<>
-			{isMobile && (
-				<HamburgerButton
-					onClick={() => setIsMenuOpen(!isMenuOpen)}
-					aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-				>
-					<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-				</HamburgerButton>
-			)}
+			<HamburgerButton
+				onClick={() => setIsMenuOpen(!isMenuOpen)}
+				aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+			>
+				<FontAwesomeIcon icon={faBars} aria-hidden='true' />
+			</HamburgerButton>
 
-			{!isMobile && (
-				<StyledNav $justifyContent='end'>
-					<StyledUl $justifyContent='end'>
-						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-							<LogoutButton />
-						</StyledLi>
-					</StyledUl>
-				</StyledNav>
-			)}
+			<StyledNav $justifyContent='end' $isVisible={isMenuOpen}>
+				<StyledUl $justifyContent='end'>
+					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
+						<LogoutButton />
+					</StyledLi>
+				</StyledUl>
+			</StyledNav>
+
 			<HeadingContainer>
 				<StyledH1>Witaj {userData.username}</StyledH1>
 
@@ -150,7 +134,7 @@ export const Dashboard: React.FC = () => {
 					<NoAddictionsMessage />
 				)}
 
-				<StyledNav $justifyContent='center'>
+				<StyledNav $justifyContent='center' $isVisible={isMenuOpen}>
 					<StyledUl $justifyContent='center'>
 						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
 							<StyledLink to='/create-addiction'>

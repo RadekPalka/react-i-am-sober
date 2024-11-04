@@ -35,31 +35,23 @@ export const MainPage: React.FC = () => {
 	return (
 		<>
 			<header>
-				{isMobile && (
-					<HamburgerButton
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-						aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-					>
-						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-					</HamburgerButton>
-				)}
+				<HamburgerButton
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+				>
+					<FontAwesomeIcon icon={faBars} aria-hidden='true' />
+				</HamburgerButton>
 
-				{!isMobile && (
-					<StyledNav $justifyContent='end'>
-						<StyledUl $justifyContent='end'>
-							<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-								<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-							</StyledLi>
-							<StyledLi
-								$color='#e3e3e3'
-								$background='#2c2c2c'
-								$marginLeft='5px'
-							>
-								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-							</StyledLi>
-						</StyledUl>
-					</StyledNav>
-				)}
+				<StyledNav $justifyContent='end' $isVisible={isMenuOpen}>
+					<StyledUl $justifyContent='end'>
+						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
+							<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
+						</StyledLi>
+						<StyledLi $color='#e3e3e3' $background='#2c2c2c' $marginLeft='5px'>
+							<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+						</StyledLi>
+					</StyledUl>
+				</StyledNav>
 			</header>
 			<Main isMobile={isMobile} />
 		</>
