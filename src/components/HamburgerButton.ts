@@ -4,7 +4,7 @@ export const HamburgerButton = styled.button`
 	display: none;
 	font-size: 1.5rem;
 	color: #000;
-	position: absolute;
+	position: fixed;
 	top: 20px;
 	right: 20px;
 	border: none;

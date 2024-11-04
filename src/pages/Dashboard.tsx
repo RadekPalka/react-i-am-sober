@@ -110,7 +110,11 @@ export const Dashboard: React.FC = () => {
 				<FontAwesomeIcon icon={faBars} aria-hidden='true' />
 			</HamburgerButton>
 
-			<StyledNav $justifyContent='end' $isVisible={isMenuOpen}>
+			<StyledNav
+				$justifyContent='end'
+				$isVisible={isMenuOpen}
+				$isResponsive={true}
+			>
 				<StyledUl $justifyContent='end'>
 					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
 						<LogoutButton />

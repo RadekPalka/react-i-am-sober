@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
@@ -22,6 +22,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
 import { IncidentCharts } from '../components/IncidentCharts';
+import { NavBar } from '../components/NavBar';
+import { NavItem } from '../types/NavItem';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -62,6 +64,11 @@ export const AddictionDetails: React.FC = () => {
 	const estimatedAnnualSavings =
 		(365 - addictionDetails.numberOfIncidents) * addictionDetails.costPerDay;
 
+	const navBarElements = [
+		<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>,
+		<LogoutButton />,
+	];
+
 	const increaseNumberOfIncidents = useCallback(() => {
 		setAddictionDetails((prev) => ({
 			...prev,
@@ -70,7 +77,6 @@ export const AddictionDetails: React.FC = () => {
 	}, [addictionDetails.numberOfIncidents]);
 
 	const [isMobile, setIsMobile] = useState(true);
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	useEffect(() => {
 		// const handleResize = () => {
@@ -79,10 +85,6 @@ export const AddictionDetails: React.FC = () => {
 		// window.addEventListener('resize', handleResize);
 		// return () => window.removeEventListener('resize', handleResize);
 	}, []);
-
-	useEffect(() => {
-		setIsMenuOpen(false);
-	}, [isMobile]);
 
 	const currentStreak = (() => {
 		if (addictionDetails.detoxStartDate) {
@@ -209,25 +211,14 @@ export const AddictionDetails: React.FC = () => {
 	return (
 		<>
 			<header>
-				{isMobile && (
-					<HamburgerButton
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-						aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-					>
-						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-					</HamburgerButton>
-				)}
-
-				<StyledNav $justifyContent='end'>
-					<StyledUl $justifyContent='end' $width='300px'>
-						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-							<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>
-						</StyledLi>
-						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-							<LogoutButton />
-						</StyledLi>
-					</StyledUl>
-				</StyledNav>
+				<NavBar
+					elements={navBarElements}
+					justifyContent='end'
+					isResponsive={true}
+					ulWidth='300px'
+					liBackground='#e3e3e3'
+					liColor='#2c2c2c'
+				/>
 			</header>
 			<AddictionDetailsContainer>
 				<h1>{addictionDetails.name}</h1>

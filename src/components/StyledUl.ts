@@ -2,6 +2,7 @@ import styled from 'styled-components';
 type UlStyledProps = {
 	$justifyContent?: string;
 	$width?: string;
+	$isResponsive?: boolean;
 };
 export const StyledUl = styled.ul<UlStyledProps>`
 	display: flex;
