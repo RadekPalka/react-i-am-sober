@@ -45,9 +45,7 @@ export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
 					<Tooltip
 						labelFormatter={(label) => {
 							const date = new Date(label);
-							return `${date.getDate()}/${
-								date.getMonth() + 1
-							}/${date.getFullYear()}`;
+							return `${date.getMonth() + 1}/${date.getFullYear()}`;
 						}}
 						formatter={(value: number) => Math.round(value)}
 					/>
