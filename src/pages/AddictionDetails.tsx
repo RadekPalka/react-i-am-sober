@@ -72,33 +72,34 @@ export const AddictionDetails: React.FC = () => {
 	}, [addictionDetails.numberOfIncidents]);
 
 	const maxStreak = (() => {
-		if (addictionDetails.detoxStartDate) {
-			const incidentDates = addictionDetails.lastIncidents.map(
-				(incident) => incident.incidentDate
-			);
-			const detoxStartDate = new Date(addictionDetails.detoxStartDate);
-			detoxStartDate.setDate(detoxStartDate.getDate() - 1);
-			incidentDates.push(detoxStartDate.toISOString());
-
-			incidentDates.unshift(new Date().toISOString());
-
-			return (
-				Math.floor(
-					incidentDates.reduce((acc, date, index, arr) => {
-						if (index === 0) {
-							return acc;
-						}
-						const previousDate = new Date(arr[index - 1]).getTime();
-						const currentDate = new Date(date).getTime();
-						return Math.max(previousDate - currentDate, acc);
-					}, 0) /
-						1000 /
-						60 /
-						60 /
-						24
-				) - 1
-			);
+		if (!addictionDetails.detoxStartDate) {
+			return;
 		}
+		const incidentDates = addictionDetails.lastIncidents.map(
+			(incident) => incident.incidentDate
+		);
+		const detoxStartDate = new Date(addictionDetails.detoxStartDate);
+		detoxStartDate.setDate(detoxStartDate.getDate() - 1);
+		incidentDates.push(detoxStartDate.toISOString());
+
+		incidentDates.unshift(new Date().toISOString());
+
+		return (
+			Math.floor(
+				incidentDates.reduce((acc, date, index, arr) => {
+					if (index === 0) {
+						return acc;
+					}
+					const previousDate = new Date(arr[index - 1]).getTime();
+					const currentDate = new Date(date).getTime();
+					return Math.max(previousDate - currentDate, acc);
+				}, 0) /
+					1000 /
+					60 /
+					60 /
+					24
+			) - 1
+		);
 	})();
 
 	const currentStreak = !addictionDetails.numberOfIncidents
