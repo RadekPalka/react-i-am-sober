@@ -22,7 +22,12 @@ import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 import { HamburgerButton } from '../components/HamburgerButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
+const Nav = styled.nav`
+	display: flex;
+	justify-content: center;
+`;
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 
@@ -138,7 +143,7 @@ export const Dashboard: React.FC = () => {
 					<NoAddictionsMessage />
 				)}
 
-				<StyledNav $justifyContent='center' $isVisible={isMenuOpen}>
+				<Nav>
 					<StyledUl $justifyContent='center'>
 						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
 							<StyledLink to='/create-addiction'>
@@ -146,7 +151,7 @@ export const Dashboard: React.FC = () => {
 							</StyledLink>
 						</StyledLi>
 					</StyledUl>
-				</StyledNav>
+				</Nav>
 			</HeadingContainer>
 		</>
 	);
