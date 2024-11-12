@@ -12,7 +12,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
 	color: #fff;
 	padding: ${(props) => props.$padding || '8px 20px'};
 	border-radius: 10px;
-	font-family: 'LXGW WenKai TC', cursive;
+	font-family: 'LXGW WenKai TC', sans-serif;
 	font-weight: 300;
 	font-style: normal;
 	cursor: pointer;
