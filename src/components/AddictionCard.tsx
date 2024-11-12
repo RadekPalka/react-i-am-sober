@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { AddictionCardProps } from '../types/AddictionCardProps';
 import { StyledButton } from './StyledButton';
-import { StyledNav } from './StyledNav';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';

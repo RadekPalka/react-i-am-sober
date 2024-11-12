@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthInput } from '../components';
@@ -19,13 +19,9 @@ import { StyledAuthMessage } from '../components/StyledAuthMessage';
 
 import { PASSWORD_REGEX } from '../utils/constans';
 import { createAccount } from '../clients/AccountClients';
-import { StyledNav } from '../components/StyledNav';
-import { StyledUl } from '../components/StyledUl';
-import { StyledLi } from '../components/StyledLi';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { HamburgerButton } from '../components/HamburgerButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { NavBar } from '../components/NavBar';
+import { Links } from '../types/Links';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -36,21 +32,23 @@ export const RegistrationForm: React.FC = () => {
 	const loginLabelText = 'Podaj swój login';
 	const passwordLabelText = 'Podaj swoje hasło';
 	const confirmPasswordLabelText = 'Potwierdź hasło';
-	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 	document.title = 'Zarejestruj się';
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	useEffect(() => {
-		setIsMenuOpen(false);
-	}, [isMobile]);
+	const navBarElements: Links = {
+		elements: [
+			{
+				type: 'link',
+				label: 'Zaloguj się',
+				to: '/login-page',
+			},
+			{
+				type: 'link',
+				label: 'Strona główna',
+				to: '/',
+			},
+		],
+		styles: {},
+	};
 
 	const validateInputs = () => {
 		const minLoginLength = 4;
@@ -90,30 +88,7 @@ export const RegistrationForm: React.FC = () => {
 	return (
 		<>
 			<header>
-				{isMobile && (
-					<HamburgerButton
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-						aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-					>
-						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-					</HamburgerButton>
-				)}
-				{!isMobile && (
-					<StyledNav $justifyContent='end'>
-						<StyledUl $justifyContent='end'>
-							<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-								<StyledLink to='/'>Strona główna</StyledLink>
-							</StyledLi>
-							<StyledLi
-								$color='#e3e3e3'
-								$background='#2c2c2c'
-								$marginLeft='5px'
-							>
-								<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-							</StyledLi>
-						</StyledUl>
-					</StyledNav>
-				)}
+				<NavBar linksObj={navBarElements} />
 			</header>
 			<StyledSection>
 				<HeadingContainer>

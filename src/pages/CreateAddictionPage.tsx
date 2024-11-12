@@ -1,6 +1,6 @@
+import React from 'react';
 import { CreateAddictionForm } from '../components/CreateAddictionForm';
 import { useEffect, useState } from 'react';
-import React from 'react';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,37 +8,33 @@ import { StyledSection } from '../components/StyledSection';
 import { StyledH1 } from '../components/StyledH1';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { fetchUserData } from '../clients/AccountClients';
-import { StyledNav } from '../components/StyledNav';
-import { StyledLi } from '../components/StyledLi';
-import { StyledUl } from '../components/StyledUl';
+
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
-import { LogoutButton } from '../components/LogoutButton';
+
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { HamburgerButton } from '../components/HamburgerButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { NavBar } from '../components/NavBar';
+import { Links } from '../types/Links';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
 		'success'
 	);
-	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	document.title = 'Dodaj uzależnienie';
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	useEffect(() => {
-		setIsMenuOpen(false);
-	}, [isMobile]);
+	const navBarElements: Links = {
+		elements: [
+			{
+				type: 'link',
+				to: '/dashboard',
+				label: 'Panel główny',
+			},
+			{
+				type: 'logout-button',
+			},
+		],
+		styles: {},
+	};
 
 	const updateUserData = () => {
 		setStatus('loading');
@@ -74,24 +70,7 @@ export const CreateAddictionPage: React.FC = () => {
 	}
 	return (
 		<>
-			{isMobile && (
-				<HamburgerButton
-					onClick={() => setIsMenuOpen(!isMenuOpen)}
-					aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-				>
-					<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-				</HamburgerButton>
-			)}
-
-			{!isMobile && (
-				<StyledNav $justifyContent='end'>
-					<StyledUl>
-						<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-							<LogoutButton />
-						</StyledLi>
-					</StyledUl>
-				</StyledNav>
-			)}
+			<NavBar linksObj={navBarElements} />
 			<StyledSection>
 				<HeadingContainer>
 					<StyledH1>Witaj {userData.username}</StyledH1>

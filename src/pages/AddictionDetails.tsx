@@ -3,9 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { deleteIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
-
-import { StyledLink } from '../components/StyledLink';
-import { LogoutButton } from '../components/LogoutButton';
 import styled from 'styled-components';
 import { StyledButton } from '../components/StyledButton';
 import { toast } from 'react-toastify';
@@ -15,7 +12,7 @@ import { formatDateForDisplay } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
 import { LastIncidentsList } from '../components/LastIncidentsList';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-
+import { Links } from '../types/Links';
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
 import { IncidentCharts } from '../components/IncidentCharts';
 import { NavBar } from '../components/NavBar';
@@ -59,10 +56,19 @@ export const AddictionDetails: React.FC = () => {
 	const estimatedAnnualSavings =
 		(365 - addictionDetails.numberOfIncidents) * addictionDetails.costPerDay;
 
-	const navBarElements = [
-		<StyledLink to='/dashboard'>Panel użytkownika</StyledLink>,
-		<LogoutButton />,
-	];
+	const navBarElements: Links = {
+		elements: [
+			{
+				type: 'link',
+				to: '/dashboard',
+				label: 'Panel główny',
+			},
+			{
+				type: 'logout-button',
+			},
+		],
+		styles: {},
+	};
 
 	const increaseNumberOfIncidents = useCallback(() => {
 		setAddictionDetails((prev) => ({
@@ -209,14 +215,7 @@ export const AddictionDetails: React.FC = () => {
 	return (
 		<>
 			<header>
-				<NavBar
-					elements={navBarElements}
-					justifyContent='end'
-					isResponsive={true}
-					ulWidth='300px'
-					liBackground='#e3e3e3'
-					liColor='#2c2c2c'
-				/>
+				<NavBar linksObj={navBarElements} />
 			</header>
 			<AddictionDetailsContainer>
 				<h1>{addictionDetails.name}</h1>

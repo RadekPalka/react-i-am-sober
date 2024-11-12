@@ -14,14 +14,10 @@ import { useNavigate } from 'react-router-dom';
 import { HeadingContainer } from '../components/HeadingContainer';
 import { loginAction } from '../clients/AccountClients';
 import { getToken, saveToken } from '../clients/SessionTokenService';
-import { StyledNav } from '../components/StyledNav';
-import { StyledUl } from '../components/StyledUl';
-import { StyledLi } from '../components/StyledLi';
 import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { HamburgerButton } from '../components/HamburgerButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Links } from '../types/Links';
+import { NavBar } from '../components/NavBar';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -29,21 +25,24 @@ export const LoginForm: React.FC = () => {
 	const [isRemembered, setIsRemembered] = useState(false);
 	const [isFormEnabled, setIsFormEnabled] = useState(true);
 	const navigate = useNavigate();
-	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 	document.title = 'Zaloguj się';
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
 
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	useEffect(() => {
-		setIsMenuOpen(false);
-	}, [isMobile]);
+	const navBarElements: Links = {
+		elements: [
+			{
+				type: 'link',
+				label: 'Zarejestruj się',
+				to: '/registration-page',
+			},
+			{
+				type: 'link',
+				label: 'Strona główna',
+				to: '/',
+			},
+		],
+		styles: {},
+	};
 
 	useEffect(() => {
 		getToken() && navigate('/dashboard');
@@ -87,31 +86,7 @@ export const LoginForm: React.FC = () => {
 	return (
 		<>
 			<header>
-				{isMobile && (
-					<HamburgerButton
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-						aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-					>
-						<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-					</HamburgerButton>
-				)}
-
-				{!isMobile && (
-					<StyledNav $justifyContent='end'>
-						<StyledUl $justifyContent='end' $width='300px'>
-							<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-								<StyledLink to='/'>Strona główna</StyledLink>
-							</StyledLi>
-							<StyledLi
-								$color='#e3e3e3'
-								$background='#2c2c2c'
-								$marginLeft='5px'
-							>
-								<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-							</StyledLi>
-						</StyledUl>
-					</StyledNav>
-				)}
+				<NavBar linksObj={navBarElements} />
 			</header>
 			<StyledSection>
 				<HeadingContainer>

@@ -15,14 +15,12 @@ import { toast } from 'react-toastify';
 import { UserAddictions } from '../types/UserAddictions';
 import { AddictionsList } from '../components/AddictionsList';
 import { NoAddictionsMessage } from '../components/NoAddictionsMessage';
-import { LogoutButton } from '../components/LogoutButton';
 import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../clients/SessionTokenService';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { HamburgerButton } from '../components/HamburgerButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import { Links } from '../types/Links';
+import { NavBar } from '../components/NavBar';
 
 const Nav = styled.nav`
 	display: flex;
@@ -43,7 +41,14 @@ export const Dashboard: React.FC = () => {
 	const pageSize = 10;
 	const navigate = useNavigate();
 
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const navBarElements: Links = {
+		elements: [
+			{
+				type: 'logout-button',
+			},
+		],
+		styles: {},
+	};
 
 	useEffect(() => {
 		document.title = 'Panel użytkownika';
@@ -108,51 +113,34 @@ export const Dashboard: React.FC = () => {
 	}
 	return (
 		<>
-			<HamburgerButton
-				onClick={() => setIsMenuOpen(!isMenuOpen)}
-				aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-			>
-				<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-			</HamburgerButton>
-
-			<StyledNav
-				$justifyContent='end'
-				$isVisible={isMenuOpen}
-				$isResponsive={true}
-			>
-				<StyledUl $justifyContent='end'>
-					<StyledLi $color='#2c2c2c' $background='transparent' $border='none'>
-						<LogoutButton />
-					</StyledLi>
-				</StyledUl>
-			</StyledNav>
+			<NavBar linksObj={navBarElements} />
 
 			<HeadingContainer>
 				<StyledH1>Witaj {userData.username}</StyledH1>
-
-				{userAddictions.length > 0 ? (
-					<AddictionsList
-						userAddictions={userAddictions}
-						setUserAddictions={setUserAddictions}
-						setIsButtonDisabled={setIsButtonDisabled}
-						updateUserAddictions={updateUserAddictions}
-						isPaginationButtonEnabled={isPaginationButtonEnabled}
-						isButtonDisabled={isButtonDisabled}
-					/>
-				) : (
-					<NoAddictionsMessage />
-				)}
-
-				<Nav>
-					<StyledUl $justifyContent='center'>
-						<StyledLi $color='#e3e3e3' $background='#2c2c2c'>
-							<StyledLink to='/create-addiction'>
-								Dodaj nowe uzależnienie
-							</StyledLink>
-						</StyledLi>
-					</StyledUl>
-				</Nav>
 			</HeadingContainer>
+
+			{userAddictions.length > 0 ? (
+				<AddictionsList
+					userAddictions={userAddictions}
+					setUserAddictions={setUserAddictions}
+					setIsButtonDisabled={setIsButtonDisabled}
+					updateUserAddictions={updateUserAddictions}
+					isPaginationButtonEnabled={isPaginationButtonEnabled}
+					isButtonDisabled={isButtonDisabled}
+				/>
+			) : (
+				<NoAddictionsMessage />
+			)}
+
+			<Nav>
+				<StyledUl $justifyContent='center'>
+					<StyledLi>
+						<StyledLink to='/create-addiction'>
+							Dodaj nowe uzależnienie
+						</StyledLink>
+					</StyledLi>
+				</StyledUl>
+			</Nav>
 		</>
 	);
 };

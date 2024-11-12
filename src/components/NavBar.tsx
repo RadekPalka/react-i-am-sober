@@ -1,75 +1,30 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React from 'react';
 import { StyledNav } from './StyledNav';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
+import { StyledLink } from './StyledLink';
 import { LogoutButton } from './LogoutButton';
-import { HamburgerButton } from './HamburgerButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Links } from '../types/Links';
 
 type Props = {
-	justifyContent: 'end' | 'center';
-	isResponsive?: boolean;
-	elements: ReactNode[];
-	ulWidth: string;
-	liBackground: string;
-	liColor: string;
+	linksObj: Links;
 };
-
-export const NavBar: React.FC<Props> = ({
-	justifyContent,
-	isResponsive,
-	elements,
-	ulWidth,
-	liBackground,
-	liColor,
-}) => {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	useEffect(() => {
-		const closeMenu = () => {
-			if (window.innerWidth > 767) {
-				setIsMenuOpen(false);
-			}
-		};
-
-		window.addEventListener('resize', closeMenu);
-		return () => window.removeEventListener('resize', closeMenu);
-	}, []);
+export const NavBar: React.FC<Props> = ({ linksObj }) => {
 	return (
-		<>
-			<HamburgerButton
-				onClick={() => setIsMenuOpen(!isMenuOpen)}
-				aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-			>
-				<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-			</HamburgerButton>
-
-			<StyledNav
-				$justifyContent={justifyContent}
-				$isResponsive={isResponsive}
-				$isVisible={isMenuOpen}
-			>
-				<StyledUl $width={ulWidth} $justifyContent={justifyContent}>
-					{elements.map((el, index) => (
-						<StyledLi
-							key={index}
-							$background={
-								React.isValidElement(el) && el.type === LogoutButton
-									? 'transparent'
-									: liBackground
-							}
-							$color={liColor}
-							$border={
-								React.isValidElement(el) && el.type === LogoutButton
-									? 'none'
-									: undefined
-							}
-						>
-							{el}
-						</StyledLi>
-					))}
-				</StyledUl>
-			</StyledNav>
-		</>
+		<StyledNav>
+			<StyledUl>
+				{linksObj.elements.map((el) => {
+					if (el.type === 'link' && el.to) {
+						return (
+							<StyledLi>
+								<StyledLink to={el.to}>{el.label}</StyledLink>
+							</StyledLi>
+						);
+					} else if (el.type === 'logout-button') {
+						return <LogoutButton />;
+					}
+				})}
+			</StyledUl>
+		</StyledNav>
 	);
 };

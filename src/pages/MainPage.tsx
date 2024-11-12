@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Main } from '../components/';
-import { StyledLi } from '../components/StyledLi';
-import { StyledLink } from '../components/StyledLink';
-import { StyledNav } from '../components/StyledNav';
 import { getToken } from '../clients/SessionTokenService';
-import { HamburgerButton } from '../components/HamburgerButton';
-import { StyledUl } from '../components/StyledUl';
+import { NavBar } from '../components/NavBar';
+import { Links } from '../types/Links';
 
 export const MainPage: React.FC = () => {
 	const navigate = useNavigate();
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
 	document.title = 'Strona główna';
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	useEffect(() => {
-		setIsMenuOpen(false);
-	}, [isMobile]);
+	const navBarElements: Links = {
+		elements: [
+			{
+				type: 'link',
+				label: 'Zarejestruj się',
+				to: '/registration-page',
+			},
+			{
+				type: 'link',
+				label: 'Zaloguj się',
+				to: '/login-page',
+			},
+		],
+		styles: {},
+	};
 
 	useEffect(() => {
 		getToken() && navigate('/dashboard');
@@ -35,25 +32,9 @@ export const MainPage: React.FC = () => {
 	return (
 		<>
 			<header>
-				<HamburgerButton
-					onClick={() => setIsMenuOpen(!isMenuOpen)}
-					aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
-				>
-					<FontAwesomeIcon icon={faBars} aria-hidden='true' />
-				</HamburgerButton>
-
-				<StyledNav $justifyContent='end' $isVisible={isMenuOpen}>
-					<StyledUl $justifyContent='end'>
-						<StyledLi $color='#2c2c2c' $background='#e3e3e3'>
-							<StyledLink to='/registration-page'>Zarejestruj się</StyledLink>
-						</StyledLi>
-						<StyledLi $color='#e3e3e3' $background='#2c2c2c' $marginLeft='5px'>
-							<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-						</StyledLi>
-					</StyledUl>
-				</StyledNav>
+				<NavBar linksObj={navBarElements} />
 			</header>
-			<Main isMobile={isMobile} />
+			<Main />
 		</>
 	);
 };
