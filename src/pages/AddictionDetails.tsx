@@ -67,7 +67,11 @@ export const AddictionDetails: React.FC = () => {
 				type: 'logout-button',
 			},
 		],
-		styles: {},
+		styles: {
+			navJustifyContent: 'end',
+			buttonsWidth: '85px',
+			buttonsHeight: '25px',
+		},
 	};
 
 	const increaseNumberOfIncidents = useCallback(() => {

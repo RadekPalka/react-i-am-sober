@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-type Props={
- $jusifyContent?: 'end'
-}
+type Props = {
+	$justifyContent?: 'start' | 'end' | 'space-between' | 'space-around';
+};
 export const StyledNav = styled.nav<Props>`
 	top: 50px;
- 
+	justify-content: ${(props) => props.$justifyContent || 'space-around'};
 	right: 0;
 
 	@media (min-width: 769px) {

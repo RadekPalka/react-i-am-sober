@@ -28,10 +28,10 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<p>Dzienny koszt: {costPerDay} PLN</p>
 			<nav>
 				<StyledUl>
-					<StyledLi $color='#2c2c2c' $background='transparent'>
+					<StyledLi $color='#2c2c2c' $backgroundColor='transparent'>
 						<StyledLink to={`/addiction/${id}`}>Pokaż szczegóły</StyledLink>
 					</StyledLi>
-					<StyledLi $background='transparent' $color='white' $border='none'>
+					<StyledLi $backgroundColor='transparent' $color='white'>
 						<StyledButton
 							$padding='0px'
 							$margin='10px 5px'

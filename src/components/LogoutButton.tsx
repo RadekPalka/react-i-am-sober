@@ -4,8 +4,11 @@ import { StyledButton } from './StyledButton';
 import { logout } from '../clients/AccountClients';
 import { removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
-
-export const LogoutButton: React.FC = () => {
+type Props = {
+	width?: string;
+	height?: string;
+};
+export const LogoutButton: React.FC<Props> = ({ width, height }) => {
 	const navigate = useNavigate();
 	const handleLogoutButton = () => {
 		logout()
@@ -19,11 +22,7 @@ export const LogoutButton: React.FC = () => {
 			});
 	};
 	return (
-		<StyledButton
-			$padding='6px'
-			$margin='10px 5px'
-			onClick={handleLogoutButton}
-		>
+		<StyledButton $width={width} $height={height} onClick={handleLogoutButton}>
 			Wyloguj się
 		</StyledButton>
 	);

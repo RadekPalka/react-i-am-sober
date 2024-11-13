@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 type StyledButtonProps = {
-	$padding?: string;
-	$margin?: string;
+	$width?: string;
+	$height?: string;
 };
 
 export const StyledButton = styled.button<StyledButtonProps>`
 	display: block;
-	margin: ${(props) => props.$margin || '10px auto'};
+	width: ${(props) => props.$width};
+	height: ${(props) => props.$height};
 	background-color: black;
 	color: #fff;
-	padding: ${(props) => props.$padding || '8px 20px'};
 	border-radius: 10px;
 	font-family: 'LXGW WenKai TC', sans-serif;
 	font-weight: 300;

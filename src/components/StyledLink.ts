@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 
 type Props = {
 	$display?: string;
-	$padding?: string;
-	$margin?: string;
+	$width?: string;
+	$height?: string;
+	$border?: string;
+	$borderRadius?: string;
 };
 
 export const StyledLink = styled(Link)<Props>`
 	color: inherit;
 	display: ${(props) => props.$display};
-	padding: ${(props) => props.$padding};
-	margin: ${(props) => props.$margin};
+	width: ${(props) => props.$width};
+	height: ${(props) => props.$height};
+	border-radius: ${(props) => props.$borderRadius};
 `;

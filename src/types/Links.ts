@@ -4,5 +4,9 @@ export type Links = {
 		to?: string;
 		label?: string;
 	}[];
-	styles: object;
+	styles: {
+		navJustifyContent?: 'start' | 'end' | 'space-between' | 'space-around';
+		buttonsWidth?: string;
+		buttonsHeight?: string;
+	};
 };
