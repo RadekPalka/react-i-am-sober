@@ -5,6 +5,7 @@ import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
 import { LogoutButton } from './LogoutButton';
 import { Links } from '../types/Links';
+import {HamburgerButton} from './HamburgerButton'
 
 type Props = {
 	linksObj: Links;
@@ -12,7 +13,8 @@ type Props = {
 export const NavBar: React.FC<Props> = ({ linksObj }) => {
 	return (
 		<StyledNav>
-			<StyledUl>
+		<HamburgerButton/>
+			<StyledUl $justifyContent='end'>
 				{linksObj.elements.map((el) => {
 					if (el.type === 'link' && el.to) {
 						return (

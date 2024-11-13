@@ -33,7 +33,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 					</StyledLi>
 					<StyledLi $background='transparent' $color='white' $border='none'>
 						<StyledButton
-							$padding='6px'
+							$padding='0px'
 							$margin='10px 5px'
 							onClick={() => removeAddiction(id)}
 						>
