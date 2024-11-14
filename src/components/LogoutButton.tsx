@@ -7,8 +7,13 @@ import { toast } from 'react-toastify';
 type Props = {
 	width?: string;
 	height?: string;
+	borderRadius?: string;
 };
-export const LogoutButton: React.FC<Props> = ({ width, height }) => {
+export const LogoutButton: React.FC<Props> = ({
+	width,
+	height,
+	borderRadius,
+}) => {
 	const navigate = useNavigate();
 	const handleLogoutButton = () => {
 		logout()
@@ -22,7 +27,12 @@ export const LogoutButton: React.FC<Props> = ({ width, height }) => {
 			});
 	};
 	return (
-		<StyledButton $width={width} $height={height} onClick={handleLogoutButton}>
+		<StyledButton
+			$width={width}
+			$height={height}
+			$borderRadius={borderRadius}
+			onClick={handleLogoutButton}
+		>
 			Wyloguj się
 		</StyledButton>
 	);

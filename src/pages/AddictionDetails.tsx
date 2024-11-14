@@ -69,13 +69,12 @@ export const AddictionDetails: React.FC = () => {
 		],
 		styles: {
 			navJustifyContent: 'end',
-			width: '100px',
-			height: '25px',
+			width: '105px',
+			height: '35px',
 			linkColor: 'white',
 			linkDisplay: 'block',
 			borderRadius: '15px',
-			linkBackgroundColor: 'black'
-
+			linkBackgroundColor: 'black',
 		},
 	};
 

@@ -34,10 +34,13 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 						);
 					} else if (el.type === 'logout-button') {
 						return (
-							<LogoutButton
-								width={linksObj.styles.buttonsWidth}
-								height={linksObj.styles.buttonsHeight}
-							/>
+							<StyledLi>
+								<LogoutButton
+									width={linksObj.styles.width}
+									height={linksObj.styles.height}
+									borderRadius={linksObj.styles.borderRadius}
+								/>
+							</StyledLi>
 						);
 					}
 				})}
