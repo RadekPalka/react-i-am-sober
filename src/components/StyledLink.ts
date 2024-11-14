@@ -7,12 +7,15 @@ type Props = {
 	$height?: string;
 	$border?: string;
 	$borderRadius?: string;
+	$backgroundColor?: string;
+	$color?: string
 };
 
 export const StyledLink = styled(Link)<Props>`
-	color: inherit;
+	color: {(props)=> props.$color || 'inherit'};
 	display: ${(props) => props.$display};
 	width: ${(props) => props.$width};
 	height: ${(props) => props.$height};
 	border-radius: ${(props) => props.$borderRadius};
+	background-color: ${(props)=> props.$backgroundColor}
 `;

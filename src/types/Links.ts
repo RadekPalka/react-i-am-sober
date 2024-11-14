@@ -6,7 +6,12 @@ export type Links = {
 	}[];
 	styles: {
 		navJustifyContent?: 'start' | 'end' | 'space-between' | 'space-around';
-		buttonsWidth?: string;
-		buttonsHeight?: string;
+		width?: string;
+		height?: string;
+		linkDisplay?: string;
+		linkColor?: string;
+		borderRadius?: string;
+		linkBackgroundColor: string;
+
 	};
 };

@@ -7,8 +7,8 @@ type StyledButtonProps = {
 
 export const StyledButton = styled.button<StyledButtonProps>`
 	display: block;
-	width: ${(props) => props.$width};
-	height: ${(props) => props.$height};
+	width: ${(props) => props.$width? props.$width : '90px'};
+	height: ${(props) => props.$height? props.$height : '30px'};
 	background-color: black;
 	color: #fff;
 	border-radius: 10px;

@@ -21,8 +21,12 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 							<StyledLi>
 								<StyledLink
 									to={el.to}
-									$width={linksObj.styles.buttonsWidth}
-									$height={linksObj.styles.buttonsHeight}
+									$width={linksObj.styles.width}
+									$height={linksObj.styles.height}
+									$display={linksObj.styles.linkDisplay}
+									$borderRadius={linksObj.styles.borderRadius}
+									$backgroundColor={linksObj.styles.linkBackgroundColor}
+									$color={linksObj.styles.linkColor}
 								>
 									{el.label}
 								</StyledLink>
