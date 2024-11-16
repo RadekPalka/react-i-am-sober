@@ -9,6 +9,7 @@ type Props = {
 	$borderRadius?: string;
 	$backgroundColor?: string;
 	$color?: string;
+	$underline?: 'none';
 };
 
 export const StyledLink = styled(Link)<Props>`
@@ -20,4 +21,5 @@ export const StyledLink = styled(Link)<Props>`
 	background-color: ${(props) => props.$backgroundColor};
 	line-height: ${(props) => props.$height};
 	text-align: center;
+	text-decoration: ${(props) => props.$underline};
 `;

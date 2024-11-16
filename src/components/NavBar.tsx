@@ -27,6 +27,7 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 									$borderRadius={linksObj.styles.borderRadius}
 									$backgroundColor={linksObj.styles.linkBackgroundColor}
 									$color={linksObj.styles.linkColor}
+									$underline='none'
 								>
 									{el.label}
 								</StyledLink>
