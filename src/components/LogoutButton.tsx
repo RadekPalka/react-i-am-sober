@@ -8,15 +8,11 @@ type Props = {
 	width?: string;
 	height?: string;
 	borderRadius?: string;
-	backgroundColor?: string;
-	color?: string;
 };
 export const LogoutButton: React.FC<Props> = ({
 	width,
 	height,
 	borderRadius,
-	backgroundColor,
-	color,
 }) => {
 	const navigate = useNavigate();
 	const handleLogoutButton = () => {
