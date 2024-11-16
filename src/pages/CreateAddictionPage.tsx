@@ -33,7 +33,15 @@ export const CreateAddictionPage: React.FC = () => {
 				type: 'logout-button',
 			},
 		],
-		styles: {},
+		styles: {
+			navJustifyContent: 'end',
+			width: '105px',
+			height: '35px',
+			linkColor: 'white',
+			linkDisplay: 'block',
+			borderRadius: '15px',
+			linkBackgroundColor: 'black',
+		},
 	};
 
 	const updateUserData = () => {

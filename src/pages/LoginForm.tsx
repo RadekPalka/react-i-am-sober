@@ -41,7 +41,15 @@ export const LoginForm: React.FC = () => {
 				to: '/',
 			},
 		],
-		styles: {},
+		styles: {
+			navJustifyContent: 'end',
+			width: '105px',
+			height: '35px',
+			linkColor: 'white',
+			linkDisplay: 'block',
+			borderRadius: '15px',
+			linkBackgroundColor: 'black',
+		},
 	};
 
 	useEffect(() => {
