@@ -39,7 +39,6 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 								<LogoutButton
 									width={linksObj.styles.width}
 									height={linksObj.styles.height}
-									borderRadius={linksObj.styles.borderRadius}
 								/>
 							</StyledLi>
 						);

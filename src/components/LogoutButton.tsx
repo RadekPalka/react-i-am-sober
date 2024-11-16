@@ -9,11 +9,7 @@ type Props = {
 	height?: string;
 	borderRadius?: string;
 };
-export const LogoutButton: React.FC<Props> = ({
-	width,
-	height,
-	borderRadius,
-}) => {
+export const LogoutButton: React.FC<Props> = ({ width, height }) => {
 	const navigate = useNavigate();
 	const handleLogoutButton = () => {
 		logout()
@@ -33,7 +29,6 @@ export const LogoutButton: React.FC<Props> = ({
 			$backgroundColor='#BF1F1F'
 			$hoverBackgroundColor='#F23827'
 			color='black'
-			$borderRadius={borderRadius}
 			onClick={handleLogoutButton}
 		>
 			Wyloguj się

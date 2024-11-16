@@ -3,7 +3,6 @@ import styled from 'styled-components';
 type StyledButtonProps = {
 	$width?: string;
 	$height?: string;
-	$borderRadius?: string;
 	$backgroundColor?: string;
 	$hoverBackgroundColor?: string;
 	$color?: string;
@@ -15,7 +14,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
 	height: ${(props) => props.$height || '30px'};
 	background-color: ${(props) => props.$backgroundColor || 'black'};
 	color: ${(props) => props.$color || 'white'};
-	border-radius: ${(props) => props.$borderRadius || '10px'};
+	border-radius: 15px;
 	font-family: 'LXGW WenKai TC', sans-serif;
 	font-weight: 300;
 	font-style: normal;

@@ -29,14 +29,20 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<nav>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $backgroundColor='transparent'>
-						<StyledLink to={`/addiction/${id}`}>Pokaż szczegóły</StyledLink>
+						<StyledLink
+							to={`/addiction/${id}`}
+							$display='block'
+							$underline='none'
+							$width='145px'
+							$height='30px'
+							$backgroundColor='#177373'
+							$borderRadius='15px'
+						>
+							Pokaż szczegóły
+						</StyledLink>
 					</StyledLi>
 					<StyledLi $backgroundColor='transparent' $color='white'>
-						<StyledButton
-							$padding='0px'
-							$margin='10px 5px'
-							onClick={() => removeAddiction(id)}
-						>
+						<StyledButton onClick={() => removeAddiction(id)}>
 							Usuń
 						</StyledButton>
 					</StyledLi>
