@@ -5,6 +5,7 @@ type StyledButtonProps = {
 	$height?: string;
 	$borderRadius?: string;
 	$backgroundColor?: string;
+	$hoverBackgroundColor?: string;
 	$color?: string;
 };
 
@@ -22,7 +23,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
 	border: none;
 	transition: background-color 0.5s;
 	&:hover {
-		background-color: #333;
+		background-color: ${(props) => props.$hoverBackgroundColor || '#333'};
 	}
 	&:disabled {
 		cursor: progress;

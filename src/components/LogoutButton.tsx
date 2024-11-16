@@ -34,8 +34,9 @@ export const LogoutButton: React.FC<Props> = ({
 		<StyledButton
 			$width={width}
 			$height={height}
-			$backgroundColor='red'
-			color="black"
+			$backgroundColor='#BF1F1F'
+			$hoverBackgroundColor='#F23827'
+			color='black'
 			$borderRadius={borderRadius}
 			onClick={handleLogoutButton}
 		>
