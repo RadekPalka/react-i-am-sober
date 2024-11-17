@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { StyledNav } from './StyledNav';
@@ -14,12 +14,13 @@ type Props = {
 };
 
 export const NavBar: React.FC<Props> = ({ linksObj }) => {
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
 		<StyledNav $justifyContent={linksObj.styles.navJustifyContent}>
-			<HamburgerButton>
+			<HamburgerButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
 				<FontAwesomeIcon icon={faBars} />
 			</HamburgerButton>
-			<StyledUl $justifyContent='end'>
+			<StyledUl $justifyContent='end' $isDisplay={isMenuOpen}>
 				{linksObj.elements.map((el) => {
 					if (el.type === 'link' && el.to) {
 						return (
