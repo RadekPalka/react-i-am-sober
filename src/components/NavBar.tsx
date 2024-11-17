@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { StyledNav } from './StyledNav';
-import { StyledUl } from './StyledUl';
+import { StyledUl } from './NavBarStyledUl';
 import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
 import { LogoutButton } from './LogoutButton';
