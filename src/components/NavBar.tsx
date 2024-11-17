@@ -21,10 +21,10 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 				<FontAwesomeIcon icon={faBars} />
 			</HamburgerButton>
 			<NavBarStyledUl $justifyContent='end' $isDisplay={isMenuOpen}>
-				{linksObj.elements.map((el) => {
+				{linksObj.elements.map((el, index) => {
 					if (el.type === 'link' && el.to) {
 						return (
-							<StyledLi>
+							<StyledLi key={index}>
 								<StyledLink
 									to={el.to}
 									$width={linksObj.styles.width}
@@ -41,7 +41,7 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 						);
 					} else if (el.type === 'logout-button') {
 						return (
-							<StyledLi>
+							<StyledLi key={index}>
 								<LogoutButton
 									width={linksObj.styles.width}
 									height={linksObj.styles.height}
