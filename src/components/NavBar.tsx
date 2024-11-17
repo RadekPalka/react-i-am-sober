@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { StyledNav } from './StyledNav';
 import { StyledUl } from './StyledUl';
 import { StyledLi } from './StyledLi';
@@ -10,10 +12,13 @@ import { HamburgerButton } from './HamburgerButton';
 type Props = {
 	linksObj: Links;
 };
+
 export const NavBar: React.FC<Props> = ({ linksObj }) => {
 	return (
 		<StyledNav $justifyContent={linksObj.styles.navJustifyContent}>
-			<HamburgerButton />
+			<HamburgerButton>
+				<FontAwesomeIcon icon={faBars} />
+			</HamburgerButton>
 			<StyledUl $justifyContent='end'>
 				{linksObj.elements.map((el) => {
 					if (el.type === 'link' && el.to) {
