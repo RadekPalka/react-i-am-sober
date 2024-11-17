@@ -5,6 +5,7 @@ import { StyledButton } from './StyledButton';
 import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
 import { StyledUl } from './StyledUl';
+import { StyledNav } from './StyledNav';
 
 const CardWrapper = styled.li`
 	display: flex;
@@ -26,7 +27,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 		<CardWrapper>
 			<h2>{name}</h2>
 			<p>Dzienny koszt: {costPerDay} PLN</p>
-			<nav>
+			<StyledNav>
 				<StyledUl>
 					<StyledLi $color='#2c2c2c' $backgroundColor='transparent'>
 						<StyledLink
@@ -47,7 +48,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 						</StyledButton>
 					</StyledLi>
 				</StyledUl>
-			</nav>
+			</StyledNav>
 		</CardWrapper>
 	);
 };
