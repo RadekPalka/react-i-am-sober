@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { StyledNav } from './StyledNav';
-import { StyledUl } from './NavBarStyledUl';
+import { NavBarStyledNav } from './NavBarStyledNav';
+import { NavBarStyledUl } from './NavBarStyledUl';
 import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
 import { LogoutButton } from './LogoutButton';
@@ -16,11 +16,11 @@ type Props = {
 export const NavBar: React.FC<Props> = ({ linksObj }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
-		<StyledNav $justifyContent={linksObj.styles.navJustifyContent}>
+		<NavBarStyledNav $justifyContent={linksObj.styles.navJustifyContent}>
 			<HamburgerButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
 				<FontAwesomeIcon icon={faBars} />
 			</HamburgerButton>
-			<StyledUl $justifyContent='end' $isDisplay={isMenuOpen}>
+			<NavBarStyledUl $justifyContent='end' $isDisplay={isMenuOpen}>
 				{linksObj.elements.map((el) => {
 					if (el.type === 'link' && el.to) {
 						return (
@@ -50,7 +50,7 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 						);
 					}
 				})}
-			</StyledUl>
-		</StyledNav>
+			</NavBarStyledUl>
+		</NavBarStyledNav>
 	);
 };
