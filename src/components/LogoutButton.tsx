@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { StyledButton } from './StyledButton';
 import { logout } from '../clients/AccountClients';
 import { removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
+import { NavBarStyledButton } from './NavBarStyledButton';
 type Props = {
 	width?: string;
 	height?: string;
@@ -23,7 +23,7 @@ export const LogoutButton: React.FC<Props> = ({ width, height }) => {
 			});
 	};
 	return (
-		<StyledButton
+		<NavBarStyledButton
 			$width={width}
 			$height={height}
 			$backgroundColor='#BF1F1F'
@@ -32,6 +32,6 @@ export const LogoutButton: React.FC<Props> = ({ width, height }) => {
 			onClick={handleLogoutButton}
 		>
 			Wyloguj się
-		</StyledButton>
+		</NavBarStyledButton>
 	);
 };
