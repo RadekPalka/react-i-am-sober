@@ -28,4 +28,16 @@ export const NavBarStyledButton = styled.button<NavBarStyledButtonProps>`
 		cursor: progress;
 		background-color: #000;
 	}
+    @media (max-width: 768px) {
+		width: 100%;
+        background-color: black;
+        color: white;
+        border-radius: 0;
+        border-bottom: 1px solid white;
+		
+
+        &:hover{
+            background-color: #333;
+        }
+	}
 `;

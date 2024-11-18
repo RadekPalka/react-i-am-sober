@@ -13,6 +13,10 @@ export const NavBarStyledUl = styled.ul<UlStyledProps>`
 	margin-right: 20px;
 	width: ${(props) => props.$width || '200px'};
 	@media (max-width: 768px) {
+		position: fixed;
+		width: 100%;
+		top: 50px;
+		left: 0;
 		display: ${(props) => (props.$isDisplay ? 'block' : 'none')};
 		flex-direction: column;
 	}
