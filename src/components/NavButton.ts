@@ -8,7 +8,7 @@ type NavBarStyledButtonProps = {
 	$color?: string;
 };
 
-export const NavBarStyledButton = styled.button<NavBarStyledButtonProps>`
+export const NavButton = styled.button<NavBarStyledButtonProps>`
 	display: block;
 	width: ${(props) => props.$width || '90px'};
 	height: ${(props) => props.$height || '30px'};
@@ -28,16 +28,15 @@ export const NavBarStyledButton = styled.button<NavBarStyledButtonProps>`
 		cursor: progress;
 		background-color: #000;
 	}
-    @media (max-width: 768px) {
+	@media (max-width: 768px) {
 		width: 100%;
-        background-color: black;
-        color: white;
-        border-radius: 0;
-        border-bottom: 1px solid white;
-		
+		background-color: black;
+		color: white;
+		border-radius: 0;
+		border-bottom: 1px solid white;
 
-        &:hover{
-            background-color: #333;
-        }
+		&:hover {
+			background-color: #333;
+		}
 	}
 `;

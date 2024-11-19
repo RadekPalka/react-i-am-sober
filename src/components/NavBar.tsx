@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { NavBarStyledNav } from './NavBarStyledNav';
-import { NavBarStyledUl } from './NavBarStyledUl';
-import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
 import { LogoutButton } from './LogoutButton';
 import { Links } from '../types/Links';
 import { HamburgerButton } from './HamburgerButton';
+import { NavBarWrapper } from './NavBarWrapper';
+import { NavList } from './NavList';
 
 type Props = {
 	linksObj: Links;
@@ -16,15 +15,15 @@ type Props = {
 export const NavBar: React.FC<Props> = ({ linksObj }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
-		<NavBarStyledNav $justifyContent={linksObj.styles.navJustifyContent}>
+		<NavBarWrapper $justifyContent={linksObj.styles.navJustifyContent}>
 			<HamburgerButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
 				<FontAwesomeIcon icon={faBars} />
 			</HamburgerButton>
-			<NavBarStyledUl $justifyContent='end' $isDisplay={isMenuOpen}>
+			<NavList $justifyContent='end' $isDisplay={isMenuOpen}>
 				{linksObj.elements.map((el, index) => {
 					if (el.type === 'link' && el.to) {
 						return (
-							<StyledLi key={index}>
+							<li key={index}>
 								<StyledLink
 									to={el.to}
 									$width={linksObj.styles.width}
@@ -37,20 +36,20 @@ export const NavBar: React.FC<Props> = ({ linksObj }) => {
 								>
 									{el.label}
 								</StyledLink>
-							</StyledLi>
+							</li>
 						);
 					} else if (el.type === 'logout-button') {
 						return (
-							<StyledLi key={index}>
+							<li key={index}>
 								<LogoutButton
 									width={linksObj.styles.width}
 									height={linksObj.styles.height}
 								/>
-							</StyledLi>
+							</li>
 						);
 					}
 				})}
-			</NavBarStyledUl>
-		</NavBarStyledNav>
+			</NavList>
+		</NavBarWrapper>
 	);
 };

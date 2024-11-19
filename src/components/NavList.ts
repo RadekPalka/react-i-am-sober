@@ -5,7 +5,7 @@ type UlStyledProps = {
 	$isResponsive?: boolean;
 	$isDisplay?: boolean;
 };
-export const NavBarStyledUl = styled.ul<UlStyledProps>`
+export const NavList = styled.ul<UlStyledProps>`
 	display: flex;
 	align-items: center;
 	justify-content: ${(props) => props.$justifyContent || 'center'};

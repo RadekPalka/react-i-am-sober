@@ -1,9 +1,7 @@
 import { HeadingContainer } from '../components/HeadingContainer';
 import { StyledH1 } from '../components/StyledH1';
 import React, { useEffect, useState } from 'react';
-import { StyledNav } from '../components/StyledNav';
 import { StyledUl } from '../components/StyledUl';
-import { StyledLi } from '../components/StyledLi';
 import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
 import {

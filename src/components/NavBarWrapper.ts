@@ -3,7 +3,7 @@ import styled from 'styled-components';
 type Props = {
 	$justifyContent?: 'start' | 'end' | 'space-between' | 'space-around';
 };
-export const NavBarStyledNav = styled.nav<Props>`
+export const NavBarWrapper = styled.nav<Props>`
 	top: 50px;
 	justify-content: ${(props) => props.$justifyContent || 'space-around'};
 	right: 0;
