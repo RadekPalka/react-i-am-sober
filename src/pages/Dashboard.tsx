@@ -139,12 +139,12 @@ export const Dashboard: React.FC = () => {
 			)}
 
 			<Nav>
-				<StyledUl $justifyContent='center'>
-					<StyledLi>
+				<StyledUl>
+					<li>
 						<StyledLink to='/create-addiction'>
 							Dodaj nowe uzależnienie
 						</StyledLink>
-					</StyledLi>
+					</li>
 				</StyledUl>
 			</Nav>
 		</>

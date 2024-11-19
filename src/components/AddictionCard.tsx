@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { AddictionCardProps } from '../types/AddictionCardProps';
 import { StyledButton } from './StyledButton';
-import { StyledLi } from './StyledLi';
 import { StyledLink } from './StyledLink';
 import { StyledUl } from './StyledUl';
 import { StyledNav } from './StyledNav';
+import { AddictionCardLink } from './AddictionCardLink';
 
 const CardWrapper = styled.li`
 	display: flex;
@@ -29,24 +29,16 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<p>Dzienny koszt: {costPerDay} PLN</p>
 			<StyledNav>
 				<StyledUl>
-					<StyledLi $color='#2c2c2c' $backgroundColor='transparent'>
-						<StyledLink
-							to={`/addiction/${id}`}
-							$display='block'
-							$underline='none'
-							$width='145px'
-							$height='30px'
-							$backgroundColor='#177373'
-							$borderRadius='15px'
-						>
+					<li>
+						<AddictionCardLink to={`/addiction/${id}`}>
 							Pokaż szczegóły
-						</StyledLink>
-					</StyledLi>
-					<StyledLi $backgroundColor='transparent' $color='white'>
+						</AddictionCardLink>
+					</li>
+					<li>
 						<StyledButton onClick={() => removeAddiction(id)}>
 							Usuń
 						</StyledButton>
-					</StyledLi>
+					</li>
 				</StyledUl>
 			</StyledNav>
 		</CardWrapper>
