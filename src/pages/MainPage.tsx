@@ -3,35 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { Main } from '../components/';
 import { getToken } from '../clients/SessionTokenService';
 import { NavBar } from '../components/NavBar';
-import { Links } from '../types/Links';
+import { Link } from '../types/Link';
 
 export const MainPage: React.FC = () => {
 	const navigate = useNavigate();
 
 	document.title = 'Strona główna';
-	const navBarElements: Links = {
-		elements: [
-			{
-				type: 'link',
-				label: 'Zarejestruj się',
-				to: '/registration-page',
-			},
-			{
-				type: 'link',
-				label: 'Zaloguj się',
-				to: '/login-page',
-			},
-		],
-		styles: {
-			navJustifyContent: 'end',
-			width: '105px',
-			height: '35px',
-			linkColor: 'white',
-			linkDisplay: 'block', 
-			borderRadius: '15px',
-			linkBackgroundColor: 'black',
+	const navBarElements: Link[] = [
+		{
+			id: 0,
+			type: 'link',
+			label: 'Zarejestruj się',
+			to: '/registration-page',
 		},
-	};
+		{
+			id: 1,
+			type: 'link',
+			label: 'Zaloguj się',
+			to: '/login-page',
+		},
+	];
 
 	useEffect(() => {
 		getToken() && navigate('/dashboard');
@@ -40,7 +31,7 @@ export const MainPage: React.FC = () => {
 	return (
 		<>
 			<header>
-				<NavBar linksObj={navBarElements} />
+				<NavBar links={navBarElements} />
 			</header>
 			<Main />
 		</>

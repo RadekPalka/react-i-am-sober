@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../clients/SessionTokenService';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 import styled from 'styled-components';
-import { Links } from '../types/Links';
+import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 
 const Nav = styled.nav`
@@ -39,22 +39,12 @@ export const Dashboard: React.FC = () => {
 	const pageSize = 10;
 	const navigate = useNavigate();
 
-	const navBarElements: Links = {
-		elements: [
-			{
-				type: 'logout-button',
-			},
-		],
-		styles: {
-			navJustifyContent: 'end',
-			width: '105px',
-			height: '35px',
-			linkColor: 'white',
-			linkDisplay: 'block',
-			borderRadius: '15px',
-			linkBackgroundColor: 'black',
+	const navBarElements: Link[] = [
+		{
+			id: 0,
+			type: 'logout-button',
 		},
-	};
+	];
 
 	useEffect(() => {
 		document.title = 'Panel użytkownika';
@@ -119,7 +109,7 @@ export const Dashboard: React.FC = () => {
 	}
 	return (
 		<>
-			<NavBar linksObj={navBarElements} />
+			<NavBar links={navBarElements} />
 
 			<HeadingContainer>
 				<StyledH1>Witaj {userData.username}</StyledH1>

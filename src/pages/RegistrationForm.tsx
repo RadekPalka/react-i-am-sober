@@ -21,7 +21,7 @@ import { PASSWORD_REGEX } from '../utils/constans';
 import { createAccount } from '../clients/AccountClients';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 import { NavBar } from '../components/NavBar';
-import { Links } from '../types/Links';
+import { Link } from '../types/Link';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -34,27 +34,20 @@ export const RegistrationForm: React.FC = () => {
 	const confirmPasswordLabelText = 'Potwierdź hasło';
 
 	document.title = 'Zarejestruj się';
-	const navBarElements: Links = {
-		elements: [
-			{
-				type: 'link',
-				label: 'Zaloguj się',
-				to: '/login-page',
-			},
-			{
-				type: 'link',
-				label: 'Strona główna',
-				to: '/',
-			},
-		],
-		styles: {navJustifyContent: 'end',
-		width: '105px',
-		height: '35px',
-		linkColor: 'white',
-		linkDisplay: 'block',
-		borderRadius: '15px',
-		linkBackgroundColor: 'black',},
-	};
+	const navBarElements: Link[] = [
+		{
+			id: 0,
+			type: 'link',
+			label: 'Zaloguj się',
+			to: '/login-page',
+		},
+		{
+			id: 1,
+			type: 'link',
+			label: 'Strona główna',
+			to: '/',
+		},
+	];
 
 	const validateInputs = () => {
 		const minLoginLength = 4;
@@ -94,7 +87,7 @@ export const RegistrationForm: React.FC = () => {
 	return (
 		<>
 			<header>
-				<NavBar linksObj={navBarElements} />
+				<NavBar links={navBarElements} />
 			</header>
 			<StyledSection>
 				<HeadingContainer>

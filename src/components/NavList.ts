@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 type UlStyledProps = {
-	$justifyContent?: string;
-	$width?: string;
-	$isResponsive?: boolean;
 	$isDisplay?: boolean;
 };
 export const NavList = styled.ul<UlStyledProps>`
 	display: flex;
 	align-items: center;
-	justify-content: ${(props) => props.$justifyContent || 'center'};
+	justify-content: end;
 	list-style-type: none;
-	margin-right: 20px;
-	width: ${(props) => props.$width || '200px'};
+	width: 290px;
 	@media (max-width: 768px) {
 		position: fixed;
 		width: 100%;

@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 import { NavBar } from '../components/NavBar';
-import { Links } from '../types/Links';
+import { Link } from '../types/Link';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
@@ -22,27 +22,18 @@ export const CreateAddictionPage: React.FC = () => {
 		'success'
 	);
 	document.title = 'Dodaj uzależnienie';
-	const navBarElements: Links = {
-		elements: [
-			{
-				type: 'link',
-				to: '/dashboard',
-				label: 'Panel główny',
-			},
-			{
-				type: 'logout-button',
-			},
-		],
-		styles: {
-			navJustifyContent: 'end',
-			width: '105px',
-			height: '35px',
-			linkColor: 'white',
-			linkDisplay: 'block',
-			borderRadius: '15px',
-			linkBackgroundColor: 'black',
+	const navBarElements: Link[] = [
+		{
+			id: 0,
+			type: 'link',
+			to: '/dashboard',
+			label: 'Panel główny',
 		},
-	};
+		{
+			id: 2,
+			type: 'logout-button',
+		},
+	];
 
 	const updateUserData = () => {
 		setStatus('loading');
@@ -78,7 +69,7 @@ export const CreateAddictionPage: React.FC = () => {
 	}
 	return (
 		<>
-			<NavBar linksObj={navBarElements} />
+			<NavBar links={navBarElements} />
 			<StyledSection>
 				<HeadingContainer>
 					<StyledH1>Witaj {userData.username}</StyledH1>

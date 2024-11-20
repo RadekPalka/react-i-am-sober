@@ -12,7 +12,7 @@ import { formatDateForDisplay } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
 import { LastIncidentsList } from '../components/LastIncidentsList';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { Links } from '../types/Links';
+import { Link } from '../types/Link';
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
 import { IncidentCharts } from '../components/IncidentCharts';
 import { NavBar } from '../components/NavBar';
@@ -56,28 +56,15 @@ export const AddictionDetails: React.FC = () => {
 	const estimatedAnnualSavings =
 		(365 - addictionDetails.numberOfIncidents) * addictionDetails.costPerDay;
 
-	const navBarElements: Links = {
-		elements: [
-			{
-				type: 'link',
-				to: '/dashboard',
-				label: 'Panel główny',
-			},
-			{
-				type: 'logout-button',
-			},
-		],
-		styles: {
-			navJustifyContent: 'end',
-			width: '105px',
-			height: '35px',
-			linkColor: 'white',
-			linkDisplay: 'block',
-			borderRadius: '15px',
-			linkBackgroundColor: 'black',
+	const navBarElements: Link[] = [
+		{
+			id: 0,
+			type: 'link',
+			to: '/dashboard',
+			label: 'Panel główny',
 		},
-	};
-
+		{ id: 1, type: 'logout-button' },
+	];
 	const increaseNumberOfIncidents = useCallback(() => {
 		setAddictionDetails((prev) => ({
 			...prev,
@@ -223,7 +210,7 @@ export const AddictionDetails: React.FC = () => {
 	return (
 		<>
 			<header>
-				<NavBar linksObj={navBarElements} />
+				<NavBar links={navBarElements} />
 			</header>
 			<AddictionDetailsContainer>
 				<h1>{addictionDetails.name}</h1>

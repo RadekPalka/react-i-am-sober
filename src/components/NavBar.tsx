@@ -2,39 +2,37 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { LogoutButton } from './LogoutButton';
-import { Links } from '../types/Links';
+import { Link } from '../types/Link';
 import { HamburgerButton } from './HamburgerButton';
 import { NavBarWrapper } from './NavBarWrapper';
 import { NavList } from './NavList';
 import { NavLink } from './NavLink';
+import { NavItem } from './NavItem';
 
 type Props = {
-	linksObj: Links;
+	links: Link[];
 };
 
-export const NavBar: React.FC<Props> = ({ linksObj }) => {
+export const NavBar: React.FC<Props> = ({ links }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
-		<NavBarWrapper $justifyContent={linksObj.styles.navJustifyContent}>
+		<NavBarWrapper>
 			<HamburgerButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
 				<FontAwesomeIcon icon={faBars} />
 			</HamburgerButton>
-			<NavList $justifyContent='end' $isDisplay={isMenuOpen}>
-				{linksObj.elements.map((el, index) => {
+			<NavList $isDisplay={isMenuOpen}>
+				{links.map((el, index) => {
 					if (el.type === 'link' && el.to) {
 						return (
-							<li key={index}>
+							<NavItem key={el.id}>
 								<NavLink to={el.to}>{el.label}</NavLink>
-							</li>
+							</NavItem>
 						);
 					} else if (el.type === 'logout-button') {
 						return (
-							<li key={index}>
-								<LogoutButton
-									width={linksObj.styles.width}
-									height={linksObj.styles.height}
-								/>
-							</li>
+							<NavItem key={index}>
+								<LogoutButton />
+							</NavItem>
 						);
 					}
 				})}

@@ -16,7 +16,7 @@ import { loginAction } from '../clients/AccountClients';
 import { getToken, saveToken } from '../clients/SessionTokenService';
 import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-import { Links } from '../types/Links';
+import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 
 export const LoginForm: React.FC = () => {
@@ -28,28 +28,21 @@ export const LoginForm: React.FC = () => {
 
 	document.title = 'Zaloguj się';
 
-	const navBarElements: Links = {
+	const navBarElements: Link = {
 		elements: [
 			{
+				id: 0,
 				type: 'link',
 				label: 'Zarejestruj się',
 				to: '/registration-page',
 			},
 			{
+				id: 1,
 				type: 'link',
 				label: 'Strona główna',
 				to: '/',
 			},
 		],
-		styles: {
-			navJustifyContent: 'end',
-			width: '105px',
-			height: '35px',
-			linkColor: 'white',
-			linkDisplay: 'block',
-			borderRadius: '15px',
-			linkBackgroundColor: 'black',
-		},
 	};
 
 	useEffect(() => {
@@ -94,7 +87,7 @@ export const LoginForm: React.FC = () => {
 	return (
 		<>
 			<header>
-				<NavBar linksObj={navBarElements} />
+				<NavBar links={navBarElements} />
 			</header>
 			<StyledSection>
 				<HeadingContainer>
