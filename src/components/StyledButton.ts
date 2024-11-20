@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.button`
+type Props={
+	$width?: string;
+	$height?: string;
+}
+
+export const StyledButton = styled.button<Props>`
 	display: block;
-	width: 90px;
-	height: 30px;
+	width: ${(props=> props.$width || '90px')};
+	height: ${(props=> props.$height || '30px')};
 	border-radius: 15px;
 	font-family: 'LXGW WenKai TC', sans-serif;
 	background-color: black;
