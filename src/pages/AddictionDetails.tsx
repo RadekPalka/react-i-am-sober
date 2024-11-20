@@ -252,6 +252,7 @@ export const AddictionDetails: React.FC = () => {
 					<IncidentCharts addictionDetails={addictionDetails} />
 				</details>
 				<StyledButton
+					$margin='5px'
 					onClick={() => {
 						setModalState('editAddiction');
 						editModalRef.current &&
@@ -274,6 +275,7 @@ export const AddictionDetails: React.FC = () => {
 					)}
 				</div>
 				<StyledButton
+					$margin='5px'
 					onClick={() => {
 						if (!daysSinceDetoxStart) {
 							return toast.error(

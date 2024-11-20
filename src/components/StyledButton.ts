@@ -1,18 +1,21 @@
 import styled from 'styled-components';
 
-type Props={
+type Props = {
 	$width?: string;
 	$height?: string;
-}
+	$margin?: string;
+};
 
 export const StyledButton = styled.button<Props>`
-	display: block;
-	width: ${(props=> props.$width || '90px')};
-	height: ${(props=> props.$height || '30px')};
+	display: 'block';
+	width: ${(props) => props.$width || '90px'};
+	height: ${(props) => props.$height || '30px'};
+	margin: ${(props) => props.$margin};
 	border-radius: 15px;
 	font-family: 'LXGW WenKai TC', sans-serif;
 	background-color: black;
 	color: white;
+
 	font-weight: 300;
 	font-style: normal;
 	cursor: pointer;
@@ -21,6 +24,6 @@ export const StyledButton = styled.button<Props>`
 
 	&:disabled {
 		cursor: progress;
-		background-color: #000;
+		background-color: #333;
 	}
 `;
