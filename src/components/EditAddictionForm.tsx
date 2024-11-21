@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { StyledDiv } from './StyledDiv';
 import { StyledForm } from './StyledForm';
 import { AddictionInput } from './AddictionInput';
@@ -13,13 +12,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
-
-const ButtonWrapper = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin: 5px auto;
-	width: 190px;
-`;
+import { ButtonWrapper } from './ButtonWrapper.ts';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,

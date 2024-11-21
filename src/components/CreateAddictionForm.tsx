@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { formatDateForInput } from '../clients/dateUtils';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { ButtonWrapper } from './ButtonWrapper';
 
 export const CreateAddictionForm: React.FC = () => {
 	const navigate = useNavigate();
@@ -71,16 +72,18 @@ export const CreateAddictionForm: React.FC = () => {
 					userAddiction={userAddiction}
 				/>
 			</StyledDiv>
-			<StyledButton type='submit' disabled={!isFormEnabled}>
-				Dodaj
-			</StyledButton>
-			<StyledButton
-				type='button'
-				disabled={!isFormEnabled}
-				onClick={() => navigate('/dashboard')}
-			>
-				Anuluj
-			</StyledButton>
+			<ButtonWrapper>
+				<StyledButton type='submit' disabled={!isFormEnabled}>
+					Dodaj
+				</StyledButton>
+				<StyledButton
+					type='button'
+					disabled={!isFormEnabled}
+					onClick={() => navigate('/dashboard')}
+				>
+					Anuluj
+				</StyledButton>
+			</ButtonWrapper>
 		</StyledForm>
 	);
 };
