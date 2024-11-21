@@ -4,7 +4,7 @@ import { AddictionCardProps } from '../types/AddictionCardProps';
 import { StyledButton } from './StyledButton';
 import { StyledUl } from './StyledUl';
 import { StyledNav } from './StyledNav';
-import { AddictionCardLink } from './AddictionCardLink';
+import { StyledLinkButton } from './StyledLinkButton';
 
 const CardWrapper = styled.li`
 	display: flex;
@@ -29,9 +29,9 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<StyledNav>
 				<StyledUl $display='flex' $justifyContent='space-around'>
 					<li>
-						<AddictionCardLink to={`/addiction/${id}`}>
+						<StyledLinkButton to={`/addiction/${id}`}>
 							Pokaż szczegóły
-						</AddictionCardLink>
+						</StyledLinkButton>
 					</li>
 					<li>
 						<StyledButton onClick={() => removeAddiction(id)}>

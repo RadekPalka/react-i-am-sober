@@ -19,7 +19,7 @@ const AddictionsUl = styled.ul`
 const ButtonWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-`
+`;
 
 export const AddictionsList: React.FC<AddictionsListProps> = ({
 	userAddictions,
@@ -61,18 +61,20 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 					/>
 				))}
 			</AddictionsUl>
-			{true && (
+			{isPaginationButtonEnabled && (
 				<ButtonWrapper>
-				<StyledButton
-					disabled={isButtonDisabled}
-					onClick={() => {
-						setIsButtonDisabled(true);
+					<StyledButton
+						disabled={isButtonDisabled}
+						onClick={() => {
+							setIsButtonDisabled(true);
 
-						updateUserAddictions();
-					}}
-				>
-					Wczytaj kolejne
-				</StyledButton>
+							updateUserAddictions();
+						}}
+						$margin='5px'
+						$width='120px'
+					>
+						Wczytaj kolejne
+					</StyledButton>
 				</ButtonWrapper>
 			)}
 		</div>

@@ -19,6 +19,7 @@ import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 import styled from 'styled-components';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
+import { StyledLinkButton } from '../components/StyledLinkButton';
 
 const Nav = styled.nav`
 	display: flex;
@@ -131,9 +132,13 @@ export const Dashboard: React.FC = () => {
 			<Nav>
 				<StyledUl>
 					<li>
-						<StyledLink to='/create-addiction'>
+						<StyledLinkButton
+							to='/create-addiction'
+							$margin='5px'
+							$width='210px'
+						>
 							Dodaj nowe uzależnienie
-						</StyledLink>
+						</StyledLinkButton>
 					</li>
 				</StyledUl>
 			</Nav>
