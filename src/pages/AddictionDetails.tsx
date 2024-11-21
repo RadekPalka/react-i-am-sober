@@ -276,6 +276,7 @@ export const AddictionDetails: React.FC = () => {
 				</div>
 				<StyledButton
 					$margin='5px'
+					$width='120px'
 					onClick={() => {
 						if (!daysSinceDetoxStart) {
 							return toast.error(
