@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
-export const StyledUl = styled.ul`
-	display: flex;
-	justify-content: space-around;
+type Props = {
+	$display?: 'flex';
+	$justifyContent?: 'space-around';
+};
+
+export const StyledUl = styled.ul<Props>`
+	display: ${(props) => props.$display};
+	justify-content: ${(props) => props.$justifyContent};
 	list-style: none;
 `;

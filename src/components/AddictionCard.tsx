@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { AddictionCardProps } from '../types/AddictionCardProps';
 import { StyledButton } from './StyledButton';
-import { StyledLink } from './StyledLink';
 import { StyledUl } from './StyledUl';
 import { StyledNav } from './StyledNav';
 import { AddictionCardLink } from './AddictionCardLink';
@@ -28,7 +27,7 @@ export const AddictionCard: React.FC<AddictionCardProps> = ({
 			<h2>{name}</h2>
 			<p>Dzienny koszt: {costPerDay} PLN</p>
 			<StyledNav>
-				<StyledUl>
+				<StyledUl $display='flex' $justifyContent='space-around'>
 					<li>
 						<AddictionCardLink to={`/addiction/${id}`}>
 							Pokaż szczegóły
