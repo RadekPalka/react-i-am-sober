@@ -27,7 +27,6 @@ const Nav = styled.nav`
 `;
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
-
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
 
@@ -47,12 +46,15 @@ export const Dashboard: React.FC = () => {
 		},
 	];
 
-	useEffect(() => {
-		document.title = 'Panel użytkownika';
-		if (userData.username) {
-			document.title += ` ${userData.username}`;
+	const setPageTitle = (() => {
+		if (status === 'loading') {
+			document.title = 'Loading';
+		} else if (status === 'success') {
+			document.title = `Panel użytkownika ${userData.username}`;
+		} else {
+			document.title = 'Error';
 		}
-	}, [userData.username]);
+	})();
 
 	const updateUserAddictions = () => {
 		getPaginatedAddictions(pageNumber)

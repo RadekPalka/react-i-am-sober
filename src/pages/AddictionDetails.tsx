@@ -43,6 +43,16 @@ export const AddictionDetails: React.FC = () => {
 			createdAt: '',
 		});
 	const navigate = useNavigate();
+	const setPageTitle = (() => {
+		const titles = {
+			loading: 'Loading',
+			success: addictionDetails.name,
+			error: 'Error',
+		};
+
+		document.title = titles[fetchStatus];
+	})();
+
 	const editModalRef = useRef<HTMLDivElement | null>(null);
 	const incidentModalRef = useRef<HTMLDivElement | null>(null);
 	const daysSinceDetoxStart = Math.floor(
@@ -114,12 +124,6 @@ export const AddictionDetails: React.FC = () => {
 					24 -
 					1
 		  );
-
-	useEffect(() => {
-		document.title = addictionDetails.name;
-
-		//addictionDetails.detoxStartDate && countCurrentStreak();
-	}, [addictionDetails]);
 
 	useEffect(() => {
 		addictionId &&
