@@ -44,7 +44,7 @@ export const AddictionDetails: React.FC = () => {
 		});
 	const navigate = useNavigate();
 	const setPageTitle = (() => {
-		const titles = {
+		const titles: Record<status, string> = {
 			loading: 'Loading',
 			success: addictionDetails.name,
 			error: 'Error',
