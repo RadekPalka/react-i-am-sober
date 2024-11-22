@@ -4,6 +4,7 @@ import { StyledInput } from './StyledInput';
 import React from 'react';
 import { AddictionInputsProps } from '../types/AddictionInputsProps';
 import { AddictionData } from '../types/AddictionData';
+import { StyledLabel } from './StyledLabel';
 export const DateInput: React.FC<AddictionInputsProps> = ({
 	isInputDisabled,
 	setUserAddiction,
@@ -18,9 +19,9 @@ export const DateInput: React.FC<AddictionInputsProps> = ({
 	};
 	return (
 		<>
-			<label htmlFor='addiction-free-date'>
+			<StyledLabel htmlFor='addiction-free-date'>
 				Wybierz datę uwolnienia się od uzależnienia
-			</label>
+			</StyledLabel>
 			<StyledInput
 				type='date'
 				id='addiction-free-date'

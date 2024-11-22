@@ -3,6 +3,7 @@ import { StyledInput } from './StyledInput';
 
 import React from 'react';
 import { AddictionInputsProps } from '../types/AddictionInputsProps';
+import { StyledLabel } from './StyledLabel';
 
 export const AddictionInput: React.FC<AddictionInputsProps> = ({
 	isInputDisabled,
@@ -17,7 +18,9 @@ export const AddictionInput: React.FC<AddictionInputsProps> = ({
 	};
 	return (
 		<>
-			<label htmlFor="addiction-choice'">Od czego jesteś uzależniony</label>
+			<StyledLabel htmlFor="addiction-choice'">
+				Od czego jesteś uzależniony
+			</StyledLabel>
 			<StyledInput
 				id='addiction-choice'
 				list='Addiction-type'

@@ -3,6 +3,7 @@ import { StyledInput } from './StyledInput';
 import React from 'react';
 import { AddictionInputsProps } from '../types/AddictionInputsProps';
 import { AddictionData } from '../types/AddictionData';
+import { StyledLabel } from './StyledLabel';
 export const DailyCostInput: React.FC<AddictionInputsProps> = ({
 	isInputDisabled,
 	setUserAddiction,
@@ -16,9 +17,9 @@ export const DailyCostInput: React.FC<AddictionInputsProps> = ({
 	};
 	return (
 		<>
-			<label htmlFor='daily-cost'>
+			<StyledLabel htmlFor='daily-cost'>
 				Ile pieniędzy dziennie traciłeś na uzależnienie?
-			</label>
+			</StyledLabel>
 			<StyledInput
 				type='number'
 				id='daily-cost'
