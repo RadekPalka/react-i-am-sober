@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const StyledButton = styled.button<Props>`
-	display: 'block';
+	display: block;
 	width: ${(props) => props.$width || '90px'};
 	height: ${(props) => props.$height || '30px'};
 	margin: ${(props) => props.$margin};

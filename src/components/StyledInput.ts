@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 export const StyledInput = styled.input`
+	display: block;
 	background-color: #e0ddf6;
-	margin-left: 10px;
 	padding: 5px 10px;
 	border-radius: 10px;
 	&:focus {
