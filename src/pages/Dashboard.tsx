@@ -20,7 +20,7 @@ import styled from 'styled-components';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 import { StyledLinkButton } from '../components/StyledLinkButton';
-import { generateTestAddictions } from '../__tests__/utils/testData';
+import { testIncidents } from '../__tests__/utils/testData';
 
 const Nav = styled.nav`
 	display: flex;
@@ -89,7 +89,7 @@ export const Dashboard: React.FC = () => {
 					username: response.data.username,
 				});
 				// updateUserAddictions();
-				setUserAddictions(generateTestAddictions());
+				setUserAddictions(testIncidents);
 			})
 			.catch((error) => {
 				if (handleNetworkError(error)) {

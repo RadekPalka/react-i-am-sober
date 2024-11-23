@@ -16,6 +16,10 @@ import { Link } from '../types/Link';
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
 import { IncidentCharts } from '../components/IncidentCharts';
 import { NavBar } from '../components/NavBar';
+import {
+	generateTestAddictionDetails,
+	testIncidents,
+} from '../__tests__/utils/testData';
 
 const AddictionDetailsContainer = styled.div`
 	display: flex;
@@ -29,19 +33,12 @@ type ModalState = 'editAddiction' | 'incidentForm' | null;
 
 export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
-	const [fetchStatus, setFetchStatus] = useState<status>('loading');
+	const id = Number(addictionId);
+	const [fetchStatus, setFetchStatus] = useState<status>('success');
 	const [modalState, setModalState] = useState<ModalState>(null);
 	const [addictionDetails, setAddictionDetails] =
-		useState<AddictionDetailsProps>({
-			id: 0,
-			name: '',
-			costPerDay: 0,
-			detoxStartDate: '',
-			lastIncidents: [],
-			numberOfIncidents: 0,
-			limitOfLastIncidents: 0,
-			createdAt: '',
-		});
+		useState<AddictionDetailsProps>(generateTestAddictionDetails(id));
+
 	const navigate = useNavigate();
 	const setPageTitle = (() => {
 		const titles: Record<status, string> = {
@@ -113,45 +110,49 @@ export const AddictionDetails: React.FC = () => {
 		);
 	})();
 
-	const currentStreak = !addictionDetails.numberOfIncidents
-		? sobrietyDays
-		: Math.floor(
-				(new Date().getTime() -
-					new Date(addictionDetails.lastIncidents[0].incidentDate).getTime()) /
-					1000 /
-					60 /
-					60 /
-					24 -
-					1
-		  );
+	const currentStreak = Math.floor(
+		(new Date().getTime() -
+			new Date(addictionDetails.lastIncidents[0].incidentDate).getTime()) /
+			1000 /
+			60 /
+			60 /
+			24 -
+			1
+	);
 
 	useEffect(() => {
-		addictionId &&
-			getAddictionDetails(addictionId)
-				.then((res) => {
-					setFetchStatus('success');
-					setAddictionDetails((prevDetails) => ({
-						...prevDetails,
-						...res.data,
-						numberOfIncidents: Number(res.data.numberOfIncidents),
-					}));
-				})
-				.catch((error) => {
-					setFetchStatus('error');
-					if (handleNetworkError(error)) {
-						toast.error(
-							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
-						);
-					} else if (error.response.status === 401) {
-						removeToken();
-						toast.error('Błąd autoryzacji');
-						navigate('/login-page');
-					} else if (error.response.status === 404) {
-						toast.error('Uzależnienie nie istnieje');
-						navigate('/dashboard');
-					}
-				});
+		const testAddictionDetails = generateTestAddictionDetails(id);
+		console.log(testAddictionDetails);
+		setAddictionDetails(testAddictionDetails);
 	}, []);
+
+	// useEffect(() => {
+	// 	addictionId &&
+	// 		getAddictionDetails(addictionId)
+	// 			.then((res) => {
+	// 				setFetchStatus('success');
+	// 				setAddictionDetails((prevDetails) => ({
+	// 					...prevDetails,
+	// 					...res.data,
+	// 					numberOfIncidents: Number(res.data.numberOfIncidents),
+	// 				}));
+	// 			})
+	// 			.catch((error) => {
+	// 				setFetchStatus('error');
+	// 				if (handleNetworkError(error)) {
+	// 					toast.error(
+	// 						'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
+	// 					);
+	// 				} else if (error.response.status === 401) {
+	// 					removeToken();
+	// 					toast.error('Błąd autoryzacji');
+	// 					navigate('/login-page');
+	// 				} else if (error.response.status === 404) {
+	// 					toast.error('Uzależnienie nie istnieje');
+	// 					navigate('/dashboard');
+	// 				}
+	// 			});
+	// }, []);
 
 	const formatCurrency = (number: number): string => {
 		return new Intl.NumberFormat('pl-PL', {
