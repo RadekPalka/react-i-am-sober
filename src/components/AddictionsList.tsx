@@ -23,11 +23,11 @@ const ButtonWrapper = styled.div`
 
 export const AddictionsList: React.FC<AddictionsListProps> = ({
 	userAddictions,
-	setUserAddictions,
+	// setUserAddictions,
 	isButtonDisabled,
 	isPaginationButtonEnabled,
 	setIsButtonDisabled,
-	updateUserAddictions,
+	// updateUserAddictions,
 }) => {
 	const navigate = useNavigate();
 	const removeAddiction = (id: string) => {

@@ -20,6 +20,7 @@ import styled from 'styled-components';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 import { StyledLinkButton } from '../components/StyledLinkButton';
+import { generateTestAddictions } from '../__tests__/utils/testData';
 
 const Nav = styled.nav`
 	display: flex;
@@ -31,7 +32,7 @@ export const Dashboard: React.FC = () => {
 	const [pageNumber, setPageNumber] = useState(0);
 
 	const [status, setStatus] = useState<'loading' | 'error' | 'success'>(
-		'loading'
+		'success'
 	);
 	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
 		useState(true);
@@ -56,30 +57,30 @@ export const Dashboard: React.FC = () => {
 		}
 	})();
 
-	const updateUserAddictions = () => {
-		getPaginatedAddictions(pageNumber)
-			.then((response) => {
-				setUserAddictions([...userAddictions, ...response.data]);
-				setStatus('success');
-				setPageNumber(pageNumber + 1);
-				if (response.data.length < pageSize) {
-					setIsPaginationButtonEnabled((prevState) => (prevState = false));
-				}
-				setIsButtonDisabled((prevState) => (prevState = false));
-			})
-			.catch((error) => {
-				if (handleNetworkError(error)) {
-					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
-				} else if (error.response.status === 400) {
-					toast.error('Operacja się nie powiodła');
-				} else if (error.response.status === 401) {
-					removeToken();
-					toast.error('Błąd autoryzacji');
-					navigate('/login-page');
-				}
-				setIsButtonDisabled((prevState) => (prevState = false));
-			});
-	};
+	// const updateUserAddictions = () => {
+	// 	getPaginatedAddictions(pageNumber)
+	// 		.then((response) => {
+	// 			setUserAddictions([...userAddictions, ...response.data]);
+	// 			setStatus('success');
+	// 			setPageNumber(pageNumber + 1);
+	// 			if (response.data.length < pageSize) {
+	// 				setIsPaginationButtonEnabled((prevState) => (prevState = false));
+	// 			}
+	// 			setIsButtonDisabled((prevState) => (prevState = false));
+	// 		})
+	// 		.catch((error) => {
+	// 			if (handleNetworkError(error)) {
+	// 				toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
+	// 			} else if (error.response.status === 400) {
+	// 				toast.error('Operacja się nie powiodła');
+	// 			} else if (error.response.status === 401) {
+	// 				removeToken();
+	// 				toast.error('Błąd autoryzacji');
+	// 				navigate('/login-page');
+	// 			}
+	// 			setIsButtonDisabled((prevState) => (prevState = false));
+	// 		});
+	// };
 	const updateUserData = () => {
 		fetchUserData()
 			.then((response) => {
@@ -87,7 +88,8 @@ export const Dashboard: React.FC = () => {
 					id: response.data.id,
 					username: response.data.username,
 				});
-				updateUserAddictions();
+				// updateUserAddictions();
+				setUserAddictions(generateTestAddictions());
 			})
 			.catch((error) => {
 				if (handleNetworkError(error)) {
@@ -121,9 +123,9 @@ export const Dashboard: React.FC = () => {
 			{userAddictions.length > 0 ? (
 				<AddictionsList
 					userAddictions={userAddictions}
-					setUserAddictions={setUserAddictions}
+					// setUserAddictions={setUserAddictions}
 					setIsButtonDisabled={setIsButtonDisabled}
-					updateUserAddictions={updateUserAddictions}
+					// updateUserAddictions={updateUserAddictions}
 					isPaginationButtonEnabled={isPaginationButtonEnabled}
 					isButtonDisabled={isButtonDisabled}
 				/>
