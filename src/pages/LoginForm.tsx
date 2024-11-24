@@ -15,10 +15,9 @@ import { HeadingContainer } from '../components/HeadingContainer';
 import { loginAction } from '../clients/AccountClients';
 import { getToken, saveToken } from '../clients/SessionTokenService';
 import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
-import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
-import { ButtonWrapper } from '../components/ButtonWrapper';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -72,7 +71,7 @@ export const LoginForm: React.FC = () => {
 			})
 			.catch(function (error) {
 				setIsFormEnabled(true);
-				if (handleNetworkError(error)) {
+				if (isNetworkOrServerError(error)) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else if (error.response.status === 401) {
 					toast.error('Zły login lub hasło');

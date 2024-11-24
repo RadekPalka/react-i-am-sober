@@ -11,7 +11,7 @@ import { AddictionData } from '../types/AddictionData';
 import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { formatDateForInput } from '../clients/dateUtils';
-import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { ButtonWrapper } from './ButtonWrapper';
 
 export const CreateAddictionForm: React.FC = () => {
@@ -33,7 +33,7 @@ export const CreateAddictionForm: React.FC = () => {
 			})
 			.catch((error) => {
 				setIsFormEnabled(true);
-				if (handleNetworkError(error)) {
+				if (isNetworkOrServerError(error)) {
 					toast.error(
 						'Wystąpił problem z serwerem. Proszę spróbować ponownie później.'
 					);

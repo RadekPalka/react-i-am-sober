@@ -12,7 +12,7 @@ import { fetchUserData } from '../clients/AccountClients';
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
 
-import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { NavBar } from '../components/NavBar';
 import { Link } from '../types/Link';
 export const CreateAddictionPage: React.FC = () => {
@@ -45,7 +45,7 @@ export const CreateAddictionPage: React.FC = () => {
 					setStatus('success');
 				})
 				.catch((error) => {
-					if (handleNetworkError(error)) {
+					if (isNetworkOrServerError(error)) {
 						setStatus('error');
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'

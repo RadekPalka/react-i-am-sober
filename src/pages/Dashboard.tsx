@@ -2,7 +2,6 @@ import { HeadingContainer } from '../components/HeadingContainer';
 import { StyledH1 } from '../components/StyledH1';
 import React, { useEffect, useState } from 'react';
 import { StyledUl } from '../components/StyledUl';
-import { StyledLink } from '../components/StyledLink';
 import { useUserContext } from '../context/UserContext';
 import {
 	fetchUserData,
@@ -15,7 +14,7 @@ import { AddictionsList } from '../components/AddictionsList';
 import { NoAddictionsMessage } from '../components/NoAddictionsMessage';
 import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../clients/SessionTokenService';
-import { handleNetworkError } from '../clients/ErrorHanlingUtils';
+import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import styled from 'styled-components';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
@@ -68,7 +67,7 @@ export const Dashboard: React.FC = () => {
 				setIsButtonDisabled((prevState) => (prevState = false));
 			})
 			.catch((error) => {
-				if (handleNetworkError(error)) {
+				if (isNetworkOrServerError(error)) {
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie później');
 				} else if (error.response.status === 400) {
 					toast.error('Operacja się nie powiodła');
@@ -90,7 +89,7 @@ export const Dashboard: React.FC = () => {
 				updateUserAddictions();
 			})
 			.catch((error) => {
-				if (handleNetworkError(error)) {
+				if (isNetworkOrServerError(error)) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
 					setStatus('error');
 				} else if (error.response.status === 401) {
