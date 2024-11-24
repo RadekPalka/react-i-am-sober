@@ -93,7 +93,7 @@ export const RegistrationForm: React.FC = () => {
 				<HeadingContainer>
 					<StyledH1>Rejestracja</StyledH1>
 				</HeadingContainer>
-				<StyledForm onSubmit={handleForm}>
+				<StyledForm onSubmit={handleForm} $width='50%'>
 					<AuthInput
 						disabled={isSubmitting}
 						value={login}

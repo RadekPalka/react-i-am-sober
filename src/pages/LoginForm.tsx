@@ -92,7 +92,7 @@ export const LoginForm: React.FC = () => {
 				<HeadingContainer>
 					<StyledH1>Strona logowania</StyledH1>
 				</HeadingContainer>
-				<StyledForm onSubmit={handleForm}>
+				<StyledForm onSubmit={handleForm} $width='40%'>
 					<AuthInput
 						disabled={!isFormEnabled}
 						value={login}

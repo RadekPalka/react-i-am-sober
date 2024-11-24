@@ -1,9 +1,18 @@
 import styled from 'styled-components';
-export const StyledDiv = styled.div`
+
+type Props = {
+	$width?: string;
+	$margin?: string;
+};
+
+export const StyledDiv = styled.div<Props>`
 	display: flex;
-	justify-content: center;
+	width: ${(props) => props.$width};
+	margin: ${(props) => props.$margin || '5px 0'};
+	justify-content: space-around;
 	gap: 3px;
-	margin-top: 10px;
+	align-items: center;
+
 	@media (max-width: 768px) {
 		flex-direction: column;
 		align-items: center;

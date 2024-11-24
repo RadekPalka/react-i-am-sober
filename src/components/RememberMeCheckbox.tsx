@@ -8,7 +8,7 @@ export const RememberMeCheckbox: React.FC<RememberMeCheckboxProps> = ({
 	setIsRemembered,
 }) => {
 	return (
-		<StyledDiv>
+		<StyledDiv $width='200px' $margin='5px auto'>
 			<label htmlFor='is-remembered'>Zapamiętaj mnie</label>
 			<input
 				disabled={!isCheckboxEnabled}
