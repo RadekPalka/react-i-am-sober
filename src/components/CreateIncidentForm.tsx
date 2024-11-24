@@ -71,6 +71,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 	return (
 		<StyledForm onSubmit={handleIncidentButton}>
 			<StyledInput
+				$margin='5px auto'
 				type='date'
 				value={incidentDate}
 				max={formatMaxDate}

@@ -18,6 +18,7 @@ import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
 import { handleNetworkError } from '../clients/ErrorHanlingUtils';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
+import { ButtonWrapper } from '../components/ButtonWrapper';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -113,7 +114,12 @@ export const LoginForm: React.FC = () => {
 						isRemembered={isRemembered}
 						setIsRemembered={setIsRemembered}
 					/>
-					<StyledButton type='submit' disabled={!isFormEnabled}>
+
+					<StyledButton
+						type='submit'
+						disabled={!isFormEnabled}
+						$margin='5px auto'
+					>
 						Zaloguj się
 					</StyledButton>
 				</StyledForm>

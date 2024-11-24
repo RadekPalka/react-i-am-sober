@@ -1,7 +1,11 @@
 import styled from 'styled-components';
-export const StyledInput = styled.input`
+type Props = {
+	$margin?: string;
+};
+export const StyledInput = styled.input<Props>`
 	display: block;
 	background-color: #e0ddf6;
+	margin: ${(props) => props.$margin};
 	padding: 5px 10px;
 	border-radius: 10px;
 	&:focus {

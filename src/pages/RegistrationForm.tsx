@@ -118,7 +118,11 @@ export const RegistrationForm: React.FC = () => {
 						type='password'
 						id='confirm-password'
 					/>
-					<StyledButton type='submit' disabled={isSubmitting}>
+					<StyledButton
+						type='submit'
+						disabled={isSubmitting}
+						$margin='5px auto'
+					>
 						Zarejestruj się
 					</StyledButton>
 				</StyledForm>
