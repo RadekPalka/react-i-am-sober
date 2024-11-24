@@ -1,6 +1,7 @@
 import { UserAddictions } from './../../types/UserAddictions';
 import { AddictionDetailsProps } from '../../types/AddictionDetailsProps';
 import { IncidentType } from '../../types/IncidentType';
+
 const numbersOfIncidents = [10, 20, 50, 100, 150, 200];
 export const testIncidents = numbersOfIncidents.map(
 	(number, index): UserAddictions => ({
@@ -11,36 +12,44 @@ export const testIncidents = numbersOfIncidents.map(
 	})
 );
 
-const generateIncidents = (numbersOfIncidents: number): IncidentType[] => {
-	const incidents: IncidentType[] = [];
-	for (let i = 0; i < numbersOfIncidents; i++) {
-		console.log('ok');
-		const randomYear = Math.floor(Math.random() * 3 + 2021);
-		const randomMonth = Math.floor(Math.random() * 12 + 1)
-			.toString()
-			.padStart(2, '0');
-		const randomDay = Math.floor(Math.random() * 27 + 1)
-			.toString()
-			.padStart(2, '0');
-		const incident: IncidentType = {
-			id: i,
-			incidentDate: `${randomYear}-${randomMonth}-${randomDay}`,
-		};
-		!incidents.includes(incident) && incidents.push(incident);
-	}
-	return incidents.sort((a, b) => (a.incidentDate < b.incidentDate ? 1 : -1));
+const generateIncidents = (
+	incidentIndex: number,
+	maxDays: number
+): IncidentType[] => {
+	const minDays = 1;
+
+	const totalIncidents = numbersOfIncidents[incidentIndex];
+	let currentDate = new Date();
+
+	const incidents = Array.from(
+		{ length: totalIncidents },
+		(_, index): IncidentType => {
+			const randomDaysOffset = Math.floor(
+				Math.random() * (maxDays - minDays + 1) + minDays
+			);
+			const randomMilliseconds = randomDaysOffset * 24 * 60 * 60 * 1000;
+
+			currentDate = new Date(currentDate.getTime() - randomMilliseconds);
+
+			return {
+				id: index,
+				incidentDate: currentDate.toISOString(),
+			};
+		}
+	);
+
+	return incidents;
 };
 
 export const generateTestAddictionDetails = (
 	id: number
 ): AddictionDetailsProps => {
-	const p = {
+	return {
 		...testIncidents[id],
 		id: Number(id),
 		detoxStartDate: '2020-01-01',
 		limitOfLastIncidents: 0,
 		createdAt: '2021-01-01',
-		lastIncidents: generateIncidents(testIncidents[id].numberOfIncidents),
+		lastIncidents: generateIncidents(id, 7),
 	};
-	return p;
 };
