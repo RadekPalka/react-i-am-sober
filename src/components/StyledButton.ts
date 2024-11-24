@@ -12,7 +12,7 @@ export const StyledButton = styled.button<Props>`
 	height: ${(props) => props.$height || '30px'};
 	margin: ${(props) => props.$margin};
 	border-radius: 15px;
-	font-family: 'LXGW WenKai TC', sans-serif;
+	font-family: inherit;
 	background-color: black;
 	color: white;
 

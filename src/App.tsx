@@ -16,7 +16,7 @@ const AppWrapper = styled.div`
 	flex-direction: column;
 
 	height: max-content;
-	font-family: 'LXGW WenKai TC', sans-serif;
+	font-family: 'Nunito Sans', sans-serif;
 	font-weight: 300;
 	font-style: normal;
 `;
