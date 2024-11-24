@@ -28,23 +28,20 @@ export const LoginForm: React.FC = () => {
 
 	document.title = 'Zaloguj się';
 
-	const navBarElements: Link = {
-		elements: [
-			{
-				id: 0,
-				type: 'link',
-				label: 'Zarejestruj się',
-				to: '/registration-page',
-			},
-			{
-				id: 1,
-				type: 'link',
-				label: 'Strona główna',
-				to: '/',
-			},
-		],
-	};
-
+	const navBarElements: Link[] = [
+		{
+			id: 0,
+			type: 'link',
+			label: 'Zarejestruj się',
+			to: '/registration-page',
+		},
+		{
+			id: 1,
+			type: 'link',
+			label: 'Strona główna',
+			to: '/',
+		},
+	];
 	useEffect(() => {
 		getToken() && navigate('/dashboard');
 	}, []);
