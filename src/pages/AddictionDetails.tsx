@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { deleteIncident, getAddictionDetails } from '../clients/AccountClients';
 import { AddictionDetailsProps } from '../types/AddictionDetailsProps';
 import { EditAddictionForm } from '../components/EditAddictionForm';
-import styled from 'styled-components';
 import { StyledButton } from '../components/StyledButton';
 import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
@@ -16,14 +15,11 @@ import { Link } from '../types/Link';
 import { IncidentsCalendar } from '../components/IncidentsCalendar';
 import { IncidentCharts } from '../components/IncidentCharts';
 import { NavBar } from '../components/NavBar';
+import { AddictionDetailsContainer } from '../components/AddictionDetailsContainer';
+import { AddictionDetailCard } from '../components/AddictionDetailCard';
+import { DetailLabel } from '../components/DetailLabel';
+import { DetailValue } from '../components/DetailValue';
 
-const AddictionDetailsContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	margin: 0 auto;
-`;
 type status = 'loading' | 'success' | 'error';
 type ModalState = 'editAddiction' | 'incidentForm' | null;
 
@@ -201,6 +197,55 @@ export const AddictionDetails: React.FC = () => {
 				});
 	};
 
+	const details = [
+		{
+			id: 'cost',
+			label: 'Dzienny koszt',
+			value: `${addictionDetails.costPerDay} PLN`,
+		},
+		{
+			id: 'startDate',
+			label: 'Data rozpoczęcia zmiany',
+			value: formatDateForDisplay(new Date(addictionDetails.detoxStartDate)),
+		},
+		{ id: 'totalDays', label: 'Ilość dni ogółem', value: daysSinceDetoxStart },
+		{
+			id: 'sobrietyDays',
+			label: 'Ilość dni w trzeźwości',
+			value: sobrietyDays,
+		},
+		{
+			id: 'incidents',
+			label: 'Ilość incydentów',
+			value: addictionDetails.numberOfIncidents,
+		},
+		{
+			id: 'maxStreak',
+			label: 'Najdłuższy ciąg dni bez incydentów',
+			value: maxStreak,
+		},
+		{
+			id: 'currentStreak',
+			label: 'Aktualny ciąg dni bez incydentów',
+			value: currentStreak,
+		},
+		{
+			id: 'savedMoney',
+			label: 'Ilość zaoszczędzonych pieniędzy',
+			value: formatCurrency(sobrietyDays * addictionDetails.costPerDay),
+		},
+		{
+			id: 'monthlySavings',
+			label: 'Prognozowane miesięczne oszczędności',
+			value: formatCurrency(estimatedMonthlySavings),
+		},
+		{
+			id: 'annualSavings',
+			label: 'Prognozowane roczne oszczędności',
+			value: formatCurrency(estimatedAnnualSavings),
+		},
+	];
+
 	if (fetchStatus === 'loading') {
 		return <h1>Loading</h1>;
 	} else if (fetchStatus === 'error') {
@@ -217,101 +262,85 @@ export const AddictionDetails: React.FC = () => {
 				<NavBar links={navBarElements} />
 			</header>
 			<AddictionDetailsContainer>
-				<h1>{addictionDetails.name}</h1>
-				<p>Dzienny koszt: {addictionDetails.costPerDay} PLN</p>
-				<p>
-					Data rozpoczęcia zmiany:{' '}
-					{formatDateForDisplay(new Date(addictionDetails.detoxStartDate))}
-				</p>
-				<p>Ilość dni ogółem: {daysSinceDetoxStart}</p>
-				<p>Ilość dni w trzeźwości: {sobrietyDays}</p>
-				<p>Ilość incydentów: {addictionDetails.numberOfIncidents}</p>
-				<p>Najdłuższy ciąg dni bez incydentów: {maxStreak}</p>
-				<p>Aktualny ciąg dni bez incydentów: {currentStreak}</p>
-				<p>
-					Ilość zaoszczędzonych pieniędzy:{' '}
-					{formatCurrency(sobrietyDays * addictionDetails.costPerDay)}
-				</p>
-				{daysSinceDetoxStart < 30 && (
-					<p>
-						Prognozowane miesięczne oszczędności:{' '}
-						{formatCurrency(estimatedMonthlySavings)}
-					</p>
-				)}
-				{daysSinceDetoxStart < 365 && (
-					<p>
-						Prognozowane roczne oszczędności:{' '}
-						{formatCurrency(estimatedAnnualSavings)}
-					</p>
-				)}
-				<details>
-					<summary>Pokaż kalendarz incydentów</summary>
-					<IncidentsCalendar
+				<AddictionDetailCard $gridColumnEnd='span 6'>
+					<h1>{addictionDetails.name}</h1>
+				</AddictionDetailCard>
+				{details.map((detail) => {
+					return (
+						<AddictionDetailCard key={detail.id}>
+							<DetailLabel>{detail.label}</DetailLabel>
+							<DetailValue>{detail.value}</DetailValue>
+						</AddictionDetailCard>
+					);
+				})}
+			</AddictionDetailsContainer>
+			<details>
+				<summary>Pokaż kalendarz incydentów</summary>
+				<IncidentsCalendar
+					detoxStartDate={addictionDetails.detoxStartDate}
+					lastIncidents={addictionDetails.lastIncidents}
+				/>
+			</details>
+			<details>
+				<summary>Pokaż wykres incydentów</summary>
+				<IncidentCharts addictionDetails={addictionDetails} />
+			</details>
+			<StyledButton
+				$margin='5px'
+				onClick={() => {
+					setModalState('editAddiction');
+					editModalRef.current &&
+						editModalRef.current.scrollIntoView({ behavior: 'smooth' });
+				}}
+			>
+				Edytuj
+			</StyledButton>
+			<div ref={editModalRef}>
+				{modalState === 'editAddiction' && (
+					<EditAddictionForm
+						name={addictionDetails.name}
+						costPerDay={addictionDetails.costPerDay}
 						detoxStartDate={addictionDetails.detoxStartDate}
-						lastIncidents={addictionDetails.lastIncidents}
-					/>
-				</details>
-				<details>
-					<summary>Pokaż wykres incydentów</summary>
-					<IncidentCharts addictionDetails={addictionDetails} />
-				</details>
-				<StyledButton
-					$margin='5px'
-					onClick={() => {
-						setModalState('editAddiction');
-						editModalRef.current &&
-							editModalRef.current.scrollIntoView({ behavior: 'smooth' });
-					}}
-				>
-					Edytuj
-				</StyledButton>
-				<div ref={editModalRef}>
-					{modalState === 'editAddiction' && (
-						<EditAddictionForm
-							name={addictionDetails.name}
-							costPerDay={addictionDetails.costPerDay}
-							detoxStartDate={addictionDetails.detoxStartDate}
-							id={addictionId}
-							closeModal={() => setModalState(null)}
-							setAddictionDetails={setAddictionDetails}
-							createdAt={addictionDetails.createdAt}
-						/>
-					)}
-				</div>
-				<StyledButton
-					$margin='5px'
-					$width='120px'
-					onClick={() => {
-						if (!daysSinceDetoxStart) {
-							return toast.error(
-								'Nie można dodać incydentu w dniu rozpoczęcia detoksu. Spróbuj jutro.'
-							);
-						}
-						setModalState('incidentForm');
-						incidentModalRef.current &&
-							incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
-					}}
-				>
-					Dodaj incydent
-				</StyledButton>
-				{modalState === 'incidentForm' && (
-					<CreateIncidentForm
-						min={addictionDetails.detoxStartDate}
 						id={addictionId}
 						closeModal={() => setModalState(null)}
-						increaseNumberOfIncidents={increaseNumberOfIncidents}
-						createIncident={createIncident}
-						isIDateDuplicated={isIDateDuplicated}
+						setAddictionDetails={setAddictionDetails}
+						createdAt={addictionDetails.createdAt}
 					/>
 				)}
-				{addictionDetails.lastIncidents.length > 0 && (
-					<LastIncidentsList
-						lastIncidents={addictionDetails.lastIncidents}
-						removeIncident={removeIncident}
-						buttonDisabled={modalState !== null}
-					/>
-				)}
-			</AddictionDetailsContainer>
+			</div>
+			<StyledButton
+				$margin='5px'
+				$width='120px'
+				onClick={() => {
+					if (!daysSinceDetoxStart) {
+						return toast.error(
+							'Nie można dodać incydentu w dniu rozpoczęcia detoksu. Spróbuj jutro.'
+						);
+					}
+					setModalState('incidentForm');
+					incidentModalRef.current &&
+						incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
+				}}
+			>
+				Dodaj incydent
+			</StyledButton>
+			{modalState === 'incidentForm' && (
+				<CreateIncidentForm
+					min={addictionDetails.detoxStartDate}
+					id={addictionId}
+					closeModal={() => setModalState(null)}
+					increaseNumberOfIncidents={increaseNumberOfIncidents}
+					createIncident={createIncident}
+					isIDateDuplicated={isIDateDuplicated}
+				/>
+			)}
+			{addictionDetails.lastIncidents.length > 0 && (
+				<LastIncidentsList
+					lastIncidents={addictionDetails.lastIncidents}
+					removeIncident={removeIncident}
+					buttonDisabled={modalState !== null}
+				/>
+			)}
 		</>
 	);
 };
