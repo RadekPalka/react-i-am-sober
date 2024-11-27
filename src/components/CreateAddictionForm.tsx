@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
 import { DailyCostInput } from './DailyCostInput';
-import { StyledDiv } from './StyledDiv';
 import { StyledForm } from './StyledForm';
 import { StyledButton } from './StyledButton';
 import { createAddiction } from '../clients/AccountClients';
@@ -12,7 +11,7 @@ import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { formatDateForInput } from '../clients/dateUtils';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
-import { ButtonWrapper } from './ButtonWrapper';
+import { PositioningContainer } from './PositioningContainer';
 
 export const CreateAddictionForm: React.FC = () => {
 	const navigate = useNavigate();
@@ -49,30 +48,30 @@ export const CreateAddictionForm: React.FC = () => {
 			});
 	};
 	return (
-		<StyledForm onSubmit={handleSubmit}>
-			<StyledDiv>
+		<StyledForm onSubmit={handleSubmit} $width='520px'>
+			<PositioningContainer>
 				<AddictionInput
 					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 				/>
-			</StyledDiv>
-			<StyledDiv>
+			</PositioningContainer>
+			<PositioningContainer>
 				<DateInput
 					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					max={formatDateForInput(new Date())}
 				/>
-			</StyledDiv>
-			<StyledDiv>
+			</PositioningContainer>
+			<PositioningContainer>
 				<DailyCostInput
 					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 				/>
-			</StyledDiv>
-			<ButtonWrapper>
+			</PositioningContainer>
+			<PositioningContainer $width='190px'>
 				<StyledButton type='submit' disabled={!isFormEnabled}>
 					Dodaj
 				</StyledButton>
@@ -83,7 +82,7 @@ export const CreateAddictionForm: React.FC = () => {
 				>
 					Anuluj
 				</StyledButton>
-			</ButtonWrapper>
+			</PositioningContainer>
 		</StyledForm>
 	);
 };
