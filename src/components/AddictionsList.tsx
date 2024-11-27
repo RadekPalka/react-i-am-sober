@@ -70,7 +70,7 @@ export const AddictionsList: React.FC<AddictionsListProps> = ({
 
 							updateUserAddictions();
 						}}
-						$margin='5px'
+						$margin='20px 0 0 0'
 						$width='120px'
 					>
 						Wczytaj kolejne

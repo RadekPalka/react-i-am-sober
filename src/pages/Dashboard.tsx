@@ -135,7 +135,7 @@ export const Dashboard: React.FC = () => {
 					<li>
 						<StyledLinkButton
 							to='/create-addiction'
-							$margin='5px'
+							$margin='20px'
 							$width='210px'
 						>
 							Dodaj nowe uzależnienie
