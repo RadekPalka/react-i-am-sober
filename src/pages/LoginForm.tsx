@@ -120,12 +120,8 @@ export const LoginForm: React.FC = () => {
 							setIsRemembered={setIsRemembered}
 						/>
 					</PositioningContainer>
-					<PositioningContainer>
-						<StyledButton
-							type='submit'
-							disabled={!isFormEnabled}
-							$margin='5px auto'
-						>
+					<PositioningContainer $justifyContent='center'>
+						<StyledButton type='submit' disabled={!isFormEnabled}>
 							Zaloguj się
 						</StyledButton>
 					</PositioningContainer>

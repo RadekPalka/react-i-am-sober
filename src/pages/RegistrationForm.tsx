@@ -22,6 +22,7 @@ import { createAccount } from '../clients/AccountClients';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { NavBar } from '../components/NavBar';
 import { Link } from '../types/Link';
+import { PositioningContainer } from '../components/PositioningContainer';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -93,38 +94,42 @@ export const RegistrationForm: React.FC = () => {
 				<HeadingContainer>
 					<StyledH1>Rejestracja</StyledH1>
 				</HeadingContainer>
-				<StyledForm onSubmit={handleForm} $width='50%'>
-					<AuthInput
-						disabled={isSubmitting}
-						value={login}
-						labelText={loginLabelText}
-						onChange={(value) => setLogin(value)}
-						type='text'
-						id='login'
-					/>
-					<AuthInput
-						disabled={isSubmitting}
-						value={password}
-						labelText={passwordLabelText}
-						onChange={(value) => setPassword(value)}
-						type='password'
-						id='password'
-					/>
-					<AuthInput
-						disabled={isSubmitting}
-						value={confirmPassword}
-						labelText={confirmPasswordLabelText}
-						onChange={(value) => setConfirmPassword(value)}
-						type='password'
-						id='confirm-password'
-					/>
-					<StyledButton
-						type='submit'
-						disabled={isSubmitting}
-						$margin='5px auto'
-					>
-						Zarejestruj się
-					</StyledButton>
+				<StyledForm onSubmit={handleForm} $width='400px'>
+					<PositioningContainer>
+						<AuthInput
+							disabled={isSubmitting}
+							value={login}
+							labelText={loginLabelText}
+							onChange={(value) => setLogin(value)}
+							type='text'
+							id='login'
+						/>
+					</PositioningContainer>
+					<PositioningContainer>
+						<AuthInput
+							disabled={isSubmitting}
+							value={password}
+							labelText={passwordLabelText}
+							onChange={(value) => setPassword(value)}
+							type='password'
+							id='password'
+						/>
+					</PositioningContainer>
+					<PositioningContainer>
+						<AuthInput
+							disabled={isSubmitting}
+							value={confirmPassword}
+							labelText={confirmPasswordLabelText}
+							onChange={(value) => setConfirmPassword(value)}
+							type='password'
+							id='confirm-password'
+						/>
+					</PositioningContainer>
+					<PositioningContainer $justifyContent='center'>
+						<StyledButton type='submit' disabled={isSubmitting}>
+							Zarejestruj się
+						</StyledButton>
+					</PositioningContainer>
 				</StyledForm>
 				<StyledAuthMessage>
 					<span>Masz już konto? </span>
