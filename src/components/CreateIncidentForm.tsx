@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
 import { IncidentType } from '../types/IncidentType';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
-import { ButtonWrapper } from './ButtonWrapper';
+import { PositioningContainer } from './PositioningContainer';
 
 type CreateIncidentFormProps = {
 	min: string;
@@ -79,7 +79,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 				disabled={isFormDisabled}
 				onChange={(e) => setIncidentDate(e.target.value)}
 			/>
-			<ButtonWrapper>
+			<PositioningContainer>
 				<StyledButton type='submit' disabled={isFormDisabled}>
 					Dodaj
 				</StyledButton>
@@ -90,7 +90,7 @@ export const CreateIncidentForm: React.FC<CreateIncidentFormProps> = ({
 				>
 					Anuluj
 				</StyledButton>
-			</ButtonWrapper>
+			</PositioningContainer>
 		</StyledForm>
 	);
 };

@@ -19,7 +19,7 @@ export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
 	const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
-		'success'
+		'loading'
 	);
 	document.title = 'Dodaj uzależnienie';
 	const navBarElements: Link[] = [
@@ -36,27 +36,29 @@ export const CreateAddictionPage: React.FC = () => {
 	];
 
 	const updateUserData = () => {
-		setStatus('loading');
 		const token = getToken();
-		token &&
-			fetchUserData()
-				.then((response) => {
-					setUserData(response.data);
-					setStatus('success');
-				})
-				.catch((error) => {
-					if (isNetworkOrServerError(error)) {
-						setStatus('error');
-						toast.error(
-							'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'
-						);
-					} else {
-						removeToken();
-						console.error('Error fetching data:', error);
-						toast.error('Błąd autoryzacji');
-						navigate('/login-page');
-					}
-				});
+
+		token
+			? fetchUserData()
+					.then((response) => {
+						setUserData(response.data);
+						setStatus('success');
+					})
+					.catch((error) => {
+						if (isNetworkOrServerError(error)) {
+							setStatus('error');
+							toast.error(
+								'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'
+							);
+						} else {
+							removeToken();
+							console.error('Error fetching data:', error);
+							toast.error('Błąd autoryzacji');
+							navigate('/login-page');
+						}
+					})
+			: toast.error('Błąd autoryzacji');
+		navigate('/login-page');
 	};
 
 	useEffect(() => {

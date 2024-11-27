@@ -11,8 +11,8 @@ import { updateAddiction } from '../clients/AccountClients';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
-import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils.ts';
-import { ButtonWrapper } from './ButtonWrapper.ts';
+import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
+import { PositioningContainer } from './PositioningContainer';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
@@ -98,12 +98,12 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 					isInputDisabled={!isFormEnabled}
 				/>
 			</StyledDiv>
-			<ButtonWrapper>
+			<PositioningContainer>
 				<StyledButton type='submit'>Zapisz</StyledButton>
 				<StyledButton type='button' onClick={closeModal}>
 					Anuluj
 				</StyledButton>
-			</ButtonWrapper>
+			</PositioningContainer>
 		</StyledForm>
 	);
 };

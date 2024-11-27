@@ -18,6 +18,7 @@ import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
+import { PositioningContainer } from '../components/PositioningContainer';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -91,36 +92,43 @@ export const LoginForm: React.FC = () => {
 				<HeadingContainer>
 					<StyledH1>Strona logowania</StyledH1>
 				</HeadingContainer>
-				<StyledForm onSubmit={handleForm} $width='40%'>
-					<AuthInput
-						disabled={!isFormEnabled}
-						value={login}
-						labelText='Login'
-						onChange={(value) => setLogin(value)}
-						type='text'
-						id='login'
-					/>
-					<AuthInput
-						disabled={!isFormEnabled}
-						value={password}
-						labelText='Hasło'
-						onChange={(value) => setPassword(value)}
-						type='password'
-						id='password'
-					/>
-					<RememberMeCheckbox
-						isCheckboxEnabled={isFormEnabled}
-						isRemembered={isRemembered}
-						setIsRemembered={setIsRemembered}
-					/>
-
-					<StyledButton
-						type='submit'
-						disabled={!isFormEnabled}
-						$margin='5px auto'
-					>
-						Zaloguj się
-					</StyledButton>
+				<StyledForm onSubmit={handleForm} $width='330px'>
+					<PositioningContainer>
+						<AuthInput
+							disabled={!isFormEnabled}
+							value={login}
+							labelText='Login'
+							onChange={(value) => setLogin(value)}
+							type='text'
+							id='login'
+						/>
+					</PositioningContainer>
+					<PositioningContainer>
+						<AuthInput
+							disabled={!isFormEnabled}
+							value={password}
+							labelText='Hasło'
+							onChange={(value) => setPassword(value)}
+							type='password'
+							id='password'
+						/>
+					</PositioningContainer>
+					<PositioningContainer $width='160px'>
+						<RememberMeCheckbox
+							isCheckboxEnabled={isFormEnabled}
+							isRemembered={isRemembered}
+							setIsRemembered={setIsRemembered}
+						/>
+					</PositioningContainer>
+					<PositioningContainer>
+						<StyledButton
+							type='submit'
+							disabled={!isFormEnabled}
+							$margin='5px auto'
+						>
+							Zaloguj się
+						</StyledButton>
+					</PositioningContainer>
 				</StyledForm>
 				<StyledAuthMessage>
 					<span>Nie masz konta? </span>

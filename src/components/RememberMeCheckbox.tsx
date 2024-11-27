@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyledDiv } from './StyledDiv';
 import { RememberMeCheckboxProps } from '../types/RememberMeCheckboxProps';
 
 export const RememberMeCheckbox: React.FC<RememberMeCheckboxProps> = ({
@@ -8,7 +7,7 @@ export const RememberMeCheckbox: React.FC<RememberMeCheckboxProps> = ({
 	setIsRemembered,
 }) => {
 	return (
-		<StyledDiv $width='200px' $margin='5px auto'>
+		<>
 			<label htmlFor='is-remembered'>Zapamiętaj mnie</label>
 			<input
 				disabled={!isCheckboxEnabled}
@@ -17,6 +16,6 @@ export const RememberMeCheckbox: React.FC<RememberMeCheckboxProps> = ({
 				checked={isRemembered}
 				onChange={() => setIsRemembered((value) => !value)}
 			/>
-		</StyledDiv>
+		</>
 	);
 };
