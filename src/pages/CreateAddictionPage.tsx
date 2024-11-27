@@ -38,31 +38,30 @@ export const CreateAddictionPage: React.FC = () => {
 	const updateUserData = () => {
 		const token = getToken();
 
-		token
-			? fetchUserData()
-					.then((response) => {
-						setUserData(response.data);
-						setStatus('success');
-					})
-					.catch((error) => {
-						if (isNetworkOrServerError(error)) {
-							setStatus('error');
-							toast.error(
-								'Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej'
-							);
-						} else {
-							removeToken();
-							console.error('Error fetching data:', error);
-							toast.error('Błąd autoryzacji');
-							navigate('/login-page');
-						}
-					})
-			: toast.error('Błąd autoryzacji');
-		navigate('/login-page');
+		if (!token) {
+			toast.error('Błąd autoryzacji');
+			navigate('/login-page');
+		}
+		fetchUserData()
+			.then((response) => {
+				setUserData(response.data);
+				setStatus('success');
+			})
+			.catch((error) => {
+				if (isNetworkOrServerError(error)) {
+					setStatus('error');
+					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej');
+				} else {
+					removeToken();
+					console.error('Error fetching data:', error);
+					toast.error('Błąd autoryzacji');
+					navigate('/login-page');
+				}
+			});
 	};
 
 	useEffect(() => {
-		!userData.id && updateUserData();
+		updateUserData();
 	}, []);
 	if (status === 'loading') {
 		return <h1>Loading</h1>;

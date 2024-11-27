@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { StyledDiv } from './StyledDiv';
 import { StyledForm } from './StyledForm';
 import { AddictionInput } from './AddictionInput';
 import { DateInput } from './DateInput';
@@ -76,28 +75,28 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>
-			<StyledDiv>
+			<PositioningContainer>
 				<AddictionInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					isInputDisabled={!isFormEnabled}
 				/>
-			</StyledDiv>
-			<StyledDiv>
+			</PositioningContainer>
+			<PositioningContainer>
 				<DateInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					isInputDisabled={!isFormEnabled}
 					max={maxDate}
 				/>
-			</StyledDiv>
-			<StyledDiv>
+			</PositioningContainer>
+			<PositioningContainer>
 				<DailyCostInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					isInputDisabled={!isFormEnabled}
 				/>
-			</StyledDiv>
+			</PositioningContainer>
 			<PositioningContainer>
 				<StyledButton type='submit'>Zapisz</StyledButton>
 				<StyledButton type='button' onClick={closeModal}>
