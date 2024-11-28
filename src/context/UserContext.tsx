@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import react, { createContext, useContext, useState, ReactNode } from 'react';
 import { UserData } from '../types/UserData';
 import { UserContextType } from '../types/UserContextType';
 
@@ -19,7 +19,7 @@ type UserProviderProps = {
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [userData, setUserData] = useState<UserData>({
 		id: '',
-		login: '',
+		username: '',
 	});
 
 	return (

@@ -19,6 +19,7 @@ import styled from 'styled-components';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 import { StyledLinkButton } from '../components/StyledLinkButton';
+import { StatusKeys, useStatus } from '../hooks/useStatus';
 
 const Nav = styled.nav`
 	display: flex;
@@ -26,11 +27,13 @@ const Nav = styled.nav`
 `;
 export const Dashboard: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
+
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
 
-	const [status, setStatus] = useState<'loading' | 'error' | 'success'>(
-		'loading'
+	const [status, setStatus] = useStatus(
+		'loading',
+		`Panel użytkownika ${userData.username}`
 	);
 	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
 		useState(true);
@@ -44,16 +47,6 @@ export const Dashboard: React.FC = () => {
 			type: 'logout-button',
 		},
 	];
-
-	const setPageTitle = (() => {
-		if (status === 'loading') {
-			document.title = 'Loading';
-		} else if (status === 'success') {
-			document.title = `Panel użytkownika ${userData.username}`;
-		} else {
-			document.title = 'Error';
-		}
-	})();
 
 	const updateUserAddictions = () => {
 		getPaginatedAddictions(pageNumber)
@@ -91,7 +84,7 @@ export const Dashboard: React.FC = () => {
 			.catch((error) => {
 				if (isNetworkOrServerError(error)) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
-					setStatus('error');
+					setStatus('error', titles);
 				} else if (error.response.status === 401) {
 					removeToken();
 					toast.error('Błąd autoryzacji');
