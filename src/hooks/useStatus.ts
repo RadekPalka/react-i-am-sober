@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 type Status = 'loading' | 'success' | 'error';
-export type StatusKeys = Record<Status, string>;
+type StatusKeys = Record<Status, string>;
 export const useStatus = (
 	initialValue: Status,
 	title: string = 'Success'

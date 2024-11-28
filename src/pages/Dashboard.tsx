@@ -19,7 +19,7 @@ import styled from 'styled-components';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 import { StyledLinkButton } from '../components/StyledLinkButton';
-import { StatusKeys, useStatus } from '../hooks/useStatus';
+import { useStatus } from '../hooks/useStatus';
 
 const Nav = styled.nav`
 	display: flex;
