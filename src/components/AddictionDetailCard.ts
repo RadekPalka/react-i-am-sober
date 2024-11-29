@@ -15,7 +15,7 @@ export const AddictionDetailCard = styled.div<Props>`
 	align-items: center;
 	grid-column-start: ${(props) => props.$gridColumnStart};
 	grid-column-end: ${(props) => props.$gridColumnEnd || 'span 1'};
-	grid-row-start: ${(props) => props.$gridRowStart || 'auto'};
+	grid-row-start: ${(props) => props.$gridRowStart};
 	grid-row-end: ${(props) => props.$gridRowEnd || 'span 1'};
 	border: 1px solid black;
 	border-radius: 10px;
