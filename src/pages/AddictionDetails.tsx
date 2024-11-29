@@ -200,76 +200,71 @@ export const AddictionDetails: React.FC = () => {
 	const details = [
 		{
 			gridColumnStart: '1',
-			gridColumnEnd: '2',
 			id: 'name',
 			value: addictionDetails.name,
 		},
 		{
 			gridColumnStart: '2',
-			gridColumnEnd: '3',
 			id: 'cost',
 			label: 'Dzienny koszt',
 			value: `${addictionDetails.costPerDay} PLN`,
 		},
 		{
 			gridColumnStart: '3',
-			gridColumnEnd: '4',
 			id: 'startDate',
 			label: 'Data rozpoczęcia zmiany',
 			value: formatDateForDisplay(new Date(addictionDetails.detoxStartDate)),
 		},
 		{
 			gridColumnStart: '1',
-			gridColumnEnd: '2',
 			id: 'totalDays',
 			label: 'Ilość dni ogółem',
 			value: daysSinceDetoxStart,
 		},
 		{
 			gridColumnStart: '2',
-			gridColumnEnd: '3',
 			id: 'sobrietyDays',
 			label: 'Ilość dni w trzeźwości',
 			value: sobrietyDays,
 		},
 		{
 			gridColumnStart: '3',
-			gridColumnEnd: '4',
+
 			id: 'incidents',
 			label: 'Ilość incydentów',
 			value: addictionDetails.numberOfIncidents,
 		},
 		{
 			gridColumnStart: '1',
-			gridColumnEnd: '2',
+
 			id: 'maxStreak',
 			label: 'Najdłuższy ciąg dni bez incydentów',
 			value: maxStreak,
 		},
 		{
 			gridColumnStart: '2',
-			gridColumnEnd: '3',
+
 			id: 'currentStreak',
 			label: 'Aktualny ciąg dni bez incydentów',
 			value: currentStreak,
 		},
 		{
 			gridColumnStart: '3',
-			gridColumnEnd: '4',
+
 			id: 'savedMoney',
 			label: 'Ilość zaoszczędzonych pieniędzy',
 			value: formatCurrency(sobrietyDays * addictionDetails.costPerDay),
 		},
 		{
 			gridColumnStart: '4',
-			gridColumnEnd: '5',
+
 			id: 'monthlySavings',
 			label: 'Prognozowane miesięczne oszczędności',
 			value: formatCurrency(estimatedMonthlySavings),
 		},
 		{
-			gridColumStart: '5',
-			gridColumnEnd: '6',
+			gridColumnStart: '5',
+
 			id: 'annualSavings',
 			label: 'Prognozowane roczne oszczędności',
 			value: formatCurrency(estimatedAnnualSavings),
@@ -297,7 +292,6 @@ export const AddictionDetails: React.FC = () => {
 						<AddictionDetailCard
 							key={detail.id}
 							$gridColumnStart={detail.gridColumnStart}
-							$gridColumnEnd={detail.gridColumnEnd}
 						>
 							<DetailLabel>{detail.label}</DetailLabel>
 							<DetailValue>{detail.value}</DetailValue>
