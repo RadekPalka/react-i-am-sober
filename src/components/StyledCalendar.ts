@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
 export const StyledCalendar = styled(Calendar)`
-	&& {
-		.react-calendar__tile--active {
-			background: none;
-		}
+	width: 90%;
+	transform: scale(1, 2);
+	&& .react-calendar__tile--active {
+		background: none;
 	}
+
 	.react-calendar__navigation button {
 		font-weight: 800;
 	}

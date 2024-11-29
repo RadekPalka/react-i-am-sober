@@ -199,47 +199,77 @@ export const AddictionDetails: React.FC = () => {
 
 	const details = [
 		{
+			gridColumnStart: '1',
+			gridColumnEnd: '2',
+			id: 'name',
+			value: addictionDetails.name,
+		},
+		{
+			gridColumnStart: '2',
+			gridColumnEnd: '3',
 			id: 'cost',
 			label: 'Dzienny koszt',
 			value: `${addictionDetails.costPerDay} PLN`,
 		},
 		{
+			gridColumnStart: '3',
+			gridColumnEnd: '4',
 			id: 'startDate',
 			label: 'Data rozpoczęcia zmiany',
 			value: formatDateForDisplay(new Date(addictionDetails.detoxStartDate)),
 		},
-		{ id: 'totalDays', label: 'Ilość dni ogółem', value: daysSinceDetoxStart },
 		{
+			gridColumnStart: '1',
+			gridColumnEnd: '2',
+			id: 'totalDays',
+			label: 'Ilość dni ogółem',
+			value: daysSinceDetoxStart,
+		},
+		{
+			gridColumnStart: '2',
+			gridColumnEnd: '3',
 			id: 'sobrietyDays',
 			label: 'Ilość dni w trzeźwości',
 			value: sobrietyDays,
 		},
 		{
+			gridColumnStart: '3',
+			gridColumnEnd: '4',
 			id: 'incidents',
 			label: 'Ilość incydentów',
 			value: addictionDetails.numberOfIncidents,
 		},
 		{
+			gridColumnStart: '1',
+			gridColumnEnd: '2',
 			id: 'maxStreak',
 			label: 'Najdłuższy ciąg dni bez incydentów',
 			value: maxStreak,
 		},
 		{
+			gridColumnStart: '2',
+			gridColumnEnd: '3',
 			id: 'currentStreak',
 			label: 'Aktualny ciąg dni bez incydentów',
 			value: currentStreak,
 		},
 		{
+			gridColumnStart: '3',
+			gridColumnEnd: '4',
 			id: 'savedMoney',
 			label: 'Ilość zaoszczędzonych pieniędzy',
 			value: formatCurrency(sobrietyDays * addictionDetails.costPerDay),
 		},
 		{
+			gridColumnStart: '4',
+			gridColumnEnd: '5',
 			id: 'monthlySavings',
 			label: 'Prognozowane miesięczne oszczędności',
 			value: formatCurrency(estimatedMonthlySavings),
 		},
 		{
+			gridColumStart: '5',
+			gridColumnEnd: '6',
 			id: 'annualSavings',
 			label: 'Prognozowane roczne oszczędności',
 			value: formatCurrency(estimatedAnnualSavings),
@@ -262,29 +292,34 @@ export const AddictionDetails: React.FC = () => {
 				<NavBar links={navBarElements} />
 			</header>
 			<AddictionDetailsContainer>
-				<AddictionDetailCard $gridColumnEnd='span 6'>
-					<h1>{addictionDetails.name}</h1>
-				</AddictionDetailCard>
 				{details.map((detail) => {
 					return (
-						<AddictionDetailCard key={detail.id}>
+						<AddictionDetailCard
+							key={detail.id}
+							$gridColumnStart={detail.gridColumnStart}
+							$gridColumnEnd={detail.gridColumnEnd}
+						>
 							<DetailLabel>{detail.label}</DetailLabel>
 							<DetailValue>{detail.value}</DetailValue>
 						</AddictionDetailCard>
 					);
 				})}
+				<AddictionDetailCard
+					$gridColumnStart='4'
+					$gridColumnEnd='7'
+					$gridRowStart='1'
+					$gridRowEnd='3'
+				>
+					<IncidentsCalendar
+						detoxStartDate={addictionDetails.detoxStartDate}
+						lastIncidents={addictionDetails.lastIncidents}
+					/>
+				</AddictionDetailCard>
+				<AddictionDetailCard>
+					<IncidentCharts addictionDetails={addictionDetails} />
+				</AddictionDetailCard>
 			</AddictionDetailsContainer>
-			<details>
-				<summary>Pokaż kalendarz incydentów</summary>
-				<IncidentsCalendar
-					detoxStartDate={addictionDetails.detoxStartDate}
-					lastIncidents={addictionDetails.lastIncidents}
-				/>
-			</details>
-			<details>
-				<summary>Pokaż wykres incydentów</summary>
-				<IncidentCharts addictionDetails={addictionDetails} />
-			</details>
+
 			<StyledButton
 				$margin='5px'
 				onClick={() => {

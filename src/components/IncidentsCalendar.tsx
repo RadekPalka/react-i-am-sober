@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { IncidentType } from '../types/IncidentType';
 import { StyledCalendar } from './StyledCalendar';
+import styled from 'styled-components';
 
+const Title = styled.p`
+	position: absolute;
+	top: 0;
+	width: 100%;
+	text-align: center;
+	left: 0;
+`;
 type IncidentsCalendarProps = {
 	detoxStartDate: string;
 	lastIncidents: IncidentType[];
@@ -34,7 +42,7 @@ export const IncidentsCalendar: React.FC<IncidentsCalendarProps> = ({
 
 	return (
 		<>
-			<h2>Kalendarz incydentów</h2>
+			<Title>Kalendarz incydentów</Title>
 			<StyledCalendar
 				tileClassName={tileClassName}
 				minDate={new Date(detoxStartDate)}
