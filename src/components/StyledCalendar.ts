@@ -20,4 +20,7 @@ export const StyledCalendar = styled(Calendar)`
 		background-color: red;
 		color: white;
 	}
+	@media (max-width: 768px) {
+		transform: scale(1);
+	}
 `;

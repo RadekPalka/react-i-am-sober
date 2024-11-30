@@ -256,14 +256,14 @@ export const AddictionDetails: React.FC = () => {
 			value: formatCurrency(sobrietyDays * addictionDetails.costPerDay),
 		},
 		{
-			gridColumnStart: '4',
+			gridColumnStart: window.innerWidth > 768 ? '4' : '1',
 
 			id: 'monthlySavings',
 			label: 'Prognozowane miesięczne oszczędności',
 			value: formatCurrency(estimatedMonthlySavings),
 		},
 		{
-			gridColumnStart: '5',
+			gridColumnStart: window.innerWidth > 768 ? '5' : '2',
 
 			id: 'annualSavings',
 			label: 'Prognozowane roczne oszczędności',
@@ -299,17 +299,22 @@ export const AddictionDetails: React.FC = () => {
 					);
 				})}
 				<AddictionDetailCard
-					$gridColumnStart='4'
-					$gridColumnEnd='7'
-					$gridRowStart='1'
-					$gridRowEnd='3'
+					$gridColumnStart={window.innerWidth > 768 ? '4' : '1'}
+					$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
+					$gridRowStart={window.innerWidth > 768 ? '1' : '5'}
+					$gridRowEnd={window.innerWidth > 768 ? '3' : '8'}
 				>
 					<IncidentsCalendar
 						detoxStartDate={addictionDetails.detoxStartDate}
 						lastIncidents={addictionDetails.lastIncidents}
 					/>
 				</AddictionDetailCard>
-				<AddictionDetailCard>
+				<AddictionDetailCard
+					$gridColumnStart='1'
+					$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
+					$gridRowStart={window.innerWidth > 768 ? '4' : '8'}
+					$gridRowEnd={window.innerWidth > 768 ? '6' : '9'}
+				>
 					<IncidentCharts addictionDetails={addictionDetails} />
 				</AddictionDetailCard>
 			</AddictionDetailsContainer>

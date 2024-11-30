@@ -8,6 +8,7 @@ export const HamburgerButton = styled.button`
 	top: 20px;
 	right: 20px;
 	border: none;
+	z-index: 2;
 	@media (max-width: 768px) {
 		display: block;
 	}
