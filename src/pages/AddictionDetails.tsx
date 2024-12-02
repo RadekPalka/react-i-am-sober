@@ -19,13 +19,13 @@ import { AddictionDetailsContainer } from '../components/AddictionDetailsContain
 import { AddictionDetailCard } from '../components/AddictionDetailCard';
 import { DetailLabel } from '../components/DetailLabel';
 import { DetailValue } from '../components/DetailValue';
+import { useStatus } from '../hooks/useStatus'
 
-type status = 'loading' | 'success' | 'error';
 type ModalState = 'editAddiction' | 'incidentForm' | null;
 
 export const AddictionDetails: React.FC = () => {
 	const { addictionId } = useParams();
-	const [fetchStatus, setFetchStatus] = useState<status>('loading');
+
 	const [modalState, setModalState] = useState<ModalState>(null);
 	const [addictionDetails, setAddictionDetails] =
 		useState<AddictionDetailsProps>({
@@ -38,16 +38,11 @@ export const AddictionDetails: React.FC = () => {
 			limitOfLastIncidents: 0,
 			createdAt: '',
 		});
+		const [status, setStatus] = useStatus(
+			'loading',
+			addictionDetails.name
+		);
 	const navigate = useNavigate();
-	const setPageTitle = (() => {
-		const titles: Record<status, string> = {
-			loading: 'Loading',
-			success: addictionDetails.name,
-			error: 'Error',
-		};
-
-		document.title = titles[fetchStatus];
-	})();
 
 	const editModalRef = useRef<HTMLDivElement | null>(null);
 	const incidentModalRef = useRef<HTMLDivElement | null>(null);
@@ -125,7 +120,7 @@ export const AddictionDetails: React.FC = () => {
 		addictionId &&
 			getAddictionDetails(addictionId)
 				.then((res) => {
-					setFetchStatus('success');
+					setStatus('success');
 					setAddictionDetails((prevDetails) => ({
 						...prevDetails,
 						...res.data,
@@ -133,7 +128,7 @@ export const AddictionDetails: React.FC = () => {
 					}));
 				})
 				.catch((error) => {
-					setFetchStatus('error');
+					setStatus('error');
 					if (isNetworkOrServerError(error)) {
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'

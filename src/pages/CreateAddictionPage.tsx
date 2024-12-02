@@ -11,15 +11,16 @@ import { fetchUserData } from '../clients/AccountClients';
 
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
-
+import { useStatus } from '../hooks/useStatus'
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { NavBar } from '../components/NavBar';
 import { Link } from '../types/Link';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
-	const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
-		'loading'
+	const [status, setStatus] = useStatus(
+		'loading',
+		'Utwórz nowe uzależnienie'
 	);
 	document.title = 'Dodaj uzależnienie';
 	const navBarElements: Link[] = [
