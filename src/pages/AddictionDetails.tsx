@@ -191,72 +191,56 @@ export const AddictionDetails: React.FC = () => {
 
 	const details = [
 		{
-			gridColumnStart: '1',
 			id: 'name',
+			label: 'Nazwa uzależnienia',
 			value: addictionDetails.name,
 		},
 		{
-			gridColumnStart: '2',
 			id: 'cost',
 			label: 'Dzienny koszt',
 			value: `${addictionDetails.costPerDay} PLN`,
 		},
 		{
-			gridColumnStart: '3',
 			id: 'startDate',
 			label: 'Data rozpoczęcia zmiany',
 			value: formatDateForDisplay(new Date(addictionDetails.detoxStartDate)),
 		},
 		{
-			gridColumnStart: '1',
 			id: 'totalDays',
 			label: 'Ilość dni ogółem',
 			value: daysSinceDetoxStart,
 		},
 		{
-			gridColumnStart: '2',
 			id: 'sobrietyDays',
 			label: 'Ilość dni w trzeźwości',
 			value: sobrietyDays,
 		},
 		{
-			gridColumnStart: '3',
-
 			id: 'incidents',
 			label: 'Ilość incydentów',
 			value: addictionDetails.numberOfIncidents,
 		},
 		{
-			gridColumnStart: '1',
-
 			id: 'maxStreak',
 			label: 'Najdłuższy ciąg dni bez incydentów',
 			value: maxStreak,
 		},
 		{
-			gridColumnStart: '2',
-
 			id: 'currentStreak',
 			label: 'Aktualny ciąg dni bez incydentów',
 			value: currentStreak,
 		},
 		{
-			gridColumnStart: '3',
-
 			id: 'savedMoney',
 			label: 'Ilość zaoszczędzonych pieniędzy',
 			value: formatCurrency(sobrietyDays * addictionDetails.costPerDay),
 		},
 		{
-			gridColumnStart: window.innerWidth > 768 ? '4' : '1',
-
 			id: 'monthlySavings',
 			label: 'Prognozowane miesięczne oszczędności',
 			value: formatCurrency(estimatedMonthlySavings),
 		},
 		{
-			gridColumnStart: window.innerWidth > 768 ? '5' : '2',
-
 			id: 'annualSavings',
 			label: 'Prognozowane roczne oszczędności',
 			value: formatCurrency(estimatedAnnualSavings),
@@ -280,32 +264,19 @@ export const AddictionDetails: React.FC = () => {
 					<AddictionDetailsContainer>
 						{details.map((detail) => {
 							return (
-								<AddictionDetailCard
-									key={detail.id}
-									$gridColumnStart={detail.gridColumnStart}
-								>
+								<AddictionDetailCard key={detail.id}>
 									<DetailLabel>{detail.label}</DetailLabel>
 									<DetailValue>{detail.value}</DetailValue>
 								</AddictionDetailCard>
 							);
 						})}
-						<AddictionDetailCard
-							$gridColumnStart={window.innerWidth > 768 ? '4' : '1'}
-							$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
-							$gridRowStart={window.innerWidth > 768 ? '1' : '5'}
-							$gridRowEnd={window.innerWidth > 768 ? '3' : '8'}
-						>
+						<AddictionDetailCard>
 							<IncidentsCalendar
 								detoxStartDate={addictionDetails.detoxStartDate}
 								lastIncidents={addictionDetails.lastIncidents}
 							/>
 						</AddictionDetailCard>
-						<AddictionDetailCard
-							$gridColumnStart='1'
-							$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
-							$gridRowStart={window.innerWidth > 768 ? '4' : '8'}
-							$gridRowEnd={window.innerWidth > 768 ? '6' : '9'}
-						>
+						<AddictionDetailCard>
 							<IncidentCharts addictionDetails={addictionDetails} />
 						</AddictionDetailCard>
 					</AddictionDetailsContainer>
