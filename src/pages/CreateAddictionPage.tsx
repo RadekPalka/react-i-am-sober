@@ -1,6 +1,6 @@
 import React from 'react';
 import { CreateAddictionForm } from '../components/CreateAddictionForm';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,17 +11,15 @@ import { fetchUserData } from '../clients/AccountClients';
 
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
-import { useStatus } from '../hooks/useStatus'
+import { useStatus } from '../hooks/useStatus';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { NavBar } from '../components/NavBar';
 import { Link } from '../types/Link';
+import { StyledButton } from '../components/StyledButton';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
-	const [status, setStatus] = useStatus(
-		'loading',
-		'Utwórz nowe uzależnienie'
-	);
+	const [status, setStatus] = useStatus('loading', 'Utwórz nowe uzależnienie');
 	document.title = 'Dodaj uzależnienie';
 	const navBarElements: Link[] = [
 		{
@@ -64,21 +62,28 @@ export const CreateAddictionPage: React.FC = () => {
 	useEffect(() => {
 		updateUserData();
 	}, []);
-	if (status === 'loading') {
-		return <h1>Loading</h1>;
-	} else if (status === 'error') {
-		return <button onClick={() => navigate(0)}>Odśwież</button>;
-	}
+
 	return (
 		<>
-			<NavBar links={navBarElements} />
-			<StyledSection>
-				<HeadingContainer>
-					<StyledH1>Witaj {userData.username}</StyledH1>
-				</HeadingContainer>
+			<header>
+				<NavBar links={navBarElements} />
+			</header>
+			{status === 'loading' && <h1>Loading</h1>}
+			{status === 'error' && (
+				<>
+					<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
+					<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
+				</>
+			)}
+			{status === 'success' && (
+				<StyledSection>
+					<HeadingContainer>
+						<StyledH1>Witaj {userData.username}</StyledH1>
+					</HeadingContainer>
 
-				<CreateAddictionForm />
-			</StyledSection>
+					<CreateAddictionForm />
+				</StyledSection>
+			)}
 		</>
 	);
 };

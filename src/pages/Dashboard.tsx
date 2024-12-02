@@ -20,6 +20,7 @@ import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 import { StyledLinkButton } from '../components/StyledLinkButton';
 import { useStatus } from '../hooks/useStatus';
+import { StyledButton } from '../components/StyledButton';
 
 const Nav = styled.nav`
 	display: flex;
@@ -97,45 +98,53 @@ export const Dashboard: React.FC = () => {
 		updateUserData();
 	}, []);
 
-	if (status === 'loading') {
-		return <h1>Loading</h1>;
-	} else if (status === 'error') {
-		return <button onClick={() => navigate(0)}>Odśwież</button>;
-	}
 	return (
 		<>
-			<NavBar links={navBarElements} />
-
-			<HeadingContainer>
-				<StyledH1>Witaj {userData.username}</StyledH1>
-			</HeadingContainer>
-
-			{userAddictions.length > 0 ? (
-				<AddictionsList
-					userAddictions={userAddictions}
-					setUserAddictions={setUserAddictions}
-					setIsButtonDisabled={setIsButtonDisabled}
-					updateUserAddictions={updateUserAddictions}
-					isPaginationButtonEnabled={isPaginationButtonEnabled}
-					isButtonDisabled={isButtonDisabled}
-				/>
-			) : (
-				<NoAddictionsMessage />
+			<header>
+				<NavBar links={navBarElements} />
+			</header>
+			{status === 'loading' && <h1>Loading</h1>}
+			{status === 'error' && (
+				<>
+					<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
+					<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
+				</>
 			)}
 
-			<Nav>
-				<StyledUl>
-					<li>
-						<StyledLinkButton
-							to='/create-addiction'
-							$margin='20px'
-							$width='210px'
-						>
-							Dodaj nowe uzależnienie
-						</StyledLinkButton>
-					</li>
-				</StyledUl>
-			</Nav>
+			{status === 'success' && (
+				<>
+					<HeadingContainer>
+						<StyledH1>Witaj {userData.username}</StyledH1>
+					</HeadingContainer>
+
+					{userAddictions.length > 0 ? (
+						<AddictionsList
+							userAddictions={userAddictions}
+							setUserAddictions={setUserAddictions}
+							setIsButtonDisabled={setIsButtonDisabled}
+							updateUserAddictions={updateUserAddictions}
+							isPaginationButtonEnabled={isPaginationButtonEnabled}
+							isButtonDisabled={isButtonDisabled}
+						/>
+					) : (
+						<NoAddictionsMessage />
+					)}
+
+					<Nav>
+						<StyledUl>
+							<li>
+								<StyledLinkButton
+									to='/create-addiction'
+									$margin='20px'
+									$width='210px'
+								>
+									Dodaj nowe uzależnienie
+								</StyledLinkButton>
+							</li>
+						</StyledUl>
+					</Nav>
+				</>
+			)}
 		</>
 	);
 };

@@ -19,7 +19,7 @@ import { AddictionDetailsContainer } from '../components/AddictionDetailsContain
 import { AddictionDetailCard } from '../components/AddictionDetailCard';
 import { DetailLabel } from '../components/DetailLabel';
 import { DetailValue } from '../components/DetailValue';
-import { useStatus } from '../hooks/useStatus'
+import { useStatus } from '../hooks/useStatus';
 
 type ModalState = 'editAddiction' | 'incidentForm' | null;
 
@@ -38,10 +38,7 @@ export const AddictionDetails: React.FC = () => {
 			limitOfLastIncidents: 0,
 			createdAt: '',
 		});
-		const [status, setStatus] = useStatus(
-			'loading',
-			addictionDetails.name
-		);
+	const [status, setStatus] = useStatus('loading', addictionDetails.name);
 	const navigate = useNavigate();
 
 	const editModalRef = useRef<HTMLDivElement | null>(null);
@@ -266,109 +263,110 @@ export const AddictionDetails: React.FC = () => {
 		},
 	];
 
-	if (fetchStatus === 'loading') {
-		return <h1>Loading</h1>;
-	} else if (fetchStatus === 'error') {
-		return (
-			<>
-				<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
-				<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
-			</>
-		);
-	}
 	return (
 		<>
 			<header>
 				<NavBar links={navBarElements} />
 			</header>
-			<AddictionDetailsContainer>
-				{details.map((detail) => {
-					return (
-						<AddictionDetailCard
-							key={detail.id}
-							$gridColumnStart={detail.gridColumnStart}
-						>
-							<DetailLabel>{detail.label}</DetailLabel>
-							<DetailValue>{detail.value}</DetailValue>
-						</AddictionDetailCard>
-					);
-				})}
-				<AddictionDetailCard
-					$gridColumnStart={window.innerWidth > 768 ? '4' : '1'}
-					$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
-					$gridRowStart={window.innerWidth > 768 ? '1' : '5'}
-					$gridRowEnd={window.innerWidth > 768 ? '3' : '8'}
-				>
-					<IncidentsCalendar
-						detoxStartDate={addictionDetails.detoxStartDate}
-						lastIncidents={addictionDetails.lastIncidents}
-					/>
-				</AddictionDetailCard>
-				<AddictionDetailCard
-					$gridColumnStart='1'
-					$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
-					$gridRowStart={window.innerWidth > 768 ? '4' : '8'}
-					$gridRowEnd={window.innerWidth > 768 ? '6' : '9'}
-				>
-					<IncidentCharts addictionDetails={addictionDetails} />
-				</AddictionDetailCard>
-			</AddictionDetailsContainer>
-
-			<StyledButton
-				$margin='5px'
-				onClick={() => {
-					setModalState('editAddiction');
-					editModalRef.current &&
-						editModalRef.current.scrollIntoView({ behavior: 'smooth' });
-				}}
-			>
-				Edytuj
-			</StyledButton>
-			<div ref={editModalRef}>
-				{modalState === 'editAddiction' && (
-					<EditAddictionForm
-						name={addictionDetails.name}
-						costPerDay={addictionDetails.costPerDay}
-						detoxStartDate={addictionDetails.detoxStartDate}
-						id={addictionId}
-						closeModal={() => setModalState(null)}
-						setAddictionDetails={setAddictionDetails}
-						createdAt={addictionDetails.createdAt}
-					/>
-				)}
-			</div>
-			<StyledButton
-				$margin='5px'
-				$width='120px'
-				onClick={() => {
-					if (!daysSinceDetoxStart) {
-						return toast.error(
-							'Nie można dodać incydentu w dniu rozpoczęcia detoksu. Spróbuj jutro.'
-						);
-					}
-					setModalState('incidentForm');
-					incidentModalRef.current &&
-						incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
-				}}
-			>
-				Dodaj incydent
-			</StyledButton>
-			{modalState === 'incidentForm' && (
-				<CreateIncidentForm
-					min={addictionDetails.detoxStartDate}
-					id={addictionId}
-					closeModal={() => setModalState(null)}
-					increaseNumberOfIncidents={increaseNumberOfIncidents}
-					createIncident={createIncident}
-					isIDateDuplicated={isIDateDuplicated}
-				/>
+			{status === 'loading' && <h1>Loading</h1>}
+			{status === 'error' && (
+				<>
+					<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
+					<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
+				</>
 			)}
-			{addictionDetails.lastIncidents.length > 0 && (
-				<LastIncidentsList
-					lastIncidents={addictionDetails.lastIncidents}
-					removeIncident={removeIncident}
-					buttonDisabled={modalState !== null}
-				/>
+			{status === 'success' && (
+				<>
+					<AddictionDetailsContainer>
+						{details.map((detail) => {
+							return (
+								<AddictionDetailCard
+									key={detail.id}
+									$gridColumnStart={detail.gridColumnStart}
+								>
+									<DetailLabel>{detail.label}</DetailLabel>
+									<DetailValue>{detail.value}</DetailValue>
+								</AddictionDetailCard>
+							);
+						})}
+						<AddictionDetailCard
+							$gridColumnStart={window.innerWidth > 768 ? '4' : '1'}
+							$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
+							$gridRowStart={window.innerWidth > 768 ? '1' : '5'}
+							$gridRowEnd={window.innerWidth > 768 ? '3' : '8'}
+						>
+							<IncidentsCalendar
+								detoxStartDate={addictionDetails.detoxStartDate}
+								lastIncidents={addictionDetails.lastIncidents}
+							/>
+						</AddictionDetailCard>
+						<AddictionDetailCard
+							$gridColumnStart='1'
+							$gridColumnEnd={window.innerWidth > 768 ? '7' : '4'}
+							$gridRowStart={window.innerWidth > 768 ? '4' : '8'}
+							$gridRowEnd={window.innerWidth > 768 ? '6' : '9'}
+						>
+							<IncidentCharts addictionDetails={addictionDetails} />
+						</AddictionDetailCard>
+					</AddictionDetailsContainer>
+
+					<StyledButton
+						$margin='5px'
+						onClick={() => {
+							setModalState('editAddiction');
+							editModalRef.current &&
+								editModalRef.current.scrollIntoView({ behavior: 'smooth' });
+						}}
+					>
+						Edytuj
+					</StyledButton>
+					<div ref={editModalRef}>
+						{modalState === 'editAddiction' && (
+							<EditAddictionForm
+								name={addictionDetails.name}
+								costPerDay={addictionDetails.costPerDay}
+								detoxStartDate={addictionDetails.detoxStartDate}
+								id={addictionId}
+								closeModal={() => setModalState(null)}
+								setAddictionDetails={setAddictionDetails}
+								createdAt={addictionDetails.createdAt}
+							/>
+						)}
+					</div>
+					<StyledButton
+						$margin='5px'
+						$width='120px'
+						onClick={() => {
+							if (!daysSinceDetoxStart) {
+								return toast.error(
+									'Nie można dodać incydentu w dniu rozpoczęcia detoksu. Spróbuj jutro.'
+								);
+							}
+							setModalState('incidentForm');
+							incidentModalRef.current &&
+								incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
+						}}
+					>
+						Dodaj incydent
+					</StyledButton>
+					{modalState === 'incidentForm' && (
+						<CreateIncidentForm
+							min={addictionDetails.detoxStartDate}
+							id={addictionId}
+							closeModal={() => setModalState(null)}
+							increaseNumberOfIncidents={increaseNumberOfIncidents}
+							createIncident={createIncident}
+							isIDateDuplicated={isIDateDuplicated}
+						/>
+					)}
+					{addictionDetails.lastIncidents.length > 0 && (
+						<LastIncidentsList
+							lastIncidents={addictionDetails.lastIncidents}
+							removeIncident={removeIncident}
+							buttonDisabled={modalState !== null}
+						/>
+					)}
+				</>
 			)}
 		</>
 	);
