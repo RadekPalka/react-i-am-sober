@@ -85,7 +85,7 @@ export const Dashboard: React.FC = () => {
 			.catch((error) => {
 				if (isNetworkOrServerError(error)) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
-					setStatus('error', titles);
+					setStatus('error');
 				} else if (error.response.status === 401) {
 					removeToken();
 					toast.error('Błąd autoryzacji');
