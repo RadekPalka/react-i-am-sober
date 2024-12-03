@@ -3,7 +3,9 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 export const StyledCalendar = styled(Calendar)`
-	transform: scale(1.5);
+	height: 70%;
+	width: auto;
+	aspect-ratio: 1 / 1;
 	&& .react-calendar__tile--active {
 		background: none;
 	}
