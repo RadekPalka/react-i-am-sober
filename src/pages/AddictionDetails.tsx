@@ -264,19 +264,19 @@ export const AddictionDetails: React.FC = () => {
 					<AddictionDetailsContainer>
 						{details.map((detail) => {
 							return (
-								<AddictionDetailCard key={detail.id}>
+								<AddictionDetailCard key={detail.id} $gridArea={detail.id}>
 									<DetailLabel>{detail.label}</DetailLabel>
 									<DetailValue>{detail.value}</DetailValue>
 								</AddictionDetailCard>
 							);
 						})}
-						<AddictionDetailCard>
+						<AddictionDetailCard $gridArea='calendar'>
 							<IncidentsCalendar
 								detoxStartDate={addictionDetails.detoxStartDate}
 								lastIncidents={addictionDetails.lastIncidents}
 							/>
 						</AddictionDetailCard>
-						<AddictionDetailCard>
+						<AddictionDetailCard $gridArea='chart'>
 							<IncidentCharts addictionDetails={addictionDetails} />
 						</AddictionDetailCard>
 					</AddictionDetailsContainer>
