@@ -11,5 +11,5 @@ export const AddictionDetailCard = styled.div<Props>`
 	align-items: center;
 	border: 1px solid black;
 	border-radius: 10px;
-	grid-area: ${(props) => props.$gridArea || 'addiction-info'};
+	grid-area: ${(props) => props.$gridArea};
 `;
