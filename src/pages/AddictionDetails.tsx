@@ -20,6 +20,8 @@ import { AddictionDetailCard } from '../components/AddictionDetailCard';
 import { DetailLabel } from '../components/DetailLabel';
 import { DetailValue } from '../components/DetailValue';
 import { useStatus } from '../hooks/useStatus';
+import { LabelContainer } from '../components/LabelContainer';
+import { ValueContainer } from '../components/ValueContainer';
 
 type ModalState = 'editAddiction' | 'incidentForm' | null;
 
@@ -265,8 +267,12 @@ export const AddictionDetails: React.FC = () => {
 						{details.map((detail) => {
 							return (
 								<AddictionDetailCard key={detail.id} $gridArea={detail.id}>
-									<DetailLabel>{detail.label}</DetailLabel>
-									<DetailValue>{detail.value}</DetailValue>
+									<LabelContainer>
+										<DetailLabel>{detail.label}</DetailLabel>
+									</LabelContainer>
+									<ValueContainer>
+										<DetailValue>{detail.value}</DetailValue>
+									</ValueContainer>
 								</AddictionDetailCard>
 							);
 						})}
