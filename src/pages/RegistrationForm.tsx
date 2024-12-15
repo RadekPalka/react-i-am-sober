@@ -23,6 +23,7 @@ import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { NavBar } from '../components/NavBar';
 import { Link } from '../types/Link';
 import { RowContainer } from '../components/RowContainer';
+import { StyledAuthMessagesWrapper } from '../components/StyledAuthMessagesWrapper';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -131,15 +132,17 @@ export const RegistrationForm: React.FC = () => {
 						</StyledButton>
 					</RowContainer>
 				</StyledForm>
-				<StyledAuthMessage>
-					<span>Masz już konto? </span>
-					<StyledLink to='/login-page'>Zaloguj się</StyledLink>
-				</StyledAuthMessage>
-				<StyledAuthMessage>lub</StyledAuthMessage>
-				<StyledAuthMessage>
-					<span>Wróć do </span>
-					<StyledLink to='/'>strony głównej</StyledLink>
-				</StyledAuthMessage>
+				<StyledAuthMessagesWrapper>
+					<StyledAuthMessage>
+						<span>Masz już konto? </span>
+						<StyledLink to='/login-page'>Zaloguj się</StyledLink>
+					</StyledAuthMessage>
+					<StyledAuthMessage>lub</StyledAuthMessage>
+					<StyledAuthMessage>
+						<span>Wróć do </span>
+						<StyledLink to='/'>strony głównej</StyledLink>
+					</StyledAuthMessage>
+				</StyledAuthMessagesWrapper>
 			</StyledSection>
 		</>
 	);
