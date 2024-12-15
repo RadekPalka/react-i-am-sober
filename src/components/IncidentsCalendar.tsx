@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { IncidentType } from '../types/IncidentType';
 import { StyledCalendar } from './StyledCalendar';
 import styled from 'styled-components';
+import { LabelContainer } from './LabelContainer';
+import { DetailLabel } from './DetailLabel';
+import { ValueContainer } from './ValueContainer';
 
-const Title = styled.p`
-	position: absolute;
-	top: 0;
-	width: 100%;
+const Title = styled.h2`
 	text-align: center;
-	left: 0;
 `;
 type IncidentsCalendarProps = {
 	detoxStartDate: string;
@@ -42,12 +41,16 @@ export const IncidentsCalendar: React.FC<IncidentsCalendarProps> = ({
 
 	return (
 		<>
-			<Title>Kalendarz incydentów</Title>
-			<StyledCalendar
-				tileClassName={tileClassName}
-				minDate={new Date(detoxStartDate)}
-				maxDate={new Date()}
-			/>
+			<LabelContainer>
+				<DetailLabel>Kalendarz incydentów</DetailLabel>
+			</LabelContainer>
+			<ValueContainer>
+				<StyledCalendar
+					tileClassName={tileClassName}
+					minDate={new Date(detoxStartDate)}
+					maxDate={new Date()}
+				/>
+			</ValueContainer>
 		</>
 	);
 };

@@ -4,8 +4,12 @@ import 'react-calendar/dist/Calendar.css';
 
 export const StyledCalendar = styled(Calendar)`
 	height: 70%;
+	margin: 0 auto;
 	width: auto;
 	aspect-ratio: 1 / 1;
+	@media (max-width: 1280px) {
+		height: 90%;
+	}
 	&& .react-calendar__tile--active {
 		background: none;
 	}
