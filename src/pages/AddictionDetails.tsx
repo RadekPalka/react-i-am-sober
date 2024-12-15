@@ -19,7 +19,7 @@ import { AddictionDetailsContainer } from '../components/AddictionDetailsContain
 import { AddictionDetailCard } from '../components/AddictionDetailCard';
 import { DetailLabel } from '../components/DetailLabel';
 import { DetailValue } from '../components/DetailValue';
-import { useStatus } from '../hooks/useStatus';
+import { useFetchState } from '../hooks/useFetchState';
 import { LabelContainer } from '../components/LabelContainer';
 import { ValueContainer } from '../components/ValueContainer';
 
@@ -40,7 +40,7 @@ export const AddictionDetails: React.FC = () => {
 			limitOfLastIncidents: 0,
 			createdAt: '',
 		});
-	const [status, setStatus] = useStatus('loading', addictionDetails.name);
+	const [fetchState, setFetchState] = useFetchState(addictionDetails.name);
 	const navigate = useNavigate();
 
 	const editModalRef = useRef<HTMLDivElement | null>(null);
@@ -119,7 +119,7 @@ export const AddictionDetails: React.FC = () => {
 		addictionId &&
 			getAddictionDetails(addictionId)
 				.then((res) => {
-					setStatus('success');
+					setFetchState('success');
 					setAddictionDetails((prevDetails) => ({
 						...prevDetails,
 						...res.data,
@@ -127,7 +127,7 @@ export const AddictionDetails: React.FC = () => {
 					}));
 				})
 				.catch((error) => {
-					setStatus('error');
+					setFetchState('error');
 					if (isNetworkOrServerError(error)) {
 						toast.error(
 							'Błąd z połączeniem sieciowym. Spróbuj ponownie później'
@@ -254,14 +254,14 @@ export const AddictionDetails: React.FC = () => {
 			<header>
 				<NavBar links={navBarElements} />
 			</header>
-			{status === 'loading' && <h1>Loading</h1>}
-			{status === 'error' && (
+			{fetchState === 'loading' && <h1>Loading</h1>}
+			{fetchState === 'error' && (
 				<>
 					<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
 					<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
 				</>
 			)}
-			{status === 'success' && (
+			{fetchState === 'success' && (
 				<>
 					<AddictionDetailsContainer>
 						{details.map((detail) => {

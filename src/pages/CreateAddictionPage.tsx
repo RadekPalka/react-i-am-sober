@@ -11,7 +11,7 @@ import { fetchUserData } from '../clients/AccountClients';
 
 import { getToken, removeToken } from '../clients/SessionTokenService';
 import { toast } from 'react-toastify';
-import { useStatus } from '../hooks/useStatus';
+import { useFetchState } from '../hooks/useFetchState';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { NavBar } from '../components/NavBar';
 import { Link } from '../types/Link';
@@ -19,7 +19,7 @@ import { StyledButton } from '../components/StyledButton';
 export const CreateAddictionPage: React.FC = () => {
 	const { userData, setUserData } = useUserContext();
 	const navigate = useNavigate();
-	const [status, setStatus] = useStatus('loading', 'Utwórz nowe uzależnienie');
+	const [fetchState, setFetchState] = useFetchState('Utwórz nowe uzależnienie');
 	document.title = 'Dodaj uzależnienie';
 	const navBarElements: Link[] = [
 		{
@@ -44,11 +44,11 @@ export const CreateAddictionPage: React.FC = () => {
 		fetchUserData()
 			.then((response) => {
 				setUserData(response.data);
-				setStatus('success');
+				setFetchState('success');
 			})
 			.catch((error) => {
 				if (isNetworkOrServerError(error)) {
-					setStatus('error');
+					setFetchState('error');
 					toast.error('Błąd z połączeniem sieciowym. Spróbuj ponownie póżniej');
 				} else {
 					removeToken();
@@ -68,14 +68,14 @@ export const CreateAddictionPage: React.FC = () => {
 			<header>
 				<NavBar links={navBarElements} />
 			</header>
-			{status === 'loading' && <h1>Loading</h1>}
-			{status === 'error' && (
+			{fetchState === 'loading' && <h1>Loading</h1>}
+			{fetchState === 'error' && (
 				<>
 					<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
 					<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
 				</>
 			)}
-			{status === 'success' && (
+			{fetchState === 'success' && (
 				<StyledSection>
 					<HeadingContainer>
 						<StyledH1>Witaj {userData.username}</StyledH1>

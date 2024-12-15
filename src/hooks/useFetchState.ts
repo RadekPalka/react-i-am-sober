@@ -1,17 +1,17 @@
 import { useMemo, useState } from 'react';
 type Status = 'loading' | 'success' | 'error';
 type StatusKeys = Record<Status, string>;
-export const useStatus = (
-	initialValue: Status,
-	title: string = 'Success'
+export const useFetchState = (
+	successTitle: string = 'Success',
+	initialValue: Status = 'loading'
 ): [Status, (newValue: Status) => void] => {
 	const titles = useMemo<StatusKeys>(
 		() => ({
 			loading: 'Loading',
-			success: title,
+			success: successTitle,
 			error: 'Error',
 		}),
-		[title]
+		[successTitle]
 	);
 	const [value, setValue] = useState(initialValue);
 

@@ -19,7 +19,7 @@ import styled from 'styled-components';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
 import { StyledLinkButton } from '../components/StyledLinkButton';
-import { useStatus } from '../hooks/useStatus';
+import { useFetchState } from '../hooks/useFetchState';
 import { StyledButton } from '../components/StyledButton';
 
 const Nav = styled.nav`
@@ -32,8 +32,7 @@ export const Dashboard: React.FC = () => {
 	const [userAddictions, setUserAddictions] = useState<UserAddictions[]>([]);
 	const [pageNumber, setPageNumber] = useState(0);
 
-	const [status, setStatus] = useStatus(
-		'loading',
+	const [fetchState, setFetchState] = useFetchState(
 		`Panel użytkownika ${userData.username}`
 	);
 	const [isPaginationButtonEnabled, setIsPaginationButtonEnabled] =
@@ -53,7 +52,7 @@ export const Dashboard: React.FC = () => {
 		getPaginatedAddictions(pageNumber)
 			.then((response) => {
 				setUserAddictions([...userAddictions, ...response.data]);
-				setStatus('success');
+				setFetchState('success');
 				setPageNumber(pageNumber + 1);
 				if (response.data.length < pageSize) {
 					setIsPaginationButtonEnabled((prevState) => (prevState = false));
@@ -85,7 +84,7 @@ export const Dashboard: React.FC = () => {
 			.catch((error) => {
 				if (isNetworkOrServerError(error)) {
 					toast.error('Błąd połączenia. Spróbuj ponownie później');
-					setStatus('error');
+					setFetchState('error');
 				} else if (error.response.status === 401) {
 					removeToken();
 					toast.error('Błąd autoryzacji');
@@ -103,15 +102,15 @@ export const Dashboard: React.FC = () => {
 			<header>
 				<NavBar links={navBarElements} />
 			</header>
-			{status === 'loading' && <h1>Loading</h1>}
-			{status === 'error' && (
+			{fetchState === 'loading' && <h1>Loading</h1>}
+			{fetchState === 'error' && (
 				<>
 					<h1>Błąd z połączeniem sieciowym. Spróbuj ponownie później</h1>
 					<StyledButton onClick={() => navigate(0)}>Odśwież</StyledButton>
 				</>
 			)}
 
-			{status === 'success' && (
+			{fetchState === 'success' && (
 				<>
 					<HeadingContainer>
 						<StyledH1>Witaj {userData.username}</StyledH1>
