@@ -9,5 +9,5 @@ export const RowContainer = styled.div<Props>`
 	display: flex;
 	justify-content: ${(props) => props.$justifyContent || 'space-between'};
 	width: ${(props) => props.$width || '100%'};
-	margin: 10px 0;
+	margin: 5px 0;
 `;

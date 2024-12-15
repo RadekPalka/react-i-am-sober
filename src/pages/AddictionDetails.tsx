@@ -22,6 +22,8 @@ import { DetailValue } from '../components/DetailValue';
 import { useFetchState } from '../hooks/useFetchState';
 import { LabelContainer } from '../components/LabelContainer';
 import { ValueContainer } from '../components/ValueContainer';
+import { StyledH1 } from '../components/StyledH1';
+import { FlexContainer } from '../components/FlexContainer';
 
 type ModalState = 'editAddiction' | 'incidentForm' | null;
 
@@ -263,6 +265,7 @@ export const AddictionDetails: React.FC = () => {
 			)}
 			{fetchState === 'success' && (
 				<>
+					<StyledH1>Szczególy detoxu</StyledH1>
 					<AddictionDetailsContainer>
 						{details.map((detail) => {
 							return (
@@ -286,63 +289,66 @@ export const AddictionDetails: React.FC = () => {
 							<IncidentCharts addictionDetails={addictionDetails} />
 						</AddictionDetailCard>
 					</AddictionDetailsContainer>
-
-					<StyledButton
-						$margin='5px'
-						onClick={() => {
-							setModalState('editAddiction');
-							editModalRef.current &&
-								editModalRef.current.scrollIntoView({ behavior: 'smooth' });
-						}}
-					>
-						Edytuj
-					</StyledButton>
-					<div ref={editModalRef}>
-						{modalState === 'editAddiction' && (
-							<EditAddictionForm
-								name={addictionDetails.name}
-								costPerDay={addictionDetails.costPerDay}
-								detoxStartDate={addictionDetails.detoxStartDate}
+					<FlexContainer>
+						<StyledButton
+							$margin='5px'
+							onClick={() => {
+								setModalState('editAddiction');
+								editModalRef.current &&
+									editModalRef.current.scrollIntoView({ behavior: 'smooth' });
+							}}
+						>
+							Edytuj
+						</StyledButton>
+						<div ref={editModalRef}>
+							{modalState === 'editAddiction' && (
+								<EditAddictionForm
+									name={addictionDetails.name}
+									costPerDay={addictionDetails.costPerDay}
+									detoxStartDate={addictionDetails.detoxStartDate}
+									id={addictionId}
+									closeModal={() => setModalState(null)}
+									setAddictionDetails={setAddictionDetails}
+									createdAt={addictionDetails.createdAt}
+								/>
+							)}
+						</div>
+						<StyledButton
+							$margin='5px'
+							$width='120px'
+							onClick={() => {
+								if (!daysSinceDetoxStart) {
+									return toast.error(
+										'Nie można dodać incydentu w dniu rozpoczęcia detoksu. Spróbuj jutro.'
+									);
+								}
+								setModalState('incidentForm');
+								incidentModalRef.current &&
+									incidentModalRef.current.scrollIntoView({
+										behavior: 'smooth',
+									});
+							}}
+						>
+							Dodaj incydent
+						</StyledButton>
+						{modalState === 'incidentForm' && (
+							<CreateIncidentForm
+								min={addictionDetails.detoxStartDate}
 								id={addictionId}
 								closeModal={() => setModalState(null)}
-								setAddictionDetails={setAddictionDetails}
-								createdAt={addictionDetails.createdAt}
+								increaseNumberOfIncidents={increaseNumberOfIncidents}
+								createIncident={createIncident}
+								isIDateDuplicated={isIDateDuplicated}
 							/>
 						)}
-					</div>
-					<StyledButton
-						$margin='5px'
-						$width='120px'
-						onClick={() => {
-							if (!daysSinceDetoxStart) {
-								return toast.error(
-									'Nie można dodać incydentu w dniu rozpoczęcia detoksu. Spróbuj jutro.'
-								);
-							}
-							setModalState('incidentForm');
-							incidentModalRef.current &&
-								incidentModalRef.current.scrollIntoView({ behavior: 'smooth' });
-						}}
-					>
-						Dodaj incydent
-					</StyledButton>
-					{modalState === 'incidentForm' && (
-						<CreateIncidentForm
-							min={addictionDetails.detoxStartDate}
-							id={addictionId}
-							closeModal={() => setModalState(null)}
-							increaseNumberOfIncidents={increaseNumberOfIncidents}
-							createIncident={createIncident}
-							isIDateDuplicated={isIDateDuplicated}
-						/>
-					)}
-					{addictionDetails.lastIncidents.length > 0 && (
-						<LastIncidentsList
-							lastIncidents={addictionDetails.lastIncidents}
-							removeIncident={removeIncident}
-							buttonDisabled={modalState !== null}
-						/>
-					)}
+						{addictionDetails.lastIncidents.length > 0 && (
+							<LastIncidentsList
+								lastIncidents={addictionDetails.lastIncidents}
+								removeIncident={removeIncident}
+								buttonDisabled={modalState !== null}
+							/>
+						)}
+					</FlexContainer>
 				</>
 			)}
 		</>

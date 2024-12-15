@@ -10,7 +10,7 @@ const StyledLi = styled.li`
 	justify-content: space-between;
 	align-items: center;
 	width: 200px;
-	margin: 5px;
+	margin: 15px;
 `;
 const StyledParagraph = styled.p`
 	align-content: center;
