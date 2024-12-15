@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { IncidentType } from '../types/IncidentType';
 import { StyledCalendar } from './StyledCalendar';
-import styled from 'styled-components';
 import { LabelContainer } from './LabelContainer';
 import { DetailLabel } from './DetailLabel';
 import { ValueContainer } from './ValueContainer';
 
-const Title = styled.h2`
-	text-align: center;
-`;
 type IncidentsCalendarProps = {
 	detoxStartDate: string;
 	lastIncidents: IncidentType[];

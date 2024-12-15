@@ -18,7 +18,7 @@ import { RememberMeCheckbox } from '../components/RememberMeCheckbox';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { Link } from '../types/Link';
 import { NavBar } from '../components/NavBar';
-import { PositioningContainer } from '../components/PositioningContainer';
+import { RowContainer } from '../components/RowContainer';
 
 export const LoginForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -93,7 +93,7 @@ export const LoginForm: React.FC = () => {
 					<StyledH1>Strona logowania</StyledH1>
 				</HeadingContainer>
 				<StyledForm onSubmit={handleForm} $width='330px'>
-					<PositioningContainer>
+					<RowContainer>
 						<AuthInput
 							disabled={!isFormEnabled}
 							value={login}
@@ -102,8 +102,8 @@ export const LoginForm: React.FC = () => {
 							type='text'
 							id='login'
 						/>
-					</PositioningContainer>
-					<PositioningContainer>
+					</RowContainer>
+					<RowContainer>
 						<AuthInput
 							disabled={!isFormEnabled}
 							value={password}
@@ -112,19 +112,19 @@ export const LoginForm: React.FC = () => {
 							type='password'
 							id='password'
 						/>
-					</PositioningContainer>
-					<PositioningContainer $width='160px'>
+					</RowContainer>
+					<RowContainer $width='160px'>
 						<RememberMeCheckbox
 							isCheckboxEnabled={isFormEnabled}
 							isRemembered={isRemembered}
 							setIsRemembered={setIsRemembered}
 						/>
-					</PositioningContainer>
-					<PositioningContainer $justifyContent='center'>
+					</RowContainer>
+					<RowContainer $justifyContent='center'>
 						<StyledButton type='submit' disabled={!isFormEnabled}>
 							Zaloguj się
 						</StyledButton>
-					</PositioningContainer>
+					</RowContainer>
 				</StyledForm>
 				<StyledAuthMessage>
 					<span>Nie masz konta? </span>

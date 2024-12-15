@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForInput } from '../clients/dateUtils';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
-import { PositioningContainer } from './PositioningContainer';
+import { RowContainer } from './RowContainer';
 
 export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	name,
@@ -75,34 +75,34 @@ export const EditAddictionForm: React.FC<EditAddictionFormProps> = ({
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit}>
-			<PositioningContainer>
+			<RowContainer>
 				<AddictionInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					isInputDisabled={!isFormEnabled}
 				/>
-			</PositioningContainer>
-			<PositioningContainer>
+			</RowContainer>
+			<RowContainer>
 				<DateInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					isInputDisabled={!isFormEnabled}
 					max={maxDate}
 				/>
-			</PositioningContainer>
-			<PositioningContainer>
+			</RowContainer>
+			<RowContainer>
 				<DailyCostInput
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					isInputDisabled={!isFormEnabled}
 				/>
-			</PositioningContainer>
-			<PositioningContainer>
+			</RowContainer>
+			<RowContainer>
 				<StyledButton type='submit'>Zapisz</StyledButton>
 				<StyledButton type='button' onClick={closeModal}>
 					Anuluj
 				</StyledButton>
-			</PositioningContainer>
+			</RowContainer>
 		</StyledForm>
 	);
 };

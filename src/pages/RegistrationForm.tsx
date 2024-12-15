@@ -22,7 +22,7 @@ import { createAccount } from '../clients/AccountClients';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
 import { NavBar } from '../components/NavBar';
 import { Link } from '../types/Link';
-import { PositioningContainer } from '../components/PositioningContainer';
+import { RowContainer } from '../components/RowContainer';
 
 export const RegistrationForm: React.FC = () => {
 	const [login, setLogin] = useState('');
@@ -95,7 +95,7 @@ export const RegistrationForm: React.FC = () => {
 					<StyledH1>Rejestracja</StyledH1>
 				</HeadingContainer>
 				<StyledForm onSubmit={handleForm} $width='400px'>
-					<PositioningContainer>
+					<RowContainer>
 						<AuthInput
 							disabled={isSubmitting}
 							value={login}
@@ -104,8 +104,8 @@ export const RegistrationForm: React.FC = () => {
 							type='text'
 							id='login'
 						/>
-					</PositioningContainer>
-					<PositioningContainer>
+					</RowContainer>
+					<RowContainer>
 						<AuthInput
 							disabled={isSubmitting}
 							value={password}
@@ -114,8 +114,8 @@ export const RegistrationForm: React.FC = () => {
 							type='password'
 							id='password'
 						/>
-					</PositioningContainer>
-					<PositioningContainer>
+					</RowContainer>
+					<RowContainer>
 						<AuthInput
 							disabled={isSubmitting}
 							value={confirmPassword}
@@ -124,12 +124,12 @@ export const RegistrationForm: React.FC = () => {
 							type='password'
 							id='confirm-password'
 						/>
-					</PositioningContainer>
-					<PositioningContainer $justifyContent='center'>
+					</RowContainer>
+					<RowContainer $justifyContent='center'>
 						<StyledButton type='submit' disabled={isSubmitting}>
 							Zarejestruj się
 						</StyledButton>
-					</PositioningContainer>
+					</RowContainer>
 				</StyledForm>
 				<StyledAuthMessage>
 					<span>Masz już konto? </span>

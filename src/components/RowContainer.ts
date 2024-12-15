@@ -5,7 +5,7 @@ type Props = {
 	$justifyContent?: 'center';
 };
 
-export const PositioningContainer = styled.div<Props>`
+export const RowContainer = styled.div<Props>`
 	display: flex;
 	justify-content: ${(props) => props.$justifyContent || 'space-between'};
 	width: ${(props) => props.$width || '100%'};

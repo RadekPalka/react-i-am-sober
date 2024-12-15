@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { removeToken } from '../clients/SessionTokenService';
 import { formatDateForInput } from '../clients/dateUtils';
 import { isNetworkOrServerError } from '../clients/ErrorHandlingUtils';
-import { PositioningContainer } from './PositioningContainer';
+import { RowContainer } from './RowContainer';
 
 export const CreateAddictionForm: React.FC = () => {
 	const navigate = useNavigate();
@@ -49,29 +49,29 @@ export const CreateAddictionForm: React.FC = () => {
 	};
 	return (
 		<StyledForm onSubmit={handleSubmit} $width='520px'>
-			<PositioningContainer>
+			<RowContainer>
 				<AddictionInput
 					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 				/>
-			</PositioningContainer>
-			<PositioningContainer>
+			</RowContainer>
+			<RowContainer>
 				<DateInput
 					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 					max={formatDateForInput(new Date())}
 				/>
-			</PositioningContainer>
-			<PositioningContainer>
+			</RowContainer>
+			<RowContainer>
 				<DailyCostInput
 					isInputDisabled={!isFormEnabled}
 					setUserAddiction={setUserAddiction}
 					userAddiction={userAddiction}
 				/>
-			</PositioningContainer>
-			<PositioningContainer $width='190px'>
+			</RowContainer>
+			<RowContainer $width='190px'>
 				<StyledButton type='submit' disabled={!isFormEnabled}>
 					Dodaj
 				</StyledButton>
@@ -82,7 +82,7 @@ export const CreateAddictionForm: React.FC = () => {
 				>
 					Anuluj
 				</StyledButton>
-			</PositioningContainer>
+			</RowContainer>
 		</StyledForm>
 	);
 };
