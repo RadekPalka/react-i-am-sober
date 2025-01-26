@@ -3,7 +3,8 @@
 		"esModuleInterop": true,
 		"jsx": "react-jsx",
 		"target": "es2021", // lub nowsza wersja
-		"lib": ["dom", "es2021"]
+		"lib": ["dom", "es2021"],
+		"types": ["vite/client"]
 	},
 	"files": [],
 	"references": [
