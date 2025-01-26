@@ -25,14 +25,14 @@ services:
       postgresdb:
         condition: service_healthy
 
-frontend:
-  build:
-    context: ./frontend
-    dockerfile: Dockerfile
-  ports:
-    - '5173:80'
-  environment:
-    VITE_API_URL: http://app:3000/api/v1
-  depends_on:
-    app:
-      condition: service_started
+  frontend: # Usługa frontendowa
+    build:
+      context: ./frontend # Katalog, gdzie znajduje się Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - '5173:80' # Mapowanie portu
+    environment:
+      VITE_API_URL: http://app:3000/api/v1 # Adres API w sieci Dockera
+    depends_on:
+      app:
+        condition: service_started
