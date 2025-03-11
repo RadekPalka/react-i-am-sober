@@ -19,8 +19,13 @@ const ChartContainer = styled.div`
 	width: 500px;
 `;
 export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
-	const incidentsPerMonth = addictionDetails.lastIncidents.reduce(
-		(acc, incident) => {
+	const lastIncidents = addictionDetails.lastIncidents.toReversed();
+	console.log(lastIncidents);
+	const incidentsPerMonth = lastIncidents.reduce(
+		(
+			acc: { month: string; incidents: number }[],
+			incident: { id: number; incidentDate: string }
+		) => {
 			const key = incident.incidentDate.slice(0, 7);
 			const existingEntry = acc.find((entry) => entry.month === key);
 			if (existingEntry) {
