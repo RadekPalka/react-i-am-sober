@@ -24,10 +24,9 @@ export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
 	>([]);
 	useEffect(() => {
 		const yearMonthIndexes: { index: string; incidentsNumber: number }[] = [];
-		const lastIndex = addictionDetails.lastIncidents.length - 1;
-		const firstIncident = addictionDetails.lastIncidents[lastIndex];
 
-		const startDate = firstIncident.incidentDate.slice(0, 7);
+		const startDate = addictionDetails.detoxStartDate.slice(0, 7);
+
 		const startYear = parseInt(startDate);
 
 		const startMonth = Number(startDate.slice(5, 7));
