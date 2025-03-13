@@ -67,7 +67,7 @@ export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
 							value: 'Rok-miesiąc',
 
 							position: 'insideBottom',
-							dy: 20, // Dostosowanie pozycji etykiety
+							dy: 20,
 						}}
 					/>
 					<YAxis
