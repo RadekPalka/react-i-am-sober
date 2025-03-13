@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
 	BarChart,
@@ -19,25 +19,41 @@ const ChartContainer = styled.div`
 	width: 500px;
 `;
 export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
-	const lastIncidents = addictionDetails.lastIncidents.toReversed();
-	console.log(lastIncidents);
-	const incidentsPerMonth = lastIncidents.reduce(
-		(
-			acc: { month: string; incidents: number }[],
-			incident: { id: number; incidentDate: string }
-		) => {
-			const key = incident.incidentDate.slice(0, 7);
-			const existingEntry = acc.find((entry) => entry.month === key);
-			if (existingEntry) {
-				existingEntry.incidents += 1;
-			} else {
-				acc.push({ month: key, incidents: 1 });
+	const [incidentsPerMonth, setIncidentsPerMonth] = useState<
+		{ index: string; incidentsNumber: number }[]
+	>([]);
+	useEffect(() => {
+		const yearMonthIndexes: { index: string; incidentsNumber: number }[] = [];
+		const lastIndex = addictionDetails.lastIncidents.length - 1;
+		const firstIncident = addictionDetails.lastIncidents[lastIndex];
+
+		const startDate = firstIncident.incidentDate.slice(0, 7);
+		const startYear = parseInt(startDate);
+
+		const startMonth = Number(startDate.slice(5, 7));
+
+		const presentYear = new Date().getFullYear();
+
+		const presentMonth = new Date().getMonth() + 1;
+
+		let lastMonthIndex = 12;
+		for (let i = startYear; i <= presentYear; i++) {
+			if (i === presentYear) lastMonthIndex = presentMonth;
+			let j = i === startYear ? startMonth : 1;
+
+			for (j; j <= lastMonthIndex; j++) {
+				const yearMonthIndex = `${i}-${j.toString().padStart(2, '0')}`;
+				const incidentsNumber = addictionDetails.lastIncidents.filter((el) =>
+					el.incidentDate.includes(yearMonthIndex)
+				).length;
+				yearMonthIndexes.push({
+					index: `${i}-${j.toString().padStart(2, '0')}`,
+					incidentsNumber,
+				});
 			}
-			return acc;
-		},
-		[] as { month: string; incidents: number }[]
-	);
-	console.log(incidentsPerMonth);
+		}
+		setIncidentsPerMonth(yearMonthIndexes);
+	}, [addictionDetails.lastIncidents]);
 
 	return (
 		<ChartContainer>
@@ -45,17 +61,26 @@ export const IncidentCharts: React.FC<Props> = ({ addictionDetails }) => {
 			<ResponsiveContainer width='100%' height={300}>
 				<BarChart data={incidentsPerMonth}>
 					<CartesianGrid strokeDasharray='3 3' />
-					<XAxis dataKey='month' />
-					<YAxis allowDecimals={false} />
-					<Tooltip
-						labelFormatter={(label) => {
-							const date = new Date(label);
-							return `${date.getMonth() + 1}/${date.getFullYear()}`;
+					<XAxis
+						dataKey='index'
+						label={{
+							value: 'Rok-miesiąc',
+
+							position: 'insideBottom',
+							dy: 20, // Dostosowanie pozycji etykiety
 						}}
-						formatter={(value: number) => Math.round(value)}
 					/>
-					<Legend />
-					<Bar dataKey='incidents' fill='#8884d8' />
+					<YAxis
+						dataKey='incidentsNumber'
+						label={{
+							value: 'Liczba incydentów',
+							angle: -90,
+							dx: -5,
+						}}
+					/>
+					<Tooltip formatter={(value) => [`${value}`, 'Liczba incydentów']} />
+					<Legend wrapperStyle={{ bottom: 50, left: 360 }} />
+					<Bar dataKey='incidentsNumber' name='Liczba incydentów' fill='#8884d8' />
 				</BarChart>
 			</ResponsiveContainer>
 		</ChartContainer>
