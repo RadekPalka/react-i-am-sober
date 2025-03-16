@@ -132,11 +132,7 @@ export const Dashboard: React.FC = () => {
 					<Nav>
 						<StyledUl>
 							<li>
-								<StyledLinkButton
-									to='/create-addiction'
-									$margin='20px'
-									$width='210px'
-								>
+								<StyledLinkButton to='/create-addiction' $margin='20px' $width='210px'>
 									Dodaj nowe uzależnienie
 								</StyledLinkButton>
 							</li>

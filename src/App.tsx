@@ -22,6 +22,7 @@ const AppWrapper = styled.div`
 `;
 
 const App: React.FC = () => {
+	console.log(import.meta.env.VITE_API_URL);
 	return (
 		<AppWrapper>
 			<UserProvider>
@@ -31,10 +32,7 @@ const App: React.FC = () => {
 					<Route path='/dashboard' element={<Dashboard />} />
 					<Route path='/registration-page' element={<RegistrationForm />} />
 					<Route path='/login-page' element={<LoginForm />} />
-					<Route
-						path='/addiction/:addictionId'
-						element={<AddictionDetails />}
-					/>
+					<Route path='/addiction/:addictionId' element={<AddictionDetails />} />
 				</Routes>
 			</UserProvider>
 		</AppWrapper>
